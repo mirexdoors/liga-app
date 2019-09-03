@@ -1,28 +1,61 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <v-app id="inspire">
+        <v-navigation-drawer
+                v-model="drawer"
+                app
+                clipped
+        >
+            <v-list dense>
+                <v-list-item @click="">
+                    <v-list-item-action>
+                        <v-icon>settings</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title>Личный кабинет</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+
+        <v-app-bar
+                app
+                clipped-left
+        >
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-toolbar-title>Сквош Лига 2019</v-toolbar-title>
+        </v-app-bar>
+
+        <v-content>
+            <v-container
+                    fluid
+                    fill-height
+            >
+                <v-layout
+                        align-center
+                        justify-center
+                >
+                </v-layout>
+            </v-container>
+        </v-content>
+
+        <v-footer app>
+            <span>&copy; 2019</span>
+        </v-footer>
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  export default {
+    props: {
+      source: String,
+    },
+    data: () => ({
+      drawer: null,
+    }),
+    created () {
+      this.$vuetify.theme.dark = true
+    },
   }
-}
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
