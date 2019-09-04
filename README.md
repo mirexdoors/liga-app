@@ -5,7 +5,8 @@
 /get/login/
 ```
 ####Parameter
+
 | Field         | Type            | Description   |
 | ------------- | :-------------: | -----: |
 | login    | string   | User's login  | 
-| password      | login        |   User's password |
+| password      | login        |   User's password   |
