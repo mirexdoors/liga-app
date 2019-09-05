@@ -2,7 +2,7 @@
 
 ## Authorization
 ```
-/get/login/
+http://mirexda2.beget.tech//get/login/
 ```
 ### Parameter
 
