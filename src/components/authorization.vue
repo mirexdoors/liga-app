@@ -59,7 +59,7 @@ export default {
             if (response.isAuth){
                 this.login = "";
                 this.password = "";
-                localStorage.setItem('isAuth', response.isAuth);
+                sessionStorage.setItem('isAuth', response.isAuth);
             } else {
                 this.$emit("errorAuth", "Неправильный логин или пароль");
             }
@@ -67,7 +67,7 @@ export default {
         })
         .catch(error => {
           this.isAuthDoalog = false;
-          localStorage.setItem('isAuth', false);
+          sessionStorage.setItem('isAuth', false);
           this.$emit("errorAuth", "Ошибка авторизации");
         });
     }
