@@ -2,6 +2,7 @@
     <div>
         <v-app id="inspire">
             <v-navigation-drawer v-model="drawer" app clipped>
+
                 <v-list dense>
                     <v-list-item>
                         <v-list-item-action>
@@ -12,6 +13,7 @@
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
+
             </v-navigation-drawer>
 
             <v-app-bar app clipped-left>
