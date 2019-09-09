@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="isAuthDoalog" width="500">
     <template v-slot:activator="{ on }">
-      <v-btn v-on="on">Войти</v-btn>
+      <v-icon   v-on="on">settings</v-icon>
     </template>
 
     <v-card>
@@ -65,7 +65,7 @@ export default {
             }
           
         })
-        .catch(error => {
+        .catch(() => {
           this.isAuthDoalog = false;
           sessionStorage.setItem('isAuth', false);
           this.$emit("errorAuth", "Ошибка авторизации");
