@@ -1,78 +1,51 @@
 <template>
-    <v-dialog v-model="isAuthDialog" width="500">
-        <template v-slot:activator="{ on }">
-            <v-icon v-on="on">settings</v-icon>
-        </template>
+  <v-dialog v-model="isAuthDialog" width="500">
+    <template v-slot:activator="{ on }">
+      <v-icon v-on="on">settings</v-icon>
+    </template>
 
-        <v-card>
-            <v-card-title class="headline grey" primary-title>Авторизация</v-card-title>
-            <v-card-text>
-                <v-container>
-                    <v-row>
-                        <v-col cols="12">
-                            <v-text-field v-model="login" placeholder="Введите логин" label="login"
-                                          required></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-text-field v-model="password" placeholder="Введите пароль" label="Password*"
-                                          type="password" required></v-text-field>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-card-text>
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-                <div class="flex-grow-1"></div>
-                <v-btn @click="isAuthDialog = false">Отмена</v-btn>
-                <v-btn @click="getLogin">Ок</v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
+    <logIn
+      v-if="!isLoggedIn"
+      v-on:controlsDialog="hidesDialog"
+      v-on:signIn="signIn"
+      v-on:errorAuth="displaysError"
+    />
+    <logOut 
+      v-else 
+      v-on:controlsDialog="hidesDialog" 
+      v-on:logOut="logOut" 
+    />
+  </v-dialog>
 </template>
 
 
 <script>
+import logIn from "./authorization/logIn";
+import logOut from "./authorization/logOut";
 
-  export default {
-    data: () => ({
-      isAuthDialog: false,
-      valid: false,
-      login: "",
-      password: "",
-    }),
-    methods: {
-      getLogin() {
-        const STAGE_API = "http://mirexda2.beget.tech";
-        const data = {
-          login: encodeURIComponent(this.login),
-          password: encodeURIComponent(this.password),
-        };
-        const loginUrl = `${STAGE_API}/get/login/?login=${data.login}&password=${data.password}`;
-        fetch(loginUrl, {
-          method: "GET",
-        })
-        .then(response => {
-          return response.json();
-        })
-        .then(responseJSON => {
-          this.isAuthDialog = false;
-          if (responseJSON.isAuth) {
-            this.login = "";
-            this.password = "";
-            sessionStorage.setItem('isAuth', responseJSON.isAuth);
-          } else {
-            this.$emit("errorAuth", "Неправильный логин или пароль");
-          }
+export default {
+  props: ["isLoggedIn"],
+  data: () => ({
+    isAuthDialog: false
+  }),
+  methods: {
+    hidesDialog() {
+      this.isAuthDialog = false;
+    },
 
-        })
-        .catch(() => {
-          this.isAuthDialog = false;
-          sessionStorage.setItem('isAuth', false);
-          this.$emit("errorAuth", "Ошибка авторизации");
-        });
-      }
+    signIn() {
+      this.$emit("signIn");
+    },
+    displaysError(e) {
+      this.$emit("errorAuth", e);
+    },
+    logOut() {
+      this.$emit("logOut");
     }
-  };
+  },
+  components: {
+    logIn,
+    logOut
+  }
+};
 </script>
