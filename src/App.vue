@@ -7,9 +7,6 @@
                         <v-list-item-action>
                             <authorization v-on:errorAuth="getError" v-on:signIn="signIn" v-on:logOut="logOut" :isLoggedIn="isLoggedIn"/>
                         </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title>Личный кабинет</v-list-item-title>
-                        </v-list-item-content>
                     </v-list-item>
                 </v-list>
 

@@ -28,10 +28,11 @@ export const store = new Vuex.Store({
         })
         .then(responseJSON => {
           result = responseJSON.players;
+          if (result) {
+            commit('setPlayers', result);
+          }
         });
-      if (result) {
-        commit('setPlayers', result);
-      }
+
     }
   }
 });

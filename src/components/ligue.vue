@@ -13,46 +13,21 @@
         </v-card-title>
         <v-container fluid>
             <v-row>
-                <v-card
-                        class="ma-4 pa-1"
-                        outlined
-                        tile
-                >
-                    <v-data-table
-                            :headers="headers"
-                            :items="desserts"
-                            :search="search"
-                            dark
-                            hide-default-footer
-                    ></v-data-table>
-
-                </v-card>
-                <v-card
-                        class="ma-4 pa-1"
-                        outlined
-                        tile
-                >
-                    <v-data-table
-                            :headers="headers"
-                            :items="desserts"
-                            :search="search"
-                            hide-default-footer
-                            dark
-                    ></v-data-table>
-                </v-card>
-                <v-card
-                        class="ma-4 pa-1"
-                        outlined
-                        tile
-                >
-                    <v-data-table
-                            :headers="headers"
-                            :items="desserts"
-                            :search="search"
-                            hide-default-footer
-                            dark
-                    ></v-data-table>
-                </v-card>
+                <div v-for="team in teams" v-bind:key="team.title">
+                    <v-card
+                            class="ma-4 pa-1"
+                            outlined
+                            tile
+                    >
+                        <v-data-table
+                                :headers="headers"
+                                :items="team.players"
+                                :search="search"
+                                hide-default-footer
+                                dark
+                        ></v-data-table>
+                    </v-card>
+                </div>
             </v-row>
         </v-container>
     </v-card>
@@ -73,21 +48,20 @@
         search: '',
         headers: [
           {
-            text: 'Dessert (100g serving)',
+            text: 'Команда',
             align: 'left',
             sortable: false,
             value: 'name',
           },
-          {text: 'Calories', value: 'calories'},
-          {text: 'Fat (g)', value: 'fat'},
-          {text: 'Carbs (g)', value: 'carbs'},
+          {text: 'Уник.матч', value: 'games'},
+          {text: 'Все матчи', value: 'team'},
+          {text: 'Очки', value: 'points'},
         ],
       }
     },
     computed: {
-      players() {
-        const storePlayers = this.$store.getters.players;
-        return storePlayers;
+      teams() {
+        return this.$store.getters.players;
       }
     },
   }
