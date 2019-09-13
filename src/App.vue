@@ -22,7 +22,9 @@
 
             <v-content>
                 <v-container fluid fill-height>
-                    <v-layout align-center justify-center></v-layout>
+                    <v-layout align-center justify-center>
+                        <ligue></ligue>
+                    </v-layout>
                 </v-container>
             </v-content>
 
@@ -48,6 +50,7 @@
 <script>
 
   import authorization from "./components/authorization"
+  import Ligue from "./components/ligue";
 
   export default {
     props: {
@@ -64,6 +67,8 @@
     },
     mounted() {
       if (sessionStorage.getItem('isAuth')) this.isLoggedIn = true;
+      const apiPlayerUrl = "http://mirexda2.beget.tech/get/players/";
+      this.$store.dispatch('fetchPlayers', apiPlayerUrl);
     },
     methods: {
       getError(e) {
@@ -78,6 +83,7 @@
       }
     },
     components: {
+      Ligue,
       authorization
     }
   };

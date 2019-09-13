@@ -27,7 +27,7 @@ export const store = new Vuex.Store({
           return response.json();
         })
         .then(responseJSON => {
-           result = responseJSON.players;
+          result = responseJSON.players;
         });
       if (result) {
         commit('setPlayers', result);
