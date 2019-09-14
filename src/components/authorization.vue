@@ -2,8 +2,6 @@
     <v-dialog v-model="isAuthDialog" width="500">
         <template v-slot:activator="{ on }">
             <v-icon v-on="on">settings</v-icon>
-            <v-list-item-title v-on="on">{{isLoggedIn?'Выйти':'Вход'}}
-            </v-list-item-title>
         </template>
 
         <logIn

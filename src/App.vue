@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-app id="inspire">
-            <v-navigation-drawer v-model="drawer" app clipped>
+            <v-navigation-drawer v-model="drawer"  mini-variant app clipped>
                 <v-list dense>
                     <v-list-item>
                         <v-list-item-action>
@@ -9,9 +9,8 @@
                         </v-list-item-action>
                     </v-list-item>
                 </v-list>
-
             </v-navigation-drawer>
-            <v-app-bar app clipped-left>
+            <v-app-bar  app clipped-left>
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                 <v-toolbar-title>Сквош Лига 2019</v-toolbar-title>
                 <div class="flex-grow-1"></div>
