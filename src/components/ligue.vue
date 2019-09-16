@@ -16,18 +16,56 @@
               :headers="headers"
               :items="team.players"
               :search="search"
-              :items-per-page="25"
+              :items-per-page="30"
               :headers-length=5
               hide-default-footer
               dark
             >
+              <template v-slot:header="{ props: { headers } }">
+                <thead>
+                <tr>
+                  <th :colspan="headers.length">
+                    <v-chip
+                            color="orange"
+                            label
+                            outlined
+                    >
+                      {{team.title}}
+                    </v-chip>
+
+                  </th>
+                </tr>
+                </thead>
+              </template>
+
+              <template  v-slot:progress>
+                <v-progress-linear color="purple" :height="10" indeterminate></v-progress-linear>
+              </template>
+
               <template v-slot:item="{ item }">
-                <tr :style=" getColor(item.division)">
+                <tr :style=" getColor(item.division)" :key="index">
                   <td class="player__name">{{ item.name }}</td>
                   <td class="player__games" >{{ item.unique_games }}</td>
                   <td class="player__games">{{ item.games }}</td>
                   <td class="player__points">{{ item.points }}</td>
                 </tr>
+              </template>
+
+              <template v-slot:footer>
+                <div class="table__footer pa-2 d-flex justify-space-between">
+                  <div  class="table__footerName">
+                  <strong>Итого</strong>
+                  </div>
+                  <div class="table__footerValue">
+                    <v-chip
+                            color="orange"
+                            text-color="white"
+                    >
+                      {{team.total.toFixed(1)}}
+                      <v-icon right>star</v-icon>
+                    </v-chip>
+                  </div>
+                </div>
               </template>
             </v-data-table>
           </v-card>
@@ -49,30 +87,48 @@ export default {
         timezone: "UTC"
       }),
       search: "",
+      slots: [
+        'header',
+        'progress',
+        'body.append',
+        'footer',
+      ],
       headers: [
         {
-          text: "Команда",
+          text: "Игрок ",
           align: "left",
           sortable: false,
           value: "name",
         },
-        { text: "Уник.матч", value: "unique_games"},
         { text: "Матчи", value: "games" },
+        { text: "Ун. матч", value: "unique_games"},
         { text: "Очки", value: "points"}
-      ]
+      ],
     };
   },
   methods: {
      getColor(division) {
-      if (division == 1) return "backgroundColor: #842828";
+      if (division == 1) return "backgroundColor: #883838";
       else if (division == 2) return "backgroundColor: #b79a2f";
-      else return "backgroundColor: #55a74b";
+      else return "backgroundColor: rgb(121, 175, 115)";
     },
   },
   computed: {
     teams() {
       return this.$store.getters.players;
-    }
+    },
+  },
+  watch: {
+    enabled (slot) {
+      if (slot === 'no-data') {
+        this.items = []
+      } else if (slot === 'no-results') {
+        this.search = '...'
+      } else {
+        this.search = null
+        this.items = desserts
+      }
+    },
   }
 };
 </script>
@@ -82,7 +138,7 @@ export default {
   width: 34%;
 }
 .player__games {
-  width: 16%;
+  width: 17%;
 }
 .player__points {
   width: 20%;

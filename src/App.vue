@@ -25,7 +25,7 @@
             </v-content>
 
             <v-footer app>
-                <span>&copy; 2019</span>
+                <span>&copy; 2019  Новосибирская федерация Сквоша</span>
             </v-footer>
         </v-app>
         <v-snackbar
