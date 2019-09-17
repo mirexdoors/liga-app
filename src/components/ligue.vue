@@ -12,12 +12,11 @@
         sm="4">
           <v-card class="ma-1" outlined tile>
             <v-data-table
-             class="elevation-1"
+             class="elevation-5"
               :headers="headers"
               :items="team.players"
               :search="search"
               :items-per-page="30"
-              :headers-length=5
               hide-default-footer
               dark
             >
@@ -32,14 +31,9 @@
                     >
                       {{team.title}}
                     </v-chip>
-
                   </th>
                 </tr>
                 </thead>
-              </template>
-
-              <template  v-slot:progress>
-                <v-progress-linear color="purple" :height="10" indeterminate></v-progress-linear>
               </template>
 
               <template v-slot:item="{ item }">
@@ -118,18 +112,6 @@ export default {
       return this.$store.getters.players;
     },
   },
-  watch: {
-    enabled (slot) {
-      if (slot === 'no-data') {
-        this.items = []
-      } else if (slot === 'no-results') {
-        this.search = '...'
-      } else {
-        this.search = null
-        this.items = desserts
-      }
-    },
-  }
 };
 </script>
 
