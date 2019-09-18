@@ -22,27 +22,31 @@
               </v-col>
             </v-row>
             <v-row v-if="team1 && team2">
-              <h3 class="mx-auto">Выберите играков</h3>
+              <h3 class="mx-auto">Выберите игроков</h3>
             </v-row>
             <v-row  v-if="team1 && team2">
               <v-col cols="12" md="6">
-                <v-select
-                  :items="playersOne"
-                  item-text="name"
-                  item-value="id"
-                  v-model="player1"
-                  label="Игрок1"
-                ></v-select>
+                <v-autocomplete
+                        label="Введите игрока"
+                        :items="playersOne"
+                        item-text="name"
+                        item-value="id"
+                        v-model="player1"
+                        filled
+                        rounded
+                ></v-autocomplete>
               </v-col>
 
               <v-col cols="12" md="6">
-                <v-select
-                  :items="playersTwo"
-                  item-text="name"
-                  item-value="id"
-                  v-model="player2"
-                  label="Игрок2"
-                ></v-select>
+                <v-autocomplete
+                        label="Введите игрока"
+                        :items="playersTwo"
+                        item-text="name"
+                        item-value="id"
+                        v-model="player2"
+                        filled
+                        rounded
+                ></v-autocomplete>
               </v-col>
             </v-row>
             <v-row v-if="player1 && player2">
