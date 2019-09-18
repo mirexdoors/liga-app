@@ -36,12 +36,13 @@ export const store = new Vuex.Store({
     },
     addMatchReuslt({ commit }, payload) {
       return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        for (const propName in payload.data ) {
+          formData.append(propName,payload.data[propName]);
+        }
         fetch(payload.url, {
           method: "post",
-          headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-          },
-          body: JSON.stringify(payload.data)
+          body: formData
         })
           .then((response) => response.json())
           .then((data) => {
