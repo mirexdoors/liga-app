@@ -13,8 +13,8 @@
               />
             </v-list-item-action>
           </v-list-item>
-          <v-list-item v-if="!isLoggedIn">
-            <addMatch />
+          <v-list-item v-if="isLoggedIn">
+            <addMatch v-on:errorAuth="getError"/>
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
@@ -33,7 +33,7 @@
       </v-content>
 
       <v-footer app>
-        <span>&copy; 2019</span>
+        <span>&copy; 2019 Новосибирская федерация Сквоша</span>
       </v-footer>
     </v-app>
     <v-snackbar v-model="isError">

@@ -1,0 +1,9 @@
+{
+ "name": "Сквош Лига 2019",
+ "short_name": "Сквош Лига 2019",
+ "lang": "ru-RU",
+ "start_url": ".",
+ "display": "minimal-ui",
+ "theme_color": "#424242",
+ "background_color": "#303030"
+}

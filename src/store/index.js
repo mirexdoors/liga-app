@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    fetchPlayers({commit}, url) {
+    fetchPlayers({ commit }, url) {
       let result = [];
       fetch(url, {
         method: "GET"
@@ -33,6 +33,27 @@ export const store = new Vuex.Store({
           }
         });
 
+    },
+    addMatchReuslt({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        fetch(payload.url, {
+          method: "post",
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+          },
+          body: JSON.stringify(payload.data)
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status) {
+              commit("setPlayers", data.players);
+              resolve("Результат сохранен в базу");
+            } else {
+              reject("Ошибка сохранения результатов");
+            }
+          })
+          .catch((error) => reject(error));
+      });
     }
   }
 });
