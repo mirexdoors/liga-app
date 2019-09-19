@@ -13,7 +13,7 @@
               />
             </v-list-item-action>
           </v-list-item>
-          <v-list-item v-if="isLoggedIn">
+          <v-list-item v-if="!isLoggedIn">
             <addMatch v-on:errorAuth="getError"/>
           </v-list-item>
         </v-list>
