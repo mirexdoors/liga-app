@@ -2,7 +2,8 @@
   <div>
     <v-dialog v-model="dialogMatch" width="500">
       <template v-slot:activator="{ on }">
-        <v-icon v-on="on">dashboard</v-icon>
+        <v-icon v-on="on">add</v-icon>
+        <v-icon v-on="on">sports_tennis</v-icon>
       </template>
 
       <v-card>

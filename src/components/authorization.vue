@@ -1,7 +1,8 @@
 <template>
     <v-dialog v-model="isAuthDialog" width="500">
         <template v-slot:activator="{ on }">
-            <v-icon v-on="on">settings</v-icon>
+            <v-icon v-on="on" v-if="!isLoggedIn">person</v-icon>
+            <v-icon v-on="on" v-if="isLoggedIn">person_outline</v-icon>
         </template>
 
         <logIn
