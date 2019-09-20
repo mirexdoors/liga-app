@@ -53,24 +53,15 @@
               <h3 class="mx-auto">Счет</h3>
             </v-row>
             <v-row v-if="player1 && player2">
-              <v-col cols="12" md="6">
+              <v-col cols="12" md="12">
                 <v-select
                   :items="permissibleScore"
-                  v-model="score1"
-                  @change="setScore2"
-                  label="Результат"
-                ></v-select>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-select
-                  :items="permissibleScore"
-                  v-model="score2"
-                  @change="setScore1"
+                  v-model="score"
                   label="Результат"
                 ></v-select>
               </v-col>
             </v-row>
-            <v-row v-if="score1 && score2">
+            <v-row v-if="score">
               <v-col cols="12" md="12">
                 <div class="text-center">
                   <v-btn @click="getConfirm">Отправить</v-btn>
@@ -108,8 +99,7 @@ export default {
       team2: "",
       player1: "",
       player2: "",
-      score1: "",
-      score2: "",
+      score: "",
       permissibleScore: ["3-0", "3-1", "3-2", "2-3", "1-3", "0-3"]
     };
   },
@@ -121,21 +111,13 @@ export default {
       return this.getTeamNames(this.team1);
     },
     playersOne() {
-      return this.getPlayerNames(this.team2);
+      return this.getPlayerNames(this.team1);
     },
     playersTwo() {
-      return this.getPlayerNames(this.team1);
+      return this.getPlayerNames(this.team2);
     }
   },
   methods: {
-    setScore1(e) {
-      let index = this.permissibleScore.indexOf(e) + 1;
-      this.score1 = this.permissibleScore[this.permissibleScore.length - index];
-    },
-    setScore2(e) {
-      let index = this.permissibleScore.indexOf(e) + 1;
-      this.score2 = this.permissibleScore[this.permissibleScore.length - index];
-    },
     getTeamNames(forbiddenTeam) {
       const teamsFromStore = this.$store.getters.players;
       let teams = [];
@@ -153,9 +135,7 @@ export default {
       let players = [];
       if (teamsFromStore) {
         for (let team in teamsFromStore) {
-          if (team !== teamName) {
-            players = players.concat(teamsFromStore[team].players);
-          }
+          if (team === teamName) players = teamsFromStore[team].players;
         }
       }
       return players;
@@ -172,14 +152,19 @@ export default {
           action: "add",
           player_1: this.player1,
           player_2: this.player2,
-          score_1: this.score1,
-          score_2: this.score2
+          score_1: this.score[0],
+          score_2: this.score[2],
         }
       };
 
       this.$store.dispatch("addMatchReuslt", request)
         .then(result => {
           this.$emit("errorAuth", result);
+          this.team1 = "";
+          this.team2 = "";
+          this.player1 = "";
+          this.player2 = "";
+          this.score = "";
         })
         .catch(error => {
           this.$emit("errorAuth", error);

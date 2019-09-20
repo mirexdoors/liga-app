@@ -37,7 +37,7 @@
               </template>
 
               <template v-slot:item="{ item }">
-                <tr :style=" getColor(item.division)" :key="index">
+                <tr :style=" getColor(item.division)" >
                   <td class="player__name">{{ item.name }}</td>
                   <td class="player__games" >{{ item.unique_games }}</td>
                   <td class="player__games">{{ item.games }}</td>
