@@ -6,18 +6,28 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     players: null,
+    detailPlayer: null
   },
   getters: {
     players(state) {
       return state.players;
-    }
+    },
+    detailPlayer(state) {
+      return state.detailPlayer;
+    },
   },
   mutations: {
     setPlayers(state, players) {
       state.players = players;
+    },
+    setDetailPlayer(state, player) {
+      state.detailPlayer = player;
     }
   },
   actions: {
+    setDetailPlayer({commit}, player) {
+      commit('setDetailPlayer', player);
+    },
     fetchPlayers({ commit }, url) {
       let result = [];
       fetch(url, {

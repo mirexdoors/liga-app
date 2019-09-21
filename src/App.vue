@@ -20,7 +20,8 @@
       </v-navigation-drawer>
       <v-app-bar app clipped-left>
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>Сквош Лига 2019</v-toolbar-title>
+        <v-toolbar-title><router-link class="header__link" :to="'/'">Сквош Лига 2019
+        </router-link></v-toolbar-title>
         <div class="flex-grow-1"></div>
       </v-app-bar>
 
@@ -85,4 +86,9 @@ export default {
   }
 };
 </script>
-
+<style>
+  .header__link {
+    color: #fff!important;
+    text-decoration-line: none;
+  }
+</style>

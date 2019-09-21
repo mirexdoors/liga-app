@@ -23,3 +23,9 @@ export const translit = (name) => {
   }
   return  n_name.join('');
 };
+
+export const getColor = (division) => {
+  if (division == 1) return "backgroundColor: #883838";
+  else if (division == 2) return "backgroundColor: #b79a2f";
+  else return "backgroundColor: rgb(121, 175, 115)";
+};

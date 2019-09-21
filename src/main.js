@@ -7,13 +7,15 @@ import router from './routes';
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont';
 import {translit} from "./mixins/index";
+import {getColor} from "./mixins/index";
 
 Vue.use(Vuex);
 Vue.use(Vuetify);
 
 Vue.mixin({
   methods: {
-    translit
+    translit,
+    getColor
   }
 });
 
