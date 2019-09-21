@@ -7,5 +7,9 @@ node_js:
 branches:
   only:
     - master
+
+before_install:
+      - chmod +x deploy.sh
+
 after_success:
-  - ./deploy.sh
+  - deploy.sh
