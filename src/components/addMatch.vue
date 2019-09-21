@@ -81,7 +81,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <div class="flex-grow-1"></div>
-            <v-btn color="green darken-1" @click="dialogConfirm = false">Отмена</v-btn>
+            <v-btn color="red darken-1" @click="dialogConfirm = false">Отмена</v-btn>
             <v-btn color="green darken-1" @click="saveResults">Сохранить</v-btn>
           </v-card-actions>
         </v-container>
