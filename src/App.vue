@@ -27,7 +27,9 @@
       <v-content>
         <v-container fluid fill-height>
           <v-layout align-center justify-center>
-            <ligue></ligue>
+            <keep-alive>
+              <router-view/>
+            </keep-alive>
           </v-layout>
         </v-container>
       </v-content>
@@ -45,7 +47,6 @@
 
 <script>
 import authorization from "./components/authorization";
-import Ligue from "./components/ligue";
 import addMatch from "./components/addMatch";
 
 export default {
@@ -79,7 +80,6 @@ export default {
     }
   },
   components: {
-    Ligue,
     authorization,
     addMatch
   }

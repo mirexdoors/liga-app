@@ -38,7 +38,8 @@
 
               <template v-slot:item="{ item }">
                 <tr :style=" getColor(item.division)" >
-                  <td class="player__name">{{ item.name }}</td>
+                  <td class="player__name"> <router-link class="rating__item-link" :to="translit(item.name)">{{item.name}}
+                  </router-link></td>
                   <td class="player__games" >{{ item.unique_games }}</td>
                   <td class="player__games">{{ item.games }}</td>
                   <td class="player__points">{{ item.points }}</td>

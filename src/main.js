@@ -3,11 +3,19 @@ import App from './App.vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import {store} from "./store/index";
+import router from './routes';
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont';
+import {translit} from "./mixins/index";
 
 Vue.use(Vuex);
 Vue.use(Vuetify);
+
+Vue.mixin({
+  methods: {
+    translit
+  }
+});
 
 new Vue({
   vuetify: new Vuetify({
@@ -17,5 +25,6 @@ new Vue({
     }
   }),
   store,
+  router,
   render: h => h(App),
 }).$mount('#app');
