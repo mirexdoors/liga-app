@@ -43,15 +43,18 @@
                                         </router-link>
                                     </td>
                                     <td class="player__games">
-                                        <router-link class="player__link" :to="translit(item.name)">{{item.unique_games}}
+                                        <router-link class="player__link" :to="translit(item.name)">{{item.unique_games
+                                            ? item.unique_games : 0 }}
                                         </router-link>
                                     </td>
                                     <td class="player__games">
-                                        <router-link class="player__link" :to="translit(item.name)">{{item.games}}
+                                        <router-link class="player__link" :to="translit(item.name)">{{item.games ?
+                                            item.games : 0}}
                                         </router-link>
                                     </td>
                                     <td class="player__points">
-                                        <router-link class="player__link" :to="translit(item.name)">{{item.points}}
+                                        <router-link class="player__link" :to="translit(item.name)">{{item.points ?
+                                            item.points : 0}}
                                         </router-link>
                                     </td>
                                 </tr>
