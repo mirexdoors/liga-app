@@ -11,21 +11,9 @@
         <v-form>
           <v-container>
             <v-row>
-              <h3 class="mx-auto">Выберите команду</h3>
-            </v-row>
-            <v-row>
-              <v-col cols="12" md="6">
-                <v-select :items="teamsOne" v-model="team1" label="Команда1"></v-select>
-              </v-col>
-
-              <v-col cols="12" md="6">
-                <v-select :items="teamsTwo" v-model="team2" label="Команда2"></v-select>
-              </v-col>
-            </v-row>
-            <v-row v-if="team1 && team2">
               <h3 class="mx-auto">Выберите игроков</h3>
             </v-row>
-            <v-row  v-if="team1 && team2">
+            <v-row>
               <v-col cols="12" md="6">
                 <v-autocomplete
                         label="Введите игрока"
@@ -96,8 +84,6 @@ export default {
     return {
       dialogMatch: false,
       dialogConfirm: false,
-      team1: "",
-      team2: "",
       player1: "",
       player2: "",
       score: "",
@@ -105,39 +91,19 @@ export default {
     };
   },
   computed: {
-    teamsOne() {
-      return this.getTeamNames(this.team2);
-    },
-    teamsTwo() {
-      return this.getTeamNames(this.team1);
-    },
     playersOne() {
-      return this.getPlayerNames(this.team1);
+      return this.getPlayerNames();
     },
     playersTwo() {
-      return this.getPlayerNames(this.team2);
-    }
+      return this.getPlayerNames();
+    },
   },
   methods: {
-    getTeamNames(forbiddenTeam) {
-      const teamsFromStore = this.$store.getters.players;
-      let teams = [];
-      if (teamsFromStore) {
-        for (let team in teamsFromStore) {
-          if (team !== forbiddenTeam) {
-            teams.push(team);
-          }
-        }
-      }
-      return teams;
-    },
-    getPlayerNames(teamName) {
+    getPlayerNames() {
       const teamsFromStore = this.$store.getters.players;
       let players = [];
-      if (teamsFromStore) {
-        for (let team in teamsFromStore) {
-          if (team === teamName) players = teamsFromStore[team].players;
-        }
+      for (let teamName in teamsFromStore){
+        players = players.concat(teamsFromStore[teamName].players);
       }
       return players;
     },
@@ -147,6 +113,10 @@ export default {
     },
     saveResults() {
       this.dialogConfirm = false;
+      if (this.player1 === this.player2) {
+        this.$emit("errorAuth", "Игроки должны различаться");
+        return;
+      }
       const request = {
         url: "http://mirexda2.beget.tech/post/match/",
         data: {
@@ -160,9 +130,6 @@ export default {
 
       this.$store.dispatch("addMatchReuslt", request)
         .then(result => {
-          this.$emit("errorAuth", result);
-          this.team1 = "";
-          this.team2 = "";
           this.player1 = "";
           this.player2 = "";
           this.score = "";
