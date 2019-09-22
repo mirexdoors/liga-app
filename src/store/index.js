@@ -44,7 +44,7 @@ export const store = new Vuex.Store({
         });
 
     },
-    addMatchReuslt({ commit }, payload) {
+    addMatchReuslt({ dispatch }, payload) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
         for (const propName in payload.data ) {
@@ -57,8 +57,9 @@ export const store = new Vuex.Store({
           .then((response) => response.json())
           .then((data) => {
             if (data.status) {
-              commit("setPlayers", data.players);
-              resolve("Результат сохранен в базу");
+              const apiPlayerUrl = "http://mirexda2.beget.tech/get/players/";
+              dispatch("fetchPlayers", apiPlayerUrl);
+              resolve();
             } else {
               reject("Ошибка сохранения результатов");
             }
