@@ -66,7 +66,14 @@
       <v-card>
         <v-container>
           <v-card-text>Сохранить результат?</v-card-text>
-          <v-divider></v-divider>
+          <v-card-text class="headline mb-1">
+              {{getPlayerNameById(player1)}} - {{getPlayerNameById(player2)}}
+              <v-chip
+                      class="ma-2 headline mb-1"
+              >
+                  {{this.score}}
+              </v-chip>
+          </v-card-text>
           <v-card-actions>
             <div class="flex-grow-1"></div>
             <v-btn color="red darken-1" @click="dialogConfirm = false">Отмена</v-btn>
@@ -99,6 +106,14 @@ export default {
     },
   },
   methods: {
+    getPlayerNameById(id) {
+      const players = this.getPlayerNames();
+      const player = players.filter(item => {
+        if (item.id === id) return true;
+      })[0];
+      if (player)
+        return player.name;
+    },
     getPlayerNames() {
       const teamsFromStore = this.$store.getters.players;
       let players = [];
