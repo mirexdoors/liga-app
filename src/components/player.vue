@@ -13,7 +13,8 @@
                 <v-list disabled>
                     <v-list-item-group v-model="item" color="primary">
                         <v-list-item
-                                v-for="item in items"
+                                v-for="(item, i) in items"
+                                :key="i"
                         >
                             <v-list-item-content>
                                 <v-list-item-title  v-text="item.text">{{item.value}}</v-list-item-title>
@@ -41,6 +42,8 @@
         player() {
           if (this.$store.state.detailPlayer) {
             return this.$store.state.detailPlayer[0];
+          } else {
+            return false;
           }
         },
         items() {
@@ -53,6 +56,8 @@
               {text: "Уникальные игры", value: player.unique_games},
               {text: "Очки", value: player.points}
             ]
+          } else {
+            return false;
           }
         }
       },
