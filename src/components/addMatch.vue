@@ -144,7 +144,7 @@ export default {
       };
 
       this.$store.dispatch("addMatchReuslt", request)
-        .then(result => {
+        .then(() => {
           this.player1 = "";
           this.player2 = "";
           this.score = "";

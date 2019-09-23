@@ -23,13 +23,23 @@
                             <template v-slot:header="{ props: { headers } }">
                                 <thead>
                                 <tr>
-                                    <th :colspan="headers.length">
+                                    <th :colspan="headers.length-1">
                                         <v-chip
                                                 color="orange"
                                                 label
                                                 outlined
                                         >
                                             {{team.title}}
+                                        </v-chip>
+                                    </th>
+                                    <th>
+                                        <v-chip
+                                                color="orange"
+                                                label
+                                                outlined
+                                        >
+                                            {{team.total.toFixed(1)}}
+                                            <v-icon right>star</v-icon>
                                         </v-chip>
                                     </th>
                                 </tr>

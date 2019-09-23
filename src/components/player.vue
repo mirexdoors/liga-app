@@ -46,7 +46,6 @@
         items() {
           if (this.$store.state.detailPlayer) {
             const player = this.$store.state.detailPlayer[0];
-            console.log(player)
             return [
               {text: "Команда", value: player.team},
               {text: "Дивизион", value: player.division},
