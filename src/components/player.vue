@@ -39,16 +39,36 @@
       name: 'player',
       data: () =>({}),
       computed: {
+        teams () {
+          return this.$store.getters.players;
+        },
         player() {
           if (this.$store.state.detailPlayer) {
             return this.$store.state.detailPlayer[0];
           } else {
-            return false;
+            const playerName = this.$route.params.playername;
+
+            /*find player in vuex*/
+            let detailPlayer = null;
+            this.$store.dispatch("setDetailPlayer", null);
+
+
+            for (const team in this.teams) {
+              detailPlayer = this.teams[team].players.filter(item => {
+                if (this.translit(item.name) === playerName) return item;
+              })[0];
+
+              if (detailPlayer) {
+                this.$store.dispatch("setDetailPlayer", detailPlayer);
+                break;
+              }
+            }
+            return detailPlayer;
           }
         },
         items() {
           if (this.$store.state.detailPlayer) {
-            const player = this.$store.state.detailPlayer[0];
+            const player = this.$store.state.detailPlayer;
             return [
               {text: "Команда", value: player.team},
               {text: "Дивизион", value: player.division},
