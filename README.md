@@ -3,8 +3,6 @@
 ## Authorization
 ```
 http://mirexda2.beget.tech/get/login/
-login: admin
-password: dsfsf22#
 ```
 ### Parameter
 
