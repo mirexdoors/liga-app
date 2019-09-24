@@ -101,7 +101,7 @@
         slots: ["header", "body.append", "body.prepend"],
         headers: [
           {
-            text: "Игрок ",
+            text: "Игрок",
             align: "left",
             sortable: false,
             value: "name",
