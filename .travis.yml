@@ -9,7 +9,6 @@ branches:
     - master
 
 before_install:
-  - npm run build
   - chmod +x deploy.sh
 
 after_success:

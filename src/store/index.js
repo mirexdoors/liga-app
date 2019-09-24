@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     players: null,
-    detailPlayer: null
+    detailPlayer: null,
   },
   getters: {
     players(state) {
@@ -22,7 +22,7 @@ export const store = new Vuex.Store({
     },
     setDetailPlayer(state, player) {
       state.detailPlayer = player;
-    }
+    },
   },
   actions: {
     setDetailPlayer({commit}, player) {
