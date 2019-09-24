@@ -139,8 +139,8 @@
       for (const team in this.teams) {
         detailPlayer = this.teams[team].players.filter(item => {
           if (this.translit(item.name) === playerName) return item;
-        });
-        if (detailPlayer.length > 0) {
+        })[0];
+        if (detailPlayer) {
           this.$store.dispatch("setDetailPlayer", detailPlayer);
           break;
         }

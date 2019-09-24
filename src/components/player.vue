@@ -44,7 +44,7 @@
         },
         player() {
           if (this.$store.state.detailPlayer) {
-            return this.$store.state.detailPlayer[0];
+            return this.$store.state.detailPlayer;
           } else {
             const playerName = this.$route.params.playername;
 
