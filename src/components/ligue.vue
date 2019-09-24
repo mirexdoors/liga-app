@@ -78,20 +78,6 @@
                                     </td>
                                 </tr>
                             </template>
-                            <template v-slot:footer>
-
-                                <!--<div class="table__footer pa-2 d-flex justify-space-between">-->
-                                <!--<div class="table__footerName">-->
-                                <!--<strong>Итого</strong>-->
-                                <!--</div>-->
-                                <!--<div class="table__footerValue">-->
-                                <!--<v-chip color="orange" text-color="white">-->
-                                <!--{{team.total.toFixed(1)}}-->
-                                <!--<v-icon right>star</v-icon>-->
-                                <!--</v-chip>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                            </template>
                         </v-data-table>
                     </v-card>
                 </v-col>
@@ -112,7 +98,7 @@
           timezone: "UTC"
         }),
         search: "",
-        slots: ["header", "progress", "body.append", "body.prepend", "footer"],
+        slots: ["header", "body.append", "body.prepend"],
         headers: [
           {
             text: "Игрок ",
