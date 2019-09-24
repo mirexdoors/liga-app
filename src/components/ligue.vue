@@ -69,19 +69,28 @@
                                     </td>
                                 </tr>
                             </template>
-
+                            <template v-slot:body.append>
+                                <tr class="orange--text table__footer">
+                                    <td class="font-weight-bold" :class="getClassForCol('name')">Итого</td>
+                                    <td :class="getClassForCol('games')">{{team.total_games}}</td>
+                                    <td :class="getClassForCol('games')">{{team.total_unique_games}}</td>
+                                    <td :class="getClassForCol('points')"><span class="orange--text font-weight-bold">{{team.total.toFixed(1)}}</span>
+                                    </td>
+                                </tr>
+                            </template>
                             <template v-slot:footer>
-                                <div class="table__footer pa-2 d-flex justify-space-between">
-                                    <div class="table__footerName">
-                                        <strong>Итого</strong>
-                                    </div>
-                                    <div class="table__footerValue">
-                                        <v-chip color="orange" text-color="white">
-                                            {{team.total.toFixed(1)}}
-                                            <v-icon right>star</v-icon>
-                                        </v-chip>
-                                    </div>
-                                </div>
+
+                                <!--<div class="table__footer pa-2 d-flex justify-space-between">-->
+                                <!--<div class="table__footerName">-->
+                                <!--<strong>Итого</strong>-->
+                                <!--</div>-->
+                                <!--<div class="table__footerValue">-->
+                                <!--<v-chip color="orange" text-color="white">-->
+                                <!--{{team.total.toFixed(1)}}-->
+                                <!--<v-icon right>star</v-icon>-->
+                                <!--</v-chip>-->
+                                <!--</div>-->
+                                <!--</div>-->
                             </template>
                         </v-data-table>
                     </v-card>
@@ -164,7 +173,11 @@
     .player__points {
         text-align: center;
     }
-    
+
+    .table__footer .player__games, .table__footer .player__points {
+        text-align: left;
+    }
+
     .player__link {
         display: flex;
         align-items: center;
@@ -173,9 +186,11 @@
         color: inherit;
         text-decoration-line: none;
     }
+
     .player__games .player__link, .player__points .player__link {
         text-align: center;
     }
+
     @media all and (max-width: 340px) {
         .player__link {
             font-size: 11px;
