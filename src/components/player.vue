@@ -23,10 +23,9 @@
                         </v-list-item>
                     </v-list-item-group>
                 </v-list>
-                {{games}}
                 <v-data-table
                         :headers="headers"
-                        :items="games"
+                        :items="matches"
                         :search="search"
                         :items-per-page="20"
                         dark
@@ -67,13 +66,14 @@
           /*find player in vuex*/
           let detailPlayer = null;
           this.$store.dispatch("setDetailPlayer", null);
-
+          this.$store.dispatch("clearDetailGame");
           for (const team in this.teams) {
             detailPlayer = this.teams[team].players.filter(item => {
               if (this.translit(item.name) === playerName) return item;
             })[0];
 
             if (detailPlayer) {
+              this.$store.dispatch("fetchDetailGames", detailPlayer.id);
               this.$store.dispatch("setDetailPlayer", detailPlayer);
               break;
             }
@@ -95,17 +95,8 @@
           return false;
         }
       },
-      games() {
-        if (this.player) {
-          const apiMatchesUrl = "http://mirexda2.beget.tech/get/matches/?id=" + this.player.id;
-          fetch(apiMatchesUrl)
-          .then(response => {
-            return response.json();
-          })
-          .then(matchesJSON => {
-            return matchesJSON.matches;
-          });
-        }
+      matches() {
+          return this.$store.state.detailGames;
       },
     },
   }

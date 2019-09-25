@@ -141,6 +141,7 @@
           if (this.translit(item.name) === playerName) return item;
         })[0];
         if (detailPlayer) {
+          this.$store.dispatch("fetchDetailGames", detailPlayer.id);
           this.$store.dispatch("setDetailPlayer", detailPlayer);
           break;
         }

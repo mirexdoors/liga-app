@@ -2,12 +2,12 @@ import Vue from 'vue';
 import App from './App.vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import {store} from "./store/index";
-import router from './routes';
+import {store} from "./store/store";
+import router from './routes/routes';
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont';
-import {translit} from "./mixins/index";
-import {getColor} from "./mixins/index";
+import {translit, getColor} from "./mixins/mixins";
+
 
 Vue.use(Vuex);
 Vue.use(Vuetify);

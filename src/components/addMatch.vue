@@ -143,7 +143,7 @@ export default {
         }
       };
 
-      this.$store.dispatch("addMatchReuslt", request)
+      this.$store.dispatch("addMatchResult", request)
         .then(() => {
           this.player1 = "";
           this.player2 = "";

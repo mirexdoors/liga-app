@@ -7,8 +7,12 @@ export const store = new Vuex.Store({
   state: {
     players: null,
     detailPlayer: null,
+    detailGames: null
   },
   getters: {
+    detailGames(state) {
+      return state.detailGames;
+    },
     players(state) {
       return state.players;
     },
@@ -23,10 +27,26 @@ export const store = new Vuex.Store({
     setDetailPlayer(state, player) {
       state.detailPlayer = player;
     },
+    setDetailGame (state, games) {
+      state.detailGames = games;
+    }
   },
   actions: {
+    fetchDetailGames({commit}, playerId) {
+        const apiMatchesUrl = "http://mirexda2.beget.tech/get/games/?id=" + playerId;
+        fetch(apiMatchesUrl)
+        .then(response => {
+          return response.json();
+        })
+        .then(matchesJSON => {
+          commit('setDetailGame', matchesJSON.games);
+        });
+    },
     setDetailPlayer({commit}, player) {
       commit('setDetailPlayer', player);
+    },
+    clearDetailGame({commit}) {
+      commit('setDetailGame', []);
     },
     fetchPlayers({ commit }, url) {
       let result = [];
@@ -44,7 +64,7 @@ export const store = new Vuex.Store({
         });
 
     },
-    addMatchReuslt({ dispatch }, payload) {
+    addMatchResult({ dispatch }, payload) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
         for (const propName in payload.data ) {
