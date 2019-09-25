@@ -29,7 +29,7 @@
                         :headers="headers"
                         :items="matches"
                         :search="search"
-                        :items-per-page="20"
+                        :items-per-page="10"
                         dark
                 >
                     <template v-slot:item.player_1="{ item }">
@@ -37,6 +37,9 @@
                     </template>
                     <template v-slot:item.player_2="{ item }">
                         <span :class="changePlayerFont(item.player_2)">{{item.player_2}}</span>
+                    </template>
+                    <template  v-slot:item.score="{ item }">
+                        <v-chip label outlined>{{item.score}}</v-chip>
                     </template>
                 </v-data-table>
             </v-col>
