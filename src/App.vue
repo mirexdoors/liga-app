@@ -18,9 +18,13 @@
                             />
                         </v-list-item-action>
                     </v-list-item>
+                    <v-list-item>
+                        <router-link class="header__link" :to="'/all'"><v-icon>list</v-icon></router-link>
+                    </v-list-item>
                     <v-list-item v-if="isLoggedIn">
                         <addMatch v-on:errorAuth="getError"/>
                     </v-list-item>
+
                 </v-list>
             </v-navigation-drawer>
             <v-app-bar app clipped-left>
@@ -102,7 +106,7 @@
     components: {
       authorization,
       addMatch,
-      preloader
+      preloader,
     }
   };
 </script>

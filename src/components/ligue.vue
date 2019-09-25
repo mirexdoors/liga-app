@@ -132,18 +132,20 @@
       }
     },
     beforeRouteLeave(to, from, next) {
-      const playerName = to.params.playername;
-      /*find player in vuex*/
-      let detailPlayer = null;
-      this.$store.dispatch("setDetailPlayer", null);
-      for (const team in this.teams) {
-        detailPlayer = this.teams[team].players.filter(item => {
-          if (this.translit(item.name) === playerName) return item;
-        })[0];
-        if (detailPlayer) {
-          this.$store.dispatch("fetchDetailGames", detailPlayer.id);
-          this.$store.dispatch("setDetailPlayer", detailPlayer);
-          break;
+      if (to.path !== '/all') {
+        const playerName = to.params.playername;
+        /*find player in vuex*/
+        let detailPlayer = null;
+        this.$store.dispatch("setDetailPlayer", null);
+        for (const team in this.teams) {
+          detailPlayer = this.teams[team].players.filter(item => {
+            if (this.translit(item.name) === playerName) return item;
+          })[0];
+          if (detailPlayer) {
+            this.$store.dispatch("fetchDetailGames", detailPlayer.id);
+            this.$store.dispatch("setDetailPlayer", detailPlayer);
+            break;
+          }
         }
       }
       next();
