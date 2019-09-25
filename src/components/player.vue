@@ -23,13 +23,22 @@
                         </v-list-item>
                     </v-list-item-group>
                 </v-list>
+                <v-text-field v-model="search" append-icon="search" label="Поиск" single-line
+                              hide-details></v-text-field>
                 <v-data-table
                         :headers="headers"
                         :items="matches"
                         :search="search"
                         :items-per-page="20"
                         dark
-                ></v-data-table>
+                >
+                    <template v-slot:item.player_1="{ item }">
+                        <span :class="changePlayerFont(item.player_1)">{{item.player_1}}</span>
+                    </template>
+                    <template v-slot:item.player_2="{ item }">
+                        <span :class="changePlayerFont(item.player_2)">{{item.player_2}}</span>
+                    </template>
+                </v-data-table>
             </v-col>
         </v-layout>
     </v-container>
@@ -51,6 +60,9 @@
           {text: "Счёт", value: "score", align: "left"},
           {text: "Дата", value: "date", align: "left"}
         ],
+        slots: [
+          'body',
+        ]
       };
     },
     computed: {
@@ -96,7 +108,14 @@
         }
       },
       matches() {
-          return this.$store.state.detailGames;
+        return this.$store.state.detailGames;
+      },
+    },
+    methods: {
+      changePlayerFont(playerName) {
+        if (playerName == this.player.name) {
+          return 'font-weight-bold orange--text darken-2';
+        }
       },
     },
   }
