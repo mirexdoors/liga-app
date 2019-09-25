@@ -45,9 +45,6 @@ export const store = new Vuex.Store({
     setDetailPlayer({commit}, player) {
       commit('setDetailPlayer', player);
     },
-    clearDetailGame({commit}) {
-      commit('setDetailGame', []);
-    },
     fetchPlayers({ commit }, url) {
       let result = [];
       fetch(url, {

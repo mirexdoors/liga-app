@@ -7,7 +7,7 @@
                         <h1>{{player.name}}</h1>
                     </v-card-text>
                 </v-card>
-
+                {{matches}}
                 <v-list disabled>
                     <v-list-item-group v-model="item" color="primary">
                         <v-list-item v-for="(item, i) in items" :key="i">
@@ -25,9 +25,11 @@
                 </v-list>
                 <v-text-field v-model="search" append-icon="search" label="Поиск" single-line
                               hide-details></v-text-field>
+
                 <v-data-table
+                        v-if="games"
                         :headers="headers"
-                        :items="matches"
+                        :items="games"
                         :search="search"
                         :items-per-page="10"
                         dark
@@ -38,7 +40,7 @@
                     <template v-slot:item.player_2="{ item }">
                         <span :class="changePlayerFont(item.player_2)">{{item.player_2}}</span>
                     </template>
-                    <template  v-slot:item.score="{ item }">
+                    <template v-slot:item.score="{ item }">
                         <v-chip label outlined>{{item.score}}</v-chip>
                     </template>
                 </v-data-table>
@@ -81,7 +83,6 @@
           /*find player in vuex*/
           let detailPlayer = null;
           this.$store.dispatch("setDetailPlayer", null);
-          this.$store.dispatch("clearDetailGame");
           for (const team in this.teams) {
             detailPlayer = this.teams[team].players.filter(item => {
               if (this.translit(item.name) === playerName) return item;
@@ -110,8 +111,13 @@
           return false;
         }
       },
-      matches() {
+      games() {
         return this.$store.state.detailGames;
+      },
+    },
+    watch: {
+      player() {
+        this.games = this.$store.state.detailGames;
       },
     },
     methods: {
