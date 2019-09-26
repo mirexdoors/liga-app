@@ -3,23 +3,25 @@
         <v-layout column>
             <v-col md="6">
                 <v-card>
-                    <v-card-text>
+                    <v-card-text class="d-flex justify-space-between align-center">
                         <h1>{{player.name}}</h1>
+                        <v-chip
+                                class="ma-2"
+                                :style="getColor(player.division)"
+                                text-color="white"
+                        >{{player.team}}
+                        </v-chip>
                     </v-card-text>
                 </v-card>
-                {{matches}}
                 <v-list disabled>
                     <v-list-item-group v-model="item" color="primary">
                         <v-list-item v-for="(item, i) in items" :key="i">
                             <v-list-item-content>
                                 <v-list-item-title v-text="item.text">{{item.value}}</v-list-item-title>
                             </v-list-item-content>
-                            <v-chip
-                                    class="ma-2"
-                                    :style="getColor(player.division)"
-                                    text-color="white"
-                            >{{item.value}}
-                            </v-chip>
+
+                            {{item.value}}
+
                         </v-list-item>
                     </v-list-item-group>
                 </v-list>
@@ -63,7 +65,7 @@
           },
           {text: "", value: "player_2", align: "left", sortable: false},
           {text: "Счёт", value: "score", align: "left"},
-          {text: "Дата", value: "date", align: "left"}
+          {text: "Дата", value: "date", align: "left"},
         ],
         slots: [
           'body',
@@ -101,11 +103,11 @@
         if (this.$store.state.detailPlayer) {
           const player = this.$store.state.detailPlayer;
           return [
-            {text: "Команда", value: player.team},
             {text: "Дивизион", value: player.division},
             {text: "Игры", value: player.games},
             {text: "Уникальные игры", value: player.unique_games},
-            {text: "Очки", value: player.points}
+            {text: "Очки", value: player.points},
+            {text: "% от очков команды", value: getPercentTotal(player, this.teams), align: "left"}
           ];
         } else {
           return false;
@@ -121,11 +123,17 @@
       },
     },
     methods: {
-      changePlayerFont(playerName) {
+      changePlayerFont(playerName, team) {
         if (playerName == this.player.name) {
           return 'font-weight-bold orange--text darken-2';
         }
       },
     },
+  }
+
+  const getPercentTotal = (player, teams) => {
+    const points = player.points;
+    const totalTeamPoints = teams[player.team].total;
+    return ((points / totalTeamPoints) * 100).toFixed(2) + "%";
   }
 </script>
