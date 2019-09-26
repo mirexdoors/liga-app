@@ -1,12 +1,12 @@
 <template>
-    <v-container fill-height fluid>
-        <v-layout column>
-            <v-col md="6">
+    <v-container class="pa-0" fill-height fluid>
+        <v-layout  column>
+            <v-col  md="6">
                 <v-card>
                     <v-card-text class="d-flex justify-space-between align-center">
-                        <h1>{{player.name}}</h1>
+                        <h1 class="title">{{player.name}}</h1>
                         <v-chip
-                                class="ma-2"
+                                class="pa-4"
                                 :style="getColor(player.division)"
                                 text-color="white"
                         >{{player.team}}
@@ -43,7 +43,10 @@
                         <span :class="changePlayerFont(item.player_2)">{{item.player_2}}</span>
                     </template>
                     <template v-slot:item.score="{ item }">
-                        <v-chip label outlined>{{item.score}}</v-chip>
+                        <div class="flex-column d-flex pa-md-2 align-self-center">
+                            <v-chip label outlined class="d-flex justify-center">{{item.score}}</v-chip>
+                            <div class="player__points font-italic d-flex justify-center">{{item.points}}</div>
+                        </div>
                     </template>
                 </v-data-table>
             </v-col>
@@ -123,7 +126,7 @@
       },
     },
     methods: {
-      changePlayerFont(playerName, team) {
+      changePlayerFont(playerName) {
         if (playerName == this.player.name) {
           return 'font-weight-bold orange--text darken-2';
         }
@@ -137,3 +140,8 @@
     return ((points / totalTeamPoints) * 100).toFixed(2) + "%";
   }
 </script>
+<style scoped>
+.player__points {
+    font-size: 12px;
+}
+</style>
