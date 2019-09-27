@@ -32,8 +32,12 @@
             generateLabels: function (chart) {
               const data = chart.data;
               return data.datasets.map(function (dataset, i) {
+                let text = dataset.label;
+                if (dataset.type === 'line') {
+                  text = dataset.label + " (" + Chart.helpers.max(dataset.data).toLocaleString() + ")";
+                }
                 return {
-                  text: dataset.label + " (" + Chart.helpers.max(dataset.data).toLocaleString() + ")",
+                  text,
                   fillStyle: dataset.backgroundColor,
                   hidden: !chart.isDatasetVisible(i),
                   lineCap: dataset.borderCapStyle,
@@ -46,6 +50,7 @@
                   datasetIndex: i
                 };
               }, this);
+
             }
           }
         },
@@ -67,18 +72,18 @@
             } else {
               ctx.font = Chart.helpers.fontString(10, 'normal', Chart.defaults.global.defaultFontFamily);
             }
-              ctx.fillStyle = "#d4ffff";
-              ctx.textAlign = 'center';
-              ctx.textBaseline = 'bottom';
-              this.data.datasets.forEach(function (dataset) {
-                if (dataset.type !== 'line') {
-                  for (let i = 0; i < dataset.data.length; i++) {
-                    const model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-                    ctx.fillText(dataset.data[i], model.x, model.y - 5);
-                  }
+            ctx.fillStyle = "#d4ffff";
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            this.data.datasets.forEach(function (dataset) {
+              if (dataset.type !== 'line') {
+                for (let i = 0; i < dataset.data.length; i++) {
+                  const model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+                  ctx.fillText(dataset.data[i], model.x, model.y - 5);
                 }
-              });
-            }
+              }
+            });
+          }
         },
       }
     }),
