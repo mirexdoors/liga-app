@@ -110,6 +110,7 @@
             {text: "Игры", value: player.games},
             {text: "Уникальные игры", value: player.unique_games},
             {text: "Очки", value: player.points},
+            {text: "Очков за игру ср.", value: (player.points/player.games).toFixed(2)},
             {text: "% от очков команды", value: getPercentTotal(player, this.teams), align: "left"}
           ];
         } else {
