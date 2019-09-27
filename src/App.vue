@@ -21,13 +21,13 @@
                     <v-list-item>
                         <router-link class="header__link" :to="'/all'"><v-icon>list</v-icon></router-link>
                     </v-list-item>
-                    <v-list-item v-if="isLoggedIn">
-                        <addMatch v-on:errorAuth="getError"/>
-                    </v-list-item>
                     <v-list-item>
                         <router-link class="header__link" :to="'/stat'">
                             <v-icon>insert_chart_outlined</v-icon>
                         </router-link>
+                    </v-list-item>
+                    <v-list-item v-if="isLoggedIn">
+                        <addMatch v-on:errorAuth="getError"/>
                     </v-list-item>
                 </v-list>
             </v-navigation-drawer>
