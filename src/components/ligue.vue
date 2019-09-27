@@ -16,7 +16,6 @@
                                 :items-per-page="30"
                                 hide-default-footer
                                 fixed-header
-                                dark
                         >
                             <template v-slot:header="{ props: { headers }  }">
                                 <thead>
