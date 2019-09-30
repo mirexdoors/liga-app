@@ -1,7 +1,6 @@
 <template>
     <v-container fill-height fluid>
         <v-layout column class="tableAllGames">
-
                 <v-text-field v-model="search" append-icon="search" label="Поиск" single-line
                               hide-details></v-text-field>
                 <v-data-table
@@ -13,7 +12,6 @@
                         :mobile-breakpoint=300
                         dark
                 ></v-data-table>
-
         </v-layout>
     </v-container>
 </template>

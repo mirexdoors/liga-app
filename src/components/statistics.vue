@@ -1,23 +1,35 @@
 <template>
     <v-container class="pa-0" fill-height fluid>
         <v-layout column>
-            <h1 class="title">Динамика набранных очков</h1>
-            <preloader color="accent-4" v-if="!loaded"></preloader>
-            <line-chart
-                    class=""
-                    v-if="loaded"
-                    :chartData="chartData"
-                    :options="options"/>
+            <h1 class="title pa-2">Статистика</h1>
+            <v-card  class="pa-2">
+                <v-card-title>
+                    <h2 class="subtitle-1">Статистика лиги</h2>
+                </v-card-title>
+                    <main-stat></main-stat>
+            </v-card>
+            <v-card class="pa-2">
+                <v-card-title >
+                    <h2 class="subtitle-1">Динамика набранных очков</h2>
+                </v-card-title>
+
+                <preloader color="accent-4" v-if="!loaded"></preloader>
+                <line-chart
+                        v-if="loaded"
+                        :chartData="chartData"
+                        :options="options"/>
+            </v-card>
         </v-layout>
     </v-container>
 </template>
 <script>
   import lineChart from './statisticComponents/lineChart.vue';
-  import preloader from '../components/preloader';
+  import preloader from './preloader';
+  import mainStat from './statisticComponents/mainStat';
 
   export default {
     name: 'statistics',
-    components: {lineChart, preloader},
+    components: {lineChart, preloader, mainStat},
     data: () => ({
       loaded: false,
       chartData: null,
