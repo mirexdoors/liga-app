@@ -12,7 +12,7 @@
     </v-container>
 </template>
 <script>
-  import lineChart from './charts/lineChart.vue';
+  import lineChart from './statisticComponents/lineChart.vue';
   import preloader from '../components/preloader';
 
   export default {
