@@ -182,10 +182,4 @@
     const d1 = new Date();
     return Math.round((d0.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
   }
-
-
 </script>
-
-<style scoped>
-
-</style>

@@ -1,8 +1,8 @@
 <script>
-  import {Line} from 'vue-chartjs'
+  import {Bar} from 'vue-chartjs'
 
   export default {
-    extends: Line,
+    extends: Bar,
     props: {
       chartData: {
         type: Object,
@@ -16,11 +16,11 @@
     mounted() {
       const wW = window.outerWidth;
       const canvasWidth = wW - 25;
-      let canvasHeight = window.outerHeight - 250;
+      let canvasHeight = 400;
       if (wW > 374 && wW < 800) {
-        canvasHeight = window.outerHeight - 300;
+        canvasHeight = 200;
       }
-      const canvasContainer = document.getElementById('line-chart');
+      const canvasContainer = document.getElementById('bar-chart');
       if (canvasContainer) {
         canvasContainer.getContext("2d").canvas.width = canvasWidth;
         canvasContainer.getContext("2d").canvas.height = canvasHeight;

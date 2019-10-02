@@ -16,88 +16,107 @@
                 <preloader color="accent-4" v-if="!loaded"></preloader>
                 <line-chart
                         v-if="loaded"
-                        :chartData="chartData"
-                        :options="options"/>
+                        :chartData="line.chartData"
+                        :options="line.options"/>
+            </v-card>
+            <v-card class="pa-2">
+                <v-card-title >
+                    <h2 class="subtitle-1">Распределение матчей по дням</h2>
+                </v-card-title>
+
+                <preloader color="accent-4" v-if="!loaded"></preloader>
+                <bar-chart
+                        v-if="loaded"
+                        :chartData="bar.chartData"
+                        :options="bar.options"/>
             </v-card>
         </v-layout>
     </v-container>
 </template>
 <script>
   import lineChart from './statisticComponents/lineChart.vue';
+  import barChart from './statisticComponents/barChart.vue';
   import preloader from './preloader';
   import mainStat from './statisticComponents/mainStat';
 
   export default {
     name: 'statistics',
-    components: {lineChart, preloader, mainStat},
+    components: {lineChart, barChart, preloader, mainStat},
     data: () => ({
       loaded: false,
-      chartData: null,
-      options: {
-        spanGaps: true,
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: true,
-          position: 'bottom',
-          labels: {
-            generateLabels: function (chart) {
-              const data = chart.data;
-              return data.datasets.map(function (dataset, i) {
-                let text = dataset.label;
-                if (dataset.type === 'line') {
+      line: {
+        chartData: null,
+        options: {
+          spanGaps: true,
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+              generateLabels: function (chart) {
+                const data = chart.data;
+                return data.datasets.map(function (dataset, i) {
+                  let text = dataset.label;
                   text = dataset.label + " (" + Chart.helpers.max(dataset.data).toLocaleString() + ")";
-                }
-                return {
-                  text,
-                  fillStyle: dataset.backgroundColor,
-                  hidden: !chart.isDatasetVisible(i),
-                  lineCap: dataset.borderCapStyle,
-                  lineDash: dataset.borderDash,
-                  lineDashOffset: dataset.borderDashOffset,
-                  lineJoin: dataset.borderJoinStyle,
-                  lineWidth: 2,
-                  strokeStyle: dataset.borderColor,
-                  pointStyle: dataset.pointStyle,
-                  datasetIndex: i
-                };
-              }, this);
+                  return {
+                    text,
+                    fillStyle: dataset.backgroundColor,
+                    hidden: !chart.isDatasetVisible(i),
+                    lineCap: dataset.borderCapStyle,
+                    lineDash: dataset.borderDash,
+                    lineDashOffset: dataset.borderDashOffset,
+                    lineJoin: dataset.borderJoinStyle,
+                    lineWidth: 2,
+                    strokeStyle: dataset.borderColor,
+                    pointStyle: dataset.pointStyle,
+                    datasetIndex: i
+                  };
+                }, this);
 
-            }
-          }
-        },
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }],
-          xAxes: [{
-            display: true
-          }]
-        },
-        animation: {
-          onComplete: function () {
-            const ctx = this.chart.ctx;
-            if (window.outerWidth < 376) {
-              ctx.font = Chart.helpers.fontString(8, 'normal', Chart.defaults.global.defaultFontFamily);
-            } else {
-              ctx.font = Chart.helpers.fontString(10, 'normal', Chart.defaults.global.defaultFontFamily);
-            }
-            ctx.fillStyle = "#d4ffff";
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'bottom';
-            this.data.datasets.forEach(function (dataset) {
-              if (dataset.type !== 'line') {
-                for (let i = 0; i < dataset.data.length; i++) {
-                  const model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-                  ctx.fillText(dataset.data[i], model.x, model.y - 5);
-                }
               }
-            });
-          }
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+            xAxes: [{
+              display: true
+            }]
+          },
+        }
+      },
+      bar: {
+        chartData: null,
+        options: {
+          spanGaps: true,
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: {
+            onComplete: function () {
+              const ctx = this.chart.ctx;
+              if (window.outerWidth < 376) {
+                ctx.font = Chart.helpers.fontString(8, 'normal', Chart.defaults.global.defaultFontFamily);
+              } else {
+                ctx.font = Chart.helpers.fontString(10, 'normal', Chart.defaults.global.defaultFontFamily);
+              }
+              ctx.fillStyle = "#d4ffff";
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              this.data.datasets.forEach(function (dataset) {
+                  for (let i = 0; i < dataset.data.length; i++) {
+                    const model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+                    ctx.fillText(dataset.data[i], model.x, model.y - 5);
+                  }
+              });
+            }
+          },
         },
-      }
+      },
+
     }),
     async mounted() {
       this.loaded = false;
@@ -106,9 +125,10 @@
           return response.json();
         })
         .then(matchesJSON => {
-          return matchesJSON.games;
+          return matchesJSON;
         });
-      this.chartData = matchList;
+      this.line.chartData = matchList.games;
+      this.bar.chartData = matchList.bar;
       this.loaded = true;
     }
   }
