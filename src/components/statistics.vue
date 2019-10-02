@@ -17,7 +17,7 @@
                 <line-chart
                         v-if="loaded"
                         :chartData="line.chartData"
-                        :options="line.options"/>
+                        :options="line.options"></line-chart>
             </v-card>
             <v-card class="pa-2">
                 <v-card-title>
@@ -28,13 +28,13 @@
                 <bar-chart
                         v-if="loaded"
                         :chartData="bar.chartData"
-                        :options="bar.options"/>
+                        :options="bar.options"></bar-chart>
             </v-card>
             <v-card>
                 <v-card-title>
                     <h2 class="subtitle-1">Распределение матчей по дням</h2>
                 </v-card-title>
-                <top-stat></top-stat>
+                <top-stat :items="topTables"></top-stat>
             </v-card>
         </v-layout>
     </v-container>
@@ -44,7 +44,7 @@
   import barChart from './statisticComponents/charts/barChart.vue';
   import preloader from './preloader';
   import mainStat from './statisticComponents/mainStat/mainStat';
-  import topStat from './statisticComponents/tops/top.vue';
+  import topStat from './statisticComponents/tops/topStat.vue';
 
   export default {
     name: 'statistics',
@@ -122,7 +122,6 @@
           },
         },
       },
-
     }),
     async mounted() {
       this.loaded = false;

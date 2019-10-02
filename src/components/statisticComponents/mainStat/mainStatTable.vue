@@ -24,7 +24,7 @@
     name: 'mainStatTable',
     props: {
       title: {
-        type: Object,
+        type: String,
         default: null
       },
       items: {
@@ -34,6 +34,3 @@
     },
   }
 </script>
-<style scoped>
-
-</style>
