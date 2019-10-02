@@ -34,8 +34,8 @@
     </v-container>
 </template>
 <script>
-  import lineChart from './statisticComponents/lineChart.vue';
-  import barChart from './statisticComponents/barChart.vue';
+  import lineChart from './statisticComponents/charts/lineChart.vue';
+  import barChart from './statisticComponents/charts/barChart.vue';
   import preloader from './preloader';
   import mainStat from './statisticComponents/mainStat';
 
