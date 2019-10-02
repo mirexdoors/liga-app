@@ -2,14 +2,14 @@
     <v-container class="pa-0" fill-height fluid>
         <v-layout column>
             <h1 class="title pa-2">Статистика</h1>
-            <v-card  class="pa-2">
+            <v-card class="pa-2">
                 <v-card-title>
                     <h2 class="subtitle-1">Статистика лиги</h2>
                 </v-card-title>
-                    <main-stat></main-stat>
+                <main-stat></main-stat>
             </v-card>
             <v-card class="pa-2">
-                <v-card-title >
+                <v-card-title>
                     <h2 class="subtitle-1">Динамика набранных очков</h2>
                 </v-card-title>
 
@@ -20,7 +20,7 @@
                         :options="line.options"/>
             </v-card>
             <v-card class="pa-2">
-                <v-card-title >
+                <v-card-title>
                     <h2 class="subtitle-1">Распределение матчей по дням</h2>
                 </v-card-title>
 
@@ -107,10 +107,10 @@
               ctx.textAlign = 'center';
               ctx.textBaseline = 'bottom';
               this.data.datasets.forEach(function (dataset) {
-                  for (let i = 0; i < dataset.data.length; i++) {
-                    const model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
-                    ctx.fillText(dataset.data[i], model.x, model.y - 5);
-                  }
+                for (let i = 0; i < dataset.data.length; i++) {
+                  const model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model;
+                  ctx.fillText(dataset.data[i], model.x, model.y - 5);
+                }
               });
             }
           },
@@ -121,12 +121,12 @@
     async mounted() {
       this.loaded = false;
       const matchList = await fetch('http://mirexda2.beget.tech/get/stat/matches/')
-        .then(response => {
-          return response.json();
-        })
-        .then(matchesJSON => {
-          return matchesJSON;
-        });
+      .then(response => {
+        return response.json();
+      })
+      .then(matchesJSON => {
+        return matchesJSON;
+      });
       this.line.chartData = matchList.games;
       this.bar.chartData = matchList.bar;
       this.loaded = true;
