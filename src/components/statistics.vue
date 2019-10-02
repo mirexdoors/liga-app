@@ -30,6 +30,12 @@
                         :chartData="bar.chartData"
                         :options="bar.options"/>
             </v-card>
+            <v-card>
+                <v-card-title>
+                    <h2 class="subtitle-1">Распределение матчей по дням</h2>
+                </v-card-title>
+                <top-stat></top-stat>
+            </v-card>
         </v-layout>
     </v-container>
 </template>
@@ -37,11 +43,12 @@
   import lineChart from './statisticComponents/charts/lineChart.vue';
   import barChart from './statisticComponents/charts/barChart.vue';
   import preloader from './preloader';
-  import mainStat from './statisticComponents/mainStat';
+  import mainStat from './statisticComponents/mainStat/mainStat';
+  import topStat from './statisticComponents/tops/top.vue';
 
   export default {
     name: 'statistics',
-    components: {lineChart, barChart, preloader, mainStat},
+    components: {lineChart, barChart, preloader, mainStat, topStat},
     data: () => ({
       loaded: false,
       line: {
@@ -57,8 +64,7 @@
               generateLabels: function (chart) {
                 const data = chart.data;
                 return data.datasets.map(function (dataset, i) {
-                  let text = dataset.label;
-                  text = dataset.label + " (" + Chart.helpers.max(dataset.data).toLocaleString() + ")";
+                  let text = dataset.label + " (" + Chart.helpers.max(dataset.data).toLocaleString() + ")";
                   return {
                     text,
                     fillStyle: dataset.backgroundColor,
