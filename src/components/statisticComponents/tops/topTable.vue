@@ -8,7 +8,7 @@
                 <v-row no-gutters v-for="item in items" :key="item.name">
                     <v-col cols="8" sm="8">
                         <v-card class="pa-1" outlined tile>
-                            {{item}}
+                            {{item.name}}
                         </v-card>
                     </v-col>
                     <v-col cols="4" sm="4">

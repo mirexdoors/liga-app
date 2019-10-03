@@ -41,10 +41,11 @@
       },
     }),
     mounted() {
-      this.dataTables.ligueTime.values.daysPassed.value = getDaysPassed();
-      this.dataTables.ligueTime.values.daysLeft.value = getDaysLeft();
-      this.dataTables.ligueTime.values.percentOfAllTime.value = ((this.dataTables.ligueTime.values.daysPassed.value / (this.dataTables.ligueTime.values.daysLeft.value + this.dataTables.ligueTime.values.daysPassed.value)) * 100).toFixed(1) + '%';
-      getGamesInfo(this.ligueData, this.dataTables.allGames.values, this.dataTables.uniqGames.values);
+      const dataTables = this.dataTables;
+      dataTables.ligueTime.values.daysPassed.value = getDaysPassed();
+      dataTables.ligueTime.values.daysLeft.value = getDaysLeft();
+      dataTables.ligueTime.values.percentOfAllTime.value = ((dataTables.ligueTime.values.daysPassed.value / (dataTables.ligueTime.values.daysLeft.value + dataTables.ligueTime.values.daysPassed.value)) * 100).toFixed(1) + '%';
+      getGamesInfo(this.ligueData, dataTables.allGames.values, dataTables.uniqGames.values);
     },
     computed: {
       ligueData() {
