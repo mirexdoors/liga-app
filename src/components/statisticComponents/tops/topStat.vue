@@ -1,7 +1,7 @@
 <template>
     <v-row no-gutters class="pa-2">
-        <v-col cols="12" sm="4" v-for="table in topTables" :key="table.title">
-            <top-table :title="table.title" :items="table.data"></top-table>
+        <v-col cols="12" sm="6" v-for="table in topTables" :key="table.title">
+            <top-table :title="table.title" :items="table.data" :param="table.param"></top-table>
         </v-col>
     </v-row>
 </template>
@@ -13,17 +13,27 @@
     components: {topTable},
     data: () => ({
       topTables: {
-        utility: {title: 'Топ по полезности', data: {}},
-        games: {title: 'Топ по матчам', data: {}},
-        repeating: {title: 'Топ по повторным', data: {}},
-        efficiency: {title: 'Топ по эффективности', data: {}},
+        utility: {title: 'Топ по полезности', data: {}, param:''},
+        games: {title: 'Топ по матчам', data: {}, param:''},
+     //   repeating: {title: 'Топ по повторным', data: {},param:''},
+       // efficiency: {title: 'Топ по эффективности', data: {},param:''},
       }
     }),
     mounted() {
       const topTables = this.topTables;
       const players = convertPlayersDataToFlat(this.ligueData); // развернём всех в плоский массив
+      let sortParam = null;
       for (let key in topTables) {
-        topTables[key].data = getTopData(players, key);
+        switch (key) {
+          case 'utility':
+            sortParam = 'points';
+            break;
+          case 'games':
+            sortParam = 'games';
+            break;
+        }
+        topTables[key].data = getTopData(players, sortParam);
+        topTables[key].param = sortParam;
       }
     },
     computed: {
@@ -41,25 +51,21 @@
     }
     return resultArray;
   };
-  const getTopData = (items, param) => {
-    let sortParam = false;
-    switch (param) {
-      case 'utility':
-        sortParam = 'points';
-        break;
-    }
+  const getTopData = (items, sortParam) => {
+    const sortedItems = items.map(object => ({... object}));
 
     if (sortParam) {
-      items.sort((a, b) => {
-        if (a.sortParam < b.sortParam) {
+      sortedItems.sort((a, b) => {
+        if (parseFloat(a.sortParam) < parseFloat(b.sortParam)) {
           return 1;
-        } else if (a[sortParam] > b[sortParam]) {
+        } else if (parseFloat(a[sortParam]) > parseFloat(b[sortParam])) {
           return -1;
         } else {
           return 0;
         }
       });
     }
-    return items.slice(0, 15);
+
+    return sortedItems.slice(0, 15);
   }
 </script>

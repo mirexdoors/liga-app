@@ -32,7 +32,7 @@
             </v-card>
             <v-card>
                 <v-card-title>
-                    <h2 class="subtitle-1">Распределение матчей по дням</h2>
+                    <h2 class="subtitle-1">Топ-15</h2>
                 </v-card-title>
                 <top-stat :items="topTables"></top-stat>
             </v-card>
