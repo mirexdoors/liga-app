@@ -18,29 +18,23 @@
     "vuex": "^3.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
     "@vue/cli-service": "^3.11.0",
     "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.9.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "jest": "^24.9.0",
+    "jest-serializer-vue": "^2.0.2",
+    "jest-transform-stub": "^2.0.0",
     "material-design-icons-iconfont": "^5.0.1",
     "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.10"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      // сообщаем Jest что необходимо обрабатывать `*.vue` файлы
-      "vue"
-    ],
-    "transform": {
-      // обрабатываем `*.vue` файлы с помощью `vue-jest`
-      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
-    }
   },
   "eslintConfig": {
     "root": true,
