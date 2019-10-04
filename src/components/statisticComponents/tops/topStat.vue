@@ -13,10 +13,10 @@
     components: {topTable},
     data: () => ({
       topTables: {
-        utility: {title: 'Топ по полезности', data: {}, param:''},
-        games: {title: 'Топ по матчам', data: {}, param:''},
-        repeating: {title: 'Топ по повторным', data: {},param:''},
-       // efficiency: {title: 'Топ по эффективности', data: {},param:''},
+        utility: {title: 'Топ по полезности', data: {}, param: ''},
+        games: {title: 'Топ по матчам', data: {}, param: ''},
+        repeating: {title: 'Топ по повторным', data: {}, param: ''},
+        efficiency: {title: 'Топ по эффективности (*больше 10 матчей)', data: {}, param: ''},
       }
     }),
     mounted() {
@@ -34,6 +34,9 @@
           case 'repeating':
             sortParam = 'repeatGames';
             break;
+          case 'efficiency':
+            sortParam = 'efficiency';
+            break;
         }
         topTables[key].data = getTopData(players, sortParam);
         topTables[key].param = sortParam;
@@ -50,13 +53,14 @@
     for (let team in teams) {
       teams[team].players.forEach((player) => {
         player.repeatGames = player.games - player.unique_games;
+        player.efficiency = (player.games > 9 && !isNaN((player.points / player.games).toFixed(2))) ? (player.points / player.games).toFixed(2) : "0";
         resultArray.push(player);
       });
     }
     return resultArray;
   };
   const getTopData = (items, sortParam) => {
-    const sortedItems = items.map(object => ({... object}));
+    const sortedItems = items.map(object => ({...object}));
 
     if (sortParam) {
       sortedItems.sort((a, b) => {
