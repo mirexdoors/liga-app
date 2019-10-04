@@ -15,7 +15,7 @@
       topTables: {
         utility: {title: 'Топ по полезности', data: {}, param:''},
         games: {title: 'Топ по матчам', data: {}, param:''},
-     //   repeating: {title: 'Топ по повторным', data: {},param:''},
+        repeating: {title: 'Топ по повторным', data: {},param:''},
        // efficiency: {title: 'Топ по эффективности', data: {},param:''},
       }
     }),
@@ -30,6 +30,9 @@
             break;
           case 'games':
             sortParam = 'games';
+            break;
+          case 'repeating':
+            sortParam = 'repeatGames';
             break;
         }
         topTables[key].data = getTopData(players, sortParam);
@@ -46,6 +49,7 @@
     const resultArray = [];
     for (let team in teams) {
       teams[team].players.forEach((player) => {
+        player.repeatGames = player.games - player.unique_games;
         resultArray.push(player);
       });
     }
