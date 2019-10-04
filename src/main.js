@@ -9,6 +9,7 @@ import 'material-design-icons-iconfont';
 import {translit, getColor} from "./mixins/mixins";
 
 Vue.config.productionTip = false;
+
 Vue.use(Vuex);
 Vue.use(Vuetify);
 
