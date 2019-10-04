@@ -1,7 +1,7 @@
 <template>
     <v-container class="pa-0" fill-height fluid>
-        <v-layout  column>
-            <v-col  md="6">
+        <v-layout column>
+            <v-col md="6">
                 <v-card>
                     <v-card-text class="d-flex justify-space-between align-center">
                         <h1 class="title">{{player.name}}</h1>
@@ -54,6 +54,8 @@
     </v-container>
 </template>
 <script>
+  import {getPercentTotal} from '../mixins/mixins';
+
   export default {
     name: "player",
     data() {
@@ -110,7 +112,10 @@
             {text: "Игры", value: player.games},
             {text: "Уникальные игры", value: player.unique_games},
             {text: "Очки", value: player.points},
-            {text: "Очков за игру ср.", value: !isNaN((player.points/player.games).toFixed(2)) ? (player.points/player.games).toFixed(2) : "0" },
+            {
+              text: "Очков за игру ср.",
+              value: !isNaN((player.points / player.games).toFixed(2)) ? (player.points / player.games).toFixed(2) : "0"
+            },
             {text: "% от очков команды", value: getPercentTotal(player, this.teams), align: "left"}
           ];
         } else {
@@ -134,15 +139,9 @@
       },
     },
   }
-
-  const getPercentTotal = (player, teams) => {
-    const points = player.points;
-    const totalTeamPoints = teams[player.team].total;
-    return ((points / totalTeamPoints) * 100).toFixed(2) + "%";
-  }
 </script>
 <style scoped>
-.player__points {
-    font-size: 12px;
-}
+    .player__points {
+        font-size: 12px;
+    }
 </style>

@@ -8,6 +8,7 @@
 
 <script>
   import mainStatTable from './mainStatTable.vue';
+  import {getGamesInfo, getDaysLeft, getDaysPassed} from '../../../mixins/mixins';
 
   export default {
     name: "mainStat",
@@ -52,34 +53,5 @@
         return this.$store.getters.players;
       }
     },
-  }
-  const getGamesInfo = (data, allGames, uniqGames) => {
-    const ALL_POSSIBLE_MATCHES = 4356;
-    const ALL_POSSIBLE_MATCHES_UNIQ = 1452;
-    let totalMatches = 0;
-    let uniqMatches = 0;
-    for (let team in data) {
-      totalMatches += data[team]['total_games'];
-      uniqMatches += data[team]['total_unique_games'];
-    }
-
-    allGames.gamesPlayed.value = totalMatches / 2;
-    allGames.gamesLeft.value = ALL_POSSIBLE_MATCHES - totalMatches / 2;
-    allGames.percentOfMax.value = (((totalMatches / 2) / ALL_POSSIBLE_MATCHES) * 100).toFixed(2) + '%';
-    uniqGames.gamesPlayed.value = uniqMatches / 2;
-    uniqGames.gamesLeft.value = ALL_POSSIBLE_MATCHES_UNIQ - uniqMatches / 2;
-    uniqGames.percentOfMax.value = (((uniqMatches / 2) / ALL_POSSIBLE_MATCHES_UNIQ) * 100).toFixed(2) + '%';
-
-    return true;
-  };
-  const getDaysPassed = () => {
-    const d0 = new Date('September 01, 2019 00:00:00');
-    const d1 = new Date();
-    return Math.round((d1.getTime() - d0.getTime()) / (1000 * 60 * 60 * 24) + 1);
-  };
-  const getDaysLeft = () => {
-    const d0 = new Date('December 13, 2019');
-    const d1 = new Date();
-    return Math.round((d0.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
   }
 </script>

@@ -15,7 +15,7 @@ Vue.use(Vuetify);
 Vue.mixin({
   methods: {
     translit,
-    getColor
+    getColor,
   }
 });
 

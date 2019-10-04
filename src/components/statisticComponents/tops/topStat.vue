@@ -7,6 +7,7 @@
 </template>
 <script>
   import topTable from './topTable.vue';
+  import {getTopData, convertPlayersDataToFlat} from '../../../mixins/mixins';
 
   export default {
     name: 'statistics',
@@ -47,33 +48,5 @@
         return this.$store.getters.players;
       }
     },
-  }
-  const convertPlayersDataToFlat = (teams) => {
-    const resultArray = [];
-    for (let team in teams) {
-      teams[team].players.forEach((player) => {
-        player.repeatGames = player.games - player.unique_games;
-        player.efficiency = (player.games > 9 && !isNaN((player.points / player.games).toFixed(2))) ? (player.points / player.games).toFixed(2) : "0";
-        resultArray.push(player);
-      });
-    }
-    return resultArray;
-  };
-  const getTopData = (items, sortParam) => {
-    const sortedItems = items.map(object => ({...object}));
-
-    if (sortParam) {
-      sortedItems.sort((a, b) => {
-        if (parseFloat(a.sortParam) < parseFloat(b.sortParam)) {
-          return 1;
-        } else if (parseFloat(a[sortParam]) > parseFloat(b[sortParam])) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-    }
-
-    return sortedItems.slice(0, 15);
   }
 </script>
