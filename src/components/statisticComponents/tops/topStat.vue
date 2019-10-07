@@ -46,7 +46,7 @@
     computed: {
       ligueData() {
         return this.$store.getters.players;
-      }
+      },
     },
   }
 </script>

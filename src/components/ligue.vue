@@ -137,8 +137,9 @@
         let detailPlayer = null;
         this.$store.dispatch("setDetailPlayer", null);
         for (const team in this.teams) {
+
           detailPlayer = this.teams[team].players.filter(item => {
-            if (this.translit(item.name) === playerName) return item;
+            if (this.translit(item.name) ===  playerName) return item;
           })[0];
           if (detailPlayer) {
             this.$store.dispatch("fetchDetailGames", detailPlayer.id);
@@ -171,8 +172,6 @@
         align-items: center;
         width: 100%;
         height: 100%;
-        color: inherit;
-        text-decoration-line: none;
     }
 
     .player__games .player__link, .player__points .player__link {

@@ -37,10 +37,16 @@
                         dark
                 >
                     <template v-slot:item.player_1="{ item }">
-                        <span :class="changePlayerFont(item.player_1)">{{item.player_1}}</span>
+                        <router-link :class="changePlayerFont(item.player_1)"
+                                     class="player__link d-inline-flex align-center" :to="translit(item.player_1)">
+                            {{item.player_1}}
+                        </router-link>
                     </template>
                     <template v-slot:item.player_2="{ item }">
-                        <span :class="changePlayerFont(item.player_2)">{{item.player_2}}</span>
+                        <router-link :class="changePlayerFont(item.player_2)"
+                                     class="player__link d-inline-flex align-center" :to="translit(item.player_2)">
+                            {{item.player_2}}
+                        </router-link>
                     </template>
                     <template v-slot:item.score="{ item }">
                         <div class="flex-column d-flex pa-md-2 align-self-center">
@@ -122,11 +128,38 @@
           return false;
         }
       },
-      games() {
+      games () {
         return this.$store.state.detailGames;
       },
     },
+    beforeRouteLeave(to, from, next) {
+      this.$store.state.detailPlayer = this.$store.state.detailGames = null;
+      next();
+    },
+    beforeRouteUpdate(to, from, next) {
+      const playerName = to.params.playername;
+      /*find player in vuex*/
+      let detailPlayer = null;
+      this.$store.dispatch("setDetailPlayer", null);
+      for (const team in this.teams) {
+
+        detailPlayer = this.teams[team].players.filter(item => {
+          if (this.translit(item.name) === playerName) return item;
+        })[0];
+        if (detailPlayer) {
+          this.$store.dispatch("fetchDetailGames", detailPlayer.id);
+          this.$store.dispatch("setDetailPlayer", detailPlayer);
+          break;
+        }
+      }
+      next();
+    },
     watch: {
+      player() {
+        this.games = this.$store.state.detailGames;
+      },
+    },
+    updated: {
       player() {
         this.games = this.$store.state.detailGames;
       },

@@ -8,7 +8,8 @@
                 <v-row no-gutters v-for="item in items" :key="item.name">
                     <v-col cols="4" sm="6">
                         <v-card class="pa-1" outlined tile>
-                            {{item.name}}
+                            <router-link class="player__link" :to="translit(item.name)">{{item.name}}
+                            </router-link>
                         </v-card>
                     </v-col>
                     <v-col cols="4" sm="3">
@@ -41,7 +42,9 @@
       },
       items: {
         type: Array,
-        default: function () { return [] }
+        default: function () {
+          return []
+        }
       },
     },
   }

@@ -17,11 +17,13 @@
                     <template v-slot:item="{item}">
                         <tr>
                             <td>
-                                <router-link class="player__link d-inline-flex align-center" :to="translit(item.player_1)">{{item.player_1}}
+                                <router-link class="player__link d-inline-flex align-center"
+                                             :to="translit(item.player_1)">{{item.player_1}}
                                 </router-link>
                             </td>
                             <td>
-                                <router-link class="player__link d-inline-flex align-center" :to="translit(item.player_1)">{{item.player_2}}
+                                <router-link class="player__link d-inline-flex align-center"
+                                             :to="translit(item.player_2)">{{item.player_2}}
                                 </router-link>
                             </td>
                             <td>
@@ -61,12 +63,12 @@
     created() {
       const apiMatchesUrl = "http://mirexda2.beget.tech/get/games/all/";
       fetch(apiMatchesUrl)
-        .then(response => {
-          return response.json();
-        })
-        .then(matchesJSON => {
-          this.games = matchesJSON.games;
-        });
+      .then(response => {
+        return response.json();
+      })
+      .then(matchesJSON => {
+        this.games = matchesJSON.games;
+      });
     },
   }
 </script>
@@ -74,10 +76,9 @@
     .player__link {
         width: auto;
         height: 100%;
-        color: inherit;
-        text-decoration-line: none;
     }
-    @media screen and (max-width: 448px){
+
+    @media screen and (max-width: 448px) {
         .tableAllGames .v-data-table td, .tableAllGames .v-data-table th {
             font-size: 10px;
             padding: 8px;

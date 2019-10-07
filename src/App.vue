@@ -45,7 +45,7 @@
                 <v-container fluid fill-height>
                     <v-layout align-center justify-center>
                         <keep-alive>
-                            <router-view/>
+                            <router-view :key="$route.fullPath" />
                         </keep-alive>
                     </v-layout>
                 </v-container>
@@ -115,6 +115,11 @@
   };
 </script>
 <style>
+    .v-application .player__link {
+        color: #fff;
+        text-decoration-line: none;
+        height: 100%;
+    }
     .header__link {
         color: #fff !important;
         text-decoration-line: none;
