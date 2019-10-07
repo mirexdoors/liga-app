@@ -79,16 +79,22 @@
       isLoaded: true
     }),
     created() {
-      this.$vuetify.theme.dark = true;
+      if (this.$vuetify) {
+        this.$vuetify.theme.dark = true;
+      }
     },
     mounted() {
       if (sessionStorage.getItem("isAuth")) this.isLoggedIn = true;
       const apiPlayerUrl = "http://mirexda2.beget.tech/get/players/";
-      this.$store.dispatch("fetchPlayers", apiPlayerUrl);
+
+      if (this.$store) {
+        this.$store.dispatch("fetchPlayers", apiPlayerUrl);
+      }
+
     },
     computed: {
       getLoadingState () {
-        if (this.$store.state.players) {
+        if (this.$store && this.$store.state.players) {
           return true;
         } else {
           return false;
