@@ -13,7 +13,26 @@
                         :items-per-page="20"
                         :mobile-breakpoint=300
                         dark
-                ></v-data-table>
+                >
+                    <template v-slot:item="{item}">
+                        <tr>
+                            <td>
+                                <router-link class="player__link d-inline-flex align-center" :to="translit(item.player_1)">{{item.player_1}}
+                                </router-link>
+                            </td>
+                            <td>
+                                <router-link class="player__link d-inline-flex align-center" :to="translit(item.player_1)">{{item.player_2}}
+                                </router-link>
+                            </td>
+                            <td>
+                                {{item.score}}
+                            </td>
+                            <td>
+                                {{item.date}}
+                            </td>
+                        </tr>
+                    </template>
+                </v-data-table>
             </v-card>
         </v-layout>
     </v-container>
@@ -51,7 +70,13 @@
     },
   }
 </script>
-<style>
+<style scoped>
+    .player__link {
+        width: auto;
+        height: 100%;
+        color: inherit;
+        text-decoration-line: none;
+    }
     @media screen and (max-width: 448px){
         .tableAllGames .v-data-table td, .tableAllGames .v-data-table th {
             font-size: 10px;
