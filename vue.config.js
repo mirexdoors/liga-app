@@ -1,3 +1,4 @@
 module.exports = {
-    productionSourceMap: false,
+  outputDir: path.resolve(__dirname, "./dist"),
+  productionSourceMap: false,
 };

@@ -19,7 +19,9 @@
                         </v-list-item-action>
                     </v-list-item>
                     <v-list-item>
-                        <router-link class="header__link" :to="'/all'"><v-icon>list</v-icon></router-link>
+                        <router-link class="header__link" :to="'/all'">
+                            <v-icon>list</v-icon>
+                        </router-link>
                     </v-list-item>
                     <v-list-item>
                         <router-link class="header__link" :to="'/stat'">
@@ -41,11 +43,11 @@
             </v-app-bar>
 
             <v-content
-            v-if="getLoadingState">
+                    v-if="getLoadingState">
                 <v-container fluid fill-height>
                     <v-layout align-center justify-center>
                         <keep-alive>
-                            <router-view :key="$route.fullPath" />
+                            <router-view :key="$route.fullPath"/>
                         </keep-alive>
                     </v-layout>
                 </v-container>
@@ -79,6 +81,7 @@
       isLoaded: true
     }),
     created() {
+      document.title = "Сквош Лига 2019";
       this.$vuetify.theme.dark = true;
     },
     mounted() {
@@ -87,7 +90,7 @@
       this.$store.dispatch("fetchPlayers", apiPlayerUrl);
     },
     computed: {
-      getLoadingState () {
+      getLoadingState() {
         if (this.$store.state.players) {
           return true;
         } else {
@@ -120,6 +123,7 @@
         text-decoration-line: none;
         height: 100%;
     }
+
     .header__link {
         color: #fff !important;
         text-decoration-line: none;
