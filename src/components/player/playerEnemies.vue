@@ -11,6 +11,7 @@
                     :search="search"
                     :items-per-page="30"
                     hide-default-footer
+                    hide-default-header
                     fixed-header
             >
                 <template v-slot:header="{ props: { headers }  }">

@@ -119,8 +119,37 @@
         return this.$store.state.detailGames;
       },
       filteredItemsData() {
-        const tmpDataObject = Object.assign({}, this.teams);
-        delete tmpDataObject[this.player.team];
+        let tmpDataObject;
+        if (this.games && this.teams) {
+          const result = [];
+          const currentPlayer = this.player;
+          tmpDataObject = Object.assign({}, this.teams);
+          delete tmpDataObject[currentPlayer.team];
+
+          this.games.forEach((item) => {
+            if (currentPlayer.name == item.player_1) {
+              result.push({name: item.player_2, games: [{result: 'W'}]})
+            } else {
+              result.push({name: item.player_1, games: [{result: 'W'}]})
+            }
+          });
+
+          for (let team in tmpDataObject) {
+            let enemy = false;
+            tmpDataObject[team].players.forEach((player) => {
+              enemy = result.filter((enemy) => {
+                return enemy.name == player.name;
+              });
+
+              if (enemy.length > 0) {
+                player.games = enemy.games;
+              } else {
+                player.games = 0
+              }
+
+            });
+          }
+        }
         return tmpDataObject;
       }
     },
