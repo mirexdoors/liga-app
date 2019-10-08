@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ligue from '../components/ligue';
-import player from '../components/player';
-import allGames from '../components/allGames';
-import statistics from '../components/statistics';
+import ligue from '../components/ligue.vue';
+import player from '../components/player/player.vue';
+import allGames from '../components/allGames.vue';
+import statistics from '../components/statistics.vue';
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -11,7 +11,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      component: ligue
+      component: ligue,
     },
     {
       path: '/stat',
