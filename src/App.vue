@@ -81,7 +81,6 @@
       isLoaded: true
     }),
     created() {
-      document.title = "Сквош Лига 2019";
       this.$vuetify.theme.dark = true;
     },
     mounted() {

@@ -1,6 +1,6 @@
 <template>
     <v-container class="pa-0" fill-height fluid>
-        <v-layout column>
+        <v-layout>
             <v-col md="6">
                 <v-card>
                     <v-card-text class="d-flex justify-space-between align-center">
@@ -25,16 +25,20 @@
                 </v-list>
                 <played-games v-if="games" :headers="headers" :items="games" :player="player"></played-games>
             </v-col>
+            <v-col md="6">
+<player-enemies :items="filteredItemsData"></player-enemies>
+            </v-col>
         </v-layout>
     </v-container>
 </template>
 <script>
   import {getPercentTotal} from '../../mixins/mixins';
   import playedGames from './playedGames.vue';
+  import playerEnemies from './playerEnemies.vue';
 
   export default {
     name: "player",
-    components: {playedGames},
+    components: {playedGames, playerEnemies},
     data() {
       return {
         headers: [
@@ -98,6 +102,11 @@
       games() {
         return this.$store.state.detailGames;
       },
+      filteredItemsData() {
+        const tmpDataObject = Object.assign({}, this.teams);
+        delete tmpDataObject[this.player.team];
+        return tmpDataObject;
+      }
     },
     beforeRouteLeave(to, from, next) {
       this.$store.state.detailPlayer = this.$store.state.detailGames = null;
