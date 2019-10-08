@@ -115,10 +115,12 @@ export default {
         return player.name;
     },
     getPlayerNames() {
-      const teamsFromStore = this.$store.getters.players;
       let players = [];
-      for (let teamName in teamsFromStore){
-        players = players.concat(teamsFromStore[teamName].players);
+      if (this.$store) {
+        const teamsFromStore = this.$store.getters.players;
+        for (let teamName in teamsFromStore) {
+          players = players.concat(teamsFromStore[teamName].players);
+        }
       }
       return players;
     },
