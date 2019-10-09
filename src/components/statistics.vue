@@ -12,12 +12,12 @@
                 <v-card-title>
                     <h2 class="subtitle-1">Динамика набранных очков</h2>
                 </v-card-title>
-
                 <preloader color="accent-4" v-if="!loaded"></preloader>
                 <line-chart
                         v-if="loaded"
                         :chartData="line.chartData"
-                        :options="line.options"></line-chart>
+                        :options="line.options">
+                </line-chart>
             </v-card>
             <v-card class="pa-2">
                 <v-card-title>

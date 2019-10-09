@@ -6,12 +6,7 @@
                 <v-card>
                     <v-card-text class="d-flex justify-space-between align-center">
                         <h1 class="title">{{player.name}}</h1>
-                        <v-chip
-                                class="pa-4"
-                                :style="getColor(player.division)"
-                                text-color="white"
-                        >{{player.team}}
-                        </v-chip>
+                        <v-chip class="pa-4 white--text" :style="getColor(player.division)">{{ player.team }}</v-chip>
                     </v-card-text>
                 </v-card>
                 <v-list disabled>

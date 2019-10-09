@@ -127,7 +127,9 @@
     },
     computed: {
       teams() {
-        return this.$store.getters.players;
+        if (this.$store) {
+          return this.$store.getters.players;
+        }
       }
     },
     beforeRouteLeave(to, from, next) {
