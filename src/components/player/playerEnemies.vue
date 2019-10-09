@@ -4,7 +4,7 @@
             <h2 class="subtitle-1">Сыгранные матчи</h2>
         </v-card-title>
         <v-row>
-            <v-col v-for="team in items" md="6">
+            <v-col v-for="team in items" :key="team.title" md="6">
                 <v-data-table
                         :headers="headers"
                         :items="team.players"
@@ -31,13 +31,18 @@
                                 </router-link>
                             </td>
                             <td>
-                                <div class="ma-1 gameBudge font-weight-bold" :class="getGameResultBudge(game.result)"
-                                    v-if="Array.isArray(item.playedGames)" v-for="game in item.playedGames" :key="game">
-                                    {{game.result}}
-                                </div>
-                                <div class="ma-1 gameBudge font-weight-bold" v-if="!Array.isArray(item.playedGames)">
-                                    {{item.playedGames}}
-                                </div>
+                                <template v-if="Array.isArray(item.playedGames)">
+                                    <div class="ma-1 gameBudge font-weight-bold"
+                                         :class="getGameResultBudge(game.result)" v-for="game in item.playedGames"
+                                         :key="game">
+                                        {{game.result}}
+                                    </div>
+                                </template>
+                                <template v-if="!Array.isArray(item.playedGames)">
+                                    <div class="ma-1 gameBudge font-weight-bold">
+                                        {{item.playedGames}}
+                                    </div>
+                                </template>
                             </td>
                         </tr>
                     </template>
@@ -62,13 +67,11 @@
         switch (result) {
           case 'W':
             return 'green darken-4';
-            break;
           case 'L':
             return 'red darken-4';
-            break;
         }
-      }
-    }
+      },
+    },
   }
 </script>
 <style scoped>

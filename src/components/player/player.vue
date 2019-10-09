@@ -10,16 +10,7 @@
                             </v-chip>
                         </v-card-text>
                     </v-card>
-                    <v-list disabled>
-                        <v-list-item-group v-model="item" color="primary">
-                            <v-list-item v-for="(item, i) in items" :key="i">
-                                <v-list-item-content>
-                                    <v-list-item-title v-text="item.text">{{item.value}}</v-list-item-title>
-                                </v-list-item-content>
-                                {{item.value}}
-                            </v-list-item>
-                        </v-list-item-group>
-                    </v-list>
+                    <player-stat :items="items"></player-stat>
                     <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games>
                 </v-col>
                 <v-col cols="12" md="6">
@@ -33,10 +24,11 @@
   import {getPercentTotal} from '../../mixins/mixins';
   import playedGames from './playedGames.vue';
   import playerEnemies from './playerEnemies.vue';
+  import playerStat from './playerStat.vue';
 
   export default {
     name: "player",
-    components: {playedGames, playerEnemies},
+    components: {playedGames, playerEnemies, playerStat},
     data() {
       return {
         headersEnemies: [
