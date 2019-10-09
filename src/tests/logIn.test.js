@@ -4,8 +4,8 @@ import {shallowMount} from '@vue/test-utils';
 
 Vue.use(Vuetify);
 
-import component from '../components/addMatch.vue';
-
+import component from '../components/authorization/logIn.vue';
+global.fetch = require('jest-fetch-mock');
 describe ('test component', () => {
   it ('works', ()=> {
      shallowMount(component);
