@@ -1,21 +1,21 @@
 <template>
     <v-container class="pa-0" fill-height fluid>
-        <v-layout>
+        <v-layout class="player">
             <v-row cols="12" sm="12">
-                <v-col cols="12" md="6">
-                    <v-card>
-                        <v-card-text class="d-flex justify-space-between align-center">
-                            <h1 class="title">{{player.name}}</h1>
-                            <v-chip class="pa-4 white--text" :style="getColor(player.division)">{{ player.team }}
-                            </v-chip>
-                        </v-card-text>
-                    </v-card>
-                    <player-stat :items="items"></player-stat>
-                    <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games>
-                </v-col>
-                <v-col cols="12" md="6">
-                    <player-enemies :headers="headersEnemies" :items="filteredItemsData"></player-enemies>
-                </v-col>
+            <v-col cols="12" md="6">
+            <v-card>
+            <v-card-text class="d-flex justify-space-between align-center">
+            <h1 class="title">{{player.name}}</h1>
+            <v-chip class="pa-4 white--text" :style="getColor(player.division)">{{ player.team }}
+            </v-chip>
+            </v-card-text>
+            </v-card>
+            <player-stat :items="items"></player-stat>
+            <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games>
+            </v-col>
+            <v-col cols="12" md="6">
+            <player-enemies :headers="headersEnemies" :items="filteredItemsData"></player-enemies>
+            </v-col>
             </v-row>
         </v-layout>
     </v-container>

@@ -33,8 +33,8 @@
                             <td>
                                 <template v-if="Array.isArray(item.playedGames)">
                                     <div class="ma-1 gameBudge font-weight-bold"
-                                         :class="getGameResultBudge(game.result)" v-for="game in item.playedGames"
-                                         :key="game">
+                                         :class="getGameResultBudge(game.result)" v-for="(game, i) in item.playedGames"
+                                         :key="i">
                                         {{game.result}}
                                     </div>
                                 </template>

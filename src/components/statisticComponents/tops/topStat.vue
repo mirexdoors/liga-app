@@ -7,7 +7,7 @@
 </template>
 <script>
   import topTable from './topTable.vue';
-  import {getTopData, convertPlayersDataToFlat} from '@/mixins/mixins';
+  import {getTopData, convertPlayersDataToFlat} from '../../../mixins/mixins';
 
   export default {
     name: 'statistics',
