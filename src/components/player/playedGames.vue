@@ -7,7 +7,7 @@
                 :headers="headers"
                 :items="items"
                 :search="search"
-                :items-per-page="10"
+                :items-per-page="6"
                 dark
         >
             <template v-slot:item.player_1="{ item }">

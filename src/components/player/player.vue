@@ -2,28 +2,29 @@
     <v-container class="pa-0" fill-height fluid>
         <v-layout>
             <v-row cols="12" sm="12">
-            <v-col  cols="12" md="6">
-                <v-card>
-                    <v-card-text class="d-flex justify-space-between align-center">
-                        <h1 class="title">{{player.name}}</h1>
-                        <v-chip class="pa-4 white--text" :style="getColor(player.division)">{{ player.team }}</v-chip>
-                    </v-card-text>
-                </v-card>
-                <v-list disabled>
-                    <v-list-item-group v-model="item" color="primary">
-                        <v-list-item v-for="(item, i) in items" :key="i">
-                            <v-list-item-content>
-                                <v-list-item-title v-text="item.text">{{item.value}}</v-list-item-title>
-                            </v-list-item-content>
-                            {{item.value}}
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-list>
-                <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games>
-            </v-col>
-            <v-col  cols="12" md="6">
-<player-enemies :headers="headersEnemies" :items="filteredItemsData"></player-enemies>
-            </v-col>
+                <v-col cols="12" md="6">
+                    <v-card>
+                        <v-card-text class="d-flex justify-space-between align-center">
+                            <h1 class="title">{{player.name}}</h1>
+                            <v-chip class="pa-4 white--text" :style="getColor(player.division)">{{ player.team }}
+                            </v-chip>
+                        </v-card-text>
+                    </v-card>
+                    <v-list disabled>
+                        <v-list-item-group v-model="item" color="primary">
+                            <v-list-item v-for="(item, i) in items" :key="i">
+                                <v-list-item-content>
+                                    <v-list-item-title v-text="item.text">{{item.value}}</v-list-item-title>
+                                </v-list-item-content>
+                                {{item.value}}
+                            </v-list-item>
+                        </v-list-item-group>
+                    </v-list>
+                    <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games>
+                </v-col>
+                <v-col cols="12" md="6">
+                    <player-enemies :headers="headersEnemies" :items="filteredItemsData"></player-enemies>
+                </v-col>
             </v-row>
         </v-layout>
     </v-container>
@@ -49,7 +50,7 @@
             text: "Матчи",
             align: "left",
             sortable: false,
-            value: "games",
+            value: "playedGames",
           },
         ],
         headersGames: [
@@ -118,15 +119,56 @@
         if (this.games && this.teams) {
           const result = [];
           const currentPlayer = this.player;
+          const tmpEnemies = new Set();
           tmpDataObject = Object.assign({}, this.teams);
           delete tmpDataObject[currentPlayer.team];
 
           this.games.forEach((item) => {
-            if (currentPlayer.name == item.player_1) {
-              result.push({name: item.player_2, games: [{result: 'W'}]})
+            //проверяем, есть ли уже записанный матч
+
+            const gameResultObj = {name: String, games: []};
+            if (currentPlayer.name === item.player_1) {
+              if (!tmpEnemies.has(item.player_2)) { //если нет матча с этим игроком в массиве матчей
+                tmpEnemies.add(item.player_2);
+                gameResultObj.name = item.player_2;
+                if (item.score_1 > item.score_2) {
+                  gameResultObj.games.push({result: 'W'});
+                } else {
+                  gameResultObj.games.push({result: 'L'});
+                }
+              } else { //если есть матч с этим игроком в массиве матчей, ищем его
+                result.forEach((enemy) => {
+                  if (enemy.name === item.player_2) {
+                    if (item.score_1 > item.score_2) {
+                      enemy.games.push({result: 'W'});
+                    } else {
+                      enemy.games.push({result: 'L'});
+                    }
+                  }
+                });
+              }
             } else {
-              result.push({name: item.player_1, games: [{result: 'W'}]})
+              if (!tmpEnemies.has(item.player_1)) {
+                tmpEnemies.add(item.player_1);
+                gameResultObj.name = item.player_1;
+                if (item.score_1 > item.score_2) {
+                  gameResultObj.games.push({result: 'L'});
+                } else {
+                  gameResultObj.games.push({result: 'W'});
+                }
+              } else {
+                result.forEach((enemy) => {
+                  if (enemy.name === item.player_1) {
+                    if (item.score_1 > item.score_2) {
+                      enemy.games.push({result: 'L'});
+                    } else {
+                      enemy.games.push({result: 'W'});
+                    }
+                  }
+                });
+              }
             }
+            result.push(gameResultObj);
           });
 
           for (let team in tmpDataObject) {
@@ -135,11 +177,10 @@
               enemy = result.filter((enemy) => {
                 return enemy.name == player.name;
               });
-
               if (enemy.length > 0) {
-                player.games = enemy.games;
+                player.playedGames = enemy[0].games;
               } else {
-                player.games = 0
+                player.playedGames = "🕛";
               }
 
             });
