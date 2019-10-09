@@ -1,7 +1,7 @@
 module.exports = {
   moduleFileExtensions: ["js", "json", "vue"],
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/',
+    '/node_modules/',
   ],
   transform: {
     "^.+\\.vue$": "<rootDir>/node_modules/vue-jest",
