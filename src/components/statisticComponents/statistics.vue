@@ -40,11 +40,11 @@
     </v-container>
 </template>
 <script>
-  import lineChart from './statisticComponents/charts/lineChart.vue';
-  import barChart from './statisticComponents/charts/barChart.vue';
-  import preloader from './preloader';
-  import mainStat from './statisticComponents/mainStat/mainStat';
-  import topStat from './statisticComponents/tops/topStat.vue';
+  import lineChart from './charts/lineChart.vue';
+  import barChart from './charts/barChart.vue';
+  import preloader from '../preloader';
+  import mainStat from './mainStat/mainStat';
+  import topStat from './tops/topStat.vue';
 
   export default {
     name: 'statistics',

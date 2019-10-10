@@ -25,7 +25,9 @@
         canvasContainer.getContext("2d").canvas.width = canvasWidth;
         canvasContainer.getContext("2d").canvas.height = canvasHeight;
       }
-      this.renderChart(this.chartData, this.options)
+      if (this.chartData) {
+        this.renderChart(this.chartData, this.options);
+      }
     }
   }
 </script>
