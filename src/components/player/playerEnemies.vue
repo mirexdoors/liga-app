@@ -5,6 +5,7 @@
         </v-card-title>
         <v-row>
             <v-col v-for="team in items" :key="team.title" md="6">
+
                 <v-data-table
                         :headers="headers"
                         :items="team.players"
@@ -77,6 +78,7 @@
         }
       }
     },
+
   }
 </script>
 <style scoped>
@@ -86,6 +88,7 @@
         border-radius: 50%;
         text-align: center;
     }
+
    .player__block-enemies .v-data-table td {
         height: 2.6em;
     }
