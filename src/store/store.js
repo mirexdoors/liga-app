@@ -7,7 +7,9 @@ export const store = new Vuex.Store({
   state: {
     players: null,
     detailPlayer: null,
-    detailGames: null
+    detailGames: null,
+    isAdmin: false,
+    games: [],
   },
   getters: {
     detailGames(state) {
@@ -19,6 +21,12 @@ export const store = new Vuex.Store({
     detailPlayer(state) {
       return state.detailPlayer;
     },
+    getAdmin(state) {
+      return state.isAdmin;
+    },
+    getGames(state) {
+      return state.games;
+    }
   },
   mutations: {
     setPlayers(state, players) {
@@ -27,14 +35,20 @@ export const store = new Vuex.Store({
     setDetailPlayer(state, player) {
       state.detailPlayer = player;
     },
-    setDetailGame (state, games) {
+    setDetailGame(state, games) {
       state.detailGames = games;
+    },
+    setAdmin(state, isAdmin) {
+      state.isAdmin = isAdmin;
+    },
+    setGames(state, games){
+      state.games = games;
     }
   },
   actions: {
-    fetchDetailGames({commit}, playerId) {
-        const apiMatchesUrl = "http://mirexda2.beget.tech/get/games/?id=" + playerId;
-        fetch(apiMatchesUrl)
+    fetchDetailGames({ commit }, playerId) {
+      const apiMatchesUrl = "http://mirexda2.beget.tech/get/games/?id=" + playerId;
+      fetch(apiMatchesUrl)
         .then(response => {
           return response.json();
         })
@@ -42,7 +56,7 @@ export const store = new Vuex.Store({
           commit('setDetailGame', matchesJSON.games);
         });
     },
-    setDetailPlayer({commit}, player) {
+    setDetailPlayer({ commit }, player) {
       commit('setDetailPlayer', player);
     },
     fetchPlayers({ commit }, url) {
@@ -64,8 +78,8 @@ export const store = new Vuex.Store({
     addMatchResult({ dispatch }, payload) {
       return new Promise((resolve, reject) => {
         const formData = new FormData();
-        for (const propName in payload.data ) {
-          formData.append(propName,payload.data[propName]);
+        for (const propName in payload.data) {
+          formData.append(propName, payload.data[propName]);
         }
         fetch(payload.url, {
           method: "post",
@@ -83,6 +97,16 @@ export const store = new Vuex.Store({
           })
           .catch((error) => reject(error));
       });
+    },
+    fetchGames({ dispatch, commit }) {
+      const apiMatchesUrl = "http://mirexda2.beget.tech/get/games/all/";
+      fetch(apiMatchesUrl)
+        .then(response => {
+          return response.json();
+        })
+        .then(matchesJSON => {
+          commit("setGames", matchesJSON.games);
+        });
     }
   }
 });

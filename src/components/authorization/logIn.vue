@@ -57,7 +57,7 @@ export default {
             this.login = "";
             this.password = "";
             sessionStorage.setItem("isAuth", responseJSON.isAuth);
-            this.$emit("signIn");
+            this.$store.commit("setAdmin", true);
           } else {
             this.$emit("errorAuth", "Неправильный логин или пароль");
           }
