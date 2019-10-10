@@ -24,8 +24,8 @@
                         </thead>
                     </template>
                     <template v-slot:item="{item}">
-                        <tr>
-                            <td>
+                        <tr :class="hasPlayAllGames(item.playedGames)" >
+                            <td class="enemy__name">
                                 <router-link class="player__link d-inline-flex align-center"
                                              :to="translit(item.name)">{{item.name}}
                                 </router-link>
@@ -71,6 +71,11 @@
             return 'red darken-4';
         }
       },
+      hasPlayAllGames(games) {
+        if (Array.isArray(games) && games.length === 3) {
+          return 'enemy-lineThroughed grey darken-1 grey--text--darken-2'
+        }
+      }
     },
   }
 </script>
@@ -80,5 +85,15 @@
         width: 1.4em;
         border-radius: 50%;
         text-align: center;
+    }
+   .player__block-enemies .v-data-table td {
+        height: 2.6em;
+    }
+    .enemy-lineThroughed .player__link{
+        color: #ccc;
+        text-decoration: line-through;
+    }
+    .enemy__name {
+        width: 60%;
     }
 </style>
