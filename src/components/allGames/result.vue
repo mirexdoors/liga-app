@@ -15,7 +15,7 @@ export default {
     };
   },
   methods: {
-    changeScore(e) {
+    changeScore() {
       if (this.item.score !== this.score){
         // 
       }
@@ -28,6 +28,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

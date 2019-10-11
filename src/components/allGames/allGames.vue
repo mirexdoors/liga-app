@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import result from "./allGames/result";
+import result from "./result";
 
 export default {
   name: "allGames",
