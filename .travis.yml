@@ -1,15 +1,10 @@
-sudo: false
-
 language: node_js
 node_js:
   - 9
 
 branches:
   only:
-    - master
+    - travis
 
-before_install:
-  - chmod +x deploy.sh
-
-after_success:
-  - ./deploy.sh
+ after_success:
+    - find . -type d \( -path "./.*" -o -path "./node_modules" \) -prune -o -name "*" -print -exec curl --ftp-create-dirs -T {} ftp://your.server.com/dir/ --user ${SFTP_USER}:${SFTP_PASSWORD} \;
