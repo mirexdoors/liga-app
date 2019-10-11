@@ -38,7 +38,8 @@
     },
     computed: {
       getAdmin(){
-        return this.$store.getters.getAdmin;
+        if (this.$store)
+            return this.$store.getters.getAdmin;
       }
     },
     components: {
