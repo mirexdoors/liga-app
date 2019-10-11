@@ -4,7 +4,8 @@
             <h2 class="subtitle-1">Сыгранные матчи</h2>
         </v-card-title>
         <v-row>
-            <v-col v-for="team in items" md="6">
+            <v-col v-for="team in items" :key="team.title" md="6">
+
                 <v-data-table
                         :headers="headers"
                         :items="team.players"
@@ -24,20 +25,25 @@
                         </thead>
                     </template>
                     <template v-slot:item="{item}">
-                        <tr>
-                            <td>
+                        <tr :class="hasPlayAllGames(item.playedGames)" >
+                            <td class="enemy__name">
                                 <router-link class="player__link d-inline-flex align-center"
                                              :to="translit(item.name)">{{item.name}}
                                 </router-link>
                             </td>
                             <td>
-                                <div class="ma-1 gameBudge font-weight-bold" :class="getGameResultBudge(game.result)"
-                                    v-if="Array.isArray(item.playedGames)" v-for="game in item.playedGames" :key="game">
-                                    {{game.result}}
-                                </div>
-                                <div class="ma-1 gameBudge font-weight-bold" v-if="!Array.isArray(item.playedGames)">
-                                    {{item.playedGames}}
-                                </div>
+                                <template v-if="Array.isArray(item.playedGames)">
+                                    <div class="ma-1 gameBudge font-weight-bold"
+                                         :class="getGameResultBudge(game.result)" v-for="(game, i) in item.playedGames"
+                                         :key="i">
+                                        {{game.result}}
+                                    </div>
+                                </template>
+                                <template v-if="!Array.isArray(item.playedGames)">
+                                    <div class="ma-1 gameBudge font-weight-bold">
+                                        {{item.playedGames}}
+                                    </div>
+                                </template>
                             </td>
                         </tr>
                     </template>
@@ -62,13 +68,17 @@
         switch (result) {
           case 'W':
             return 'green darken-4';
-            break;
           case 'L':
             return 'red darken-4';
-            break;
+        }
+      },
+      hasPlayAllGames(games) {
+        if (Array.isArray(games) && games.length === 3) {
+          return 'enemy-lineThroughed grey darken-1 grey--text--darken-2'
         }
       }
-    }
+    },
+
   }
 </script>
 <style scoped>
@@ -77,5 +87,16 @@
         width: 1.4em;
         border-radius: 50%;
         text-align: center;
+    }
+
+   .player__block-enemies .v-data-table td {
+        height: 2.6em;
+    }
+    .enemy-lineThroughed .player__link{
+        color: #ccc;
+        text-decoration: line-through;
+    }
+    .enemy__name {
+        width: 60%;
     }
 </style>

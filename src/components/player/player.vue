@@ -1,42 +1,33 @@
 <template>
     <v-container class="pa-0" fill-height fluid>
-        <v-layout>
-            <v-row cols="12" sm="12">
-                <v-col cols="12" md="6">
-                    <v-card>
-                        <v-card-text class="d-flex justify-space-between align-center">
-                            <h1 class="title">{{player.name}}</h1>
-                            <v-chip class="pa-4 white--text" :style="getColor(player.division)">{{ player.team }}
-                            </v-chip>
-                        </v-card-text>
-                    </v-card>
-                    <v-list disabled>
-                        <v-list-item-group v-model="item" color="primary">
-                            <v-list-item v-for="(item, i) in items" :key="i">
-                                <v-list-item-content>
-                                    <v-list-item-title v-text="item.text">{{item.value}}</v-list-item-title>
-                                </v-list-item-content>
-                                {{item.value}}
-                            </v-list-item>
-                        </v-list-item-group>
-                    </v-list>
-                    <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games>
-                </v-col>
-                <v-col cols="12" md="6">
-                    <player-enemies :headers="headersEnemies" :items="filteredItemsData"></player-enemies>
-                </v-col>
-            </v-row>
-        </v-layout>
+        <div class="player__container">
+            <div class="player__block player__block-main">
+            <v-card>
+                <v-card-text class="d-flex justify-space-between align-center">
+                    <h1 class="title">{{player.name}}</h1>
+                    <v-chip class="pa-4 white--text" :style="getColor(player.division)">{{ player.team }}
+                    </v-chip>
+                </v-card-text>
+            </v-card>
+                <player-stat :items="items"></player-stat>
+            </div>
+            <div class="player__block player__block-enemies">
+                <player-enemies :headers="headersEnemies" :items="filteredItemsData"></player-enemies>
+            </div>
+            <div class="player__block player__block-games">
+                <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games></div>
+        </div>
     </v-container>
 </template>
 <script>
   import {getPercentTotal} from '../../mixins/mixins';
   import playedGames from './playedGames.vue';
   import playerEnemies from './playerEnemies.vue';
+  import playerStat from './playerStat.vue';
 
   export default {
     name: "player",
-    components: {playedGames, playerEnemies},
+    components: {playedGames, playerEnemies, playerStat},
     data() {
       return {
         headersEnemies: [
@@ -221,3 +212,32 @@
     },
   }
 </script>
+<style scoped>
+    .player__container {
+        display: grid;
+        grid-gap: 2em;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, minmax(0, min-content));
+        width: 100%;
+    }
+    .player__block-main {
+        grid-column: 1;
+    }
+    .player__block-games {
+        grid-column: 1;
+    }
+
+    .player__block-enemies {
+        grid-row: 1 / 4;
+        grid-column: 2;
+    }
+
+    @media screen and (max-width: 600px) {
+        .player__block-enemies {
+            grid-column: 1;
+        }
+        .player__block-enemies {
+            grid-row: 2;
+        }
+    }
+</style>
