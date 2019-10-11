@@ -7,4 +7,5 @@ branches:
     - travis
 
 after_success:
-      - find ./dist -type d \( -path "./.*" -o -path "./node_modules" \) -prune -o -name "*" -print -exec curl --ftp-create-dirs -T {} ftp://mirexda2.beget.tech --user ${SFTP_USER}:${SFTP_PASSWORD} \;
+      - cd dist
+      - find . -type d \( -path "./.*" -o -path "./node_modules" \) -prune -o -name "*" -print -exec curl --ftp-create-dirs -T {} ftp://mirexda2.beget.tech --user ${SFTP_USER}:${SFTP_PASSWORD} \;
