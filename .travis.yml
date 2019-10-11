@@ -7,4 +7,4 @@ branches:
     - travis
 
 after_success:
-      - find dist -type f -exec curl --ftp-create-dirs -T {} ftp://mirexda2.beget.tech --user ${SFTP_USER}:${SFTP_PASSWORD} \;
+    - find . -type d \( -path "./dist"  \) -exec curl --ftp-create-dirs -T {} ftp://mirexda2.beget.tech --user ${SFTP_USER}:${SFTP_PASSWORD} \;
