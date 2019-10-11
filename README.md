@@ -27,6 +27,3 @@ http://mirexda2.beget.tech/post/match/
 | player_2      | number   | second player's id     |     |
 | score_1      | number   | first player's score    |     |
 | score_2      | number   | second player's score   |     |
-
-$PASSWORD = 'dsfsf22#'
-$LOGIN = 'admin'
