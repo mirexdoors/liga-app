@@ -9,4 +9,4 @@ branches:
 after_success:
       - npm run build
       - cd dist;
-      - find . -type d \( -path "./.*" -o -path "./node_modules" \) -prune -o -name "*" -print -exec curl --ftp-create-dirs -T {} ftp://mirexda2.beget.tech --user ${SFTP_USER}:${SFTP_PASSWORD} \;
+      - find . -type d \( -path "./.*" -o -path "./node_modules" \) -prune -o -name "*" -print -exec curl -v --ftp-create-dirs -T {} ftp://mirexda2.beget.tech --user ${SFTP_USER}:${SFTP_PASSWORD} \;
