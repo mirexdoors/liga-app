@@ -2,12 +2,10 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import {shallowMount} from '@vue/test-utils';
 
-Vue.use(Vuetify);
+import component from '../../../components/statisticComponents/charts/barChart.vue';
 
-import component from '../components/allGames/allGames.vue';
-global.fetch = require('jest-fetch-mock');
 describe ('test component', () => {
   it ('works', ()=> {
-     shallowMount(component);
+    shallowMount(component);
   });
 });

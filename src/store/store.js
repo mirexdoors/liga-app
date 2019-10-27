@@ -98,7 +98,7 @@ export const store = new Vuex.Store({
           .catch((error) => reject(error));
       });
     },
-    fetchGames({ dispatch, commit }) {
+    fetchGames({ commit }) {
       const apiMatchesUrl = "http://mirexda2.beget.tech/get/games/all/";
       fetch(apiMatchesUrl)
         .then(response => {
@@ -107,6 +107,21 @@ export const store = new Vuex.Store({
         .then(matchesJSON => {
           commit("setGames", matchesJSON.games);
         });
-    }
+    },
+    deleteGame(context, payload) {
+      return new Promise((resolve, reject) => {
+      const apiDeleteMatchesUrl = "http://mirexda2.beget.tech/post/delete/";
+      fetch(apiDeleteMatchesUrl, payload)
+        .then(response => {
+          return response.json();
+        })
+        .then((response) => {
+          if (response.status) return resolve()
+          return reject("Не удалось удалить игру")
+          } 
+        )
+        .catch(error => reject(error));
+      });
+    },
   }
 });

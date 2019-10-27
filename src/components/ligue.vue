@@ -129,6 +129,8 @@
       teams() {
         if (this.$store) {
           return this.$store.getters.players;
+        } else {
+          return false;
         }
       }
     },
