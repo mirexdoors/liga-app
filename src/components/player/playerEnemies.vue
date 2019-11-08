@@ -25,7 +25,7 @@
                         </thead>
                     </template>
                     <template v-slot:item="{item}">
-                        <tr :class="hasPlayAllGames(item.playedGames)" >
+                        <tr v-if="item.status !== 'false'" :class="hasPlayAllGames(item.playedGames)">
                             <td class="enemy__name">
                                 <router-link class="player__link d-inline-flex align-center"
                                              :to="translit(item.name)">{{item.name}}

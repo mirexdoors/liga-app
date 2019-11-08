@@ -24,10 +24,14 @@ export const translit = (name) => {
   return  n_name.join('');
 };
 
-export const getColor = (division) => {
-  if (division == 1) return "backgroundColor: #883838";
-  else if (division == 2) return "backgroundColor: #b79a2f";
-  else return "backgroundColor: rgb(121, 175, 115)";
+export const getColor = (player) => {
+  if (player.status !== 'false') {
+    if (player.division == 1) return "backgroundColor: #883838";
+    else if (player.division == 2) return "backgroundColor: #b79a2f";
+    else return "backgroundColor: rgb(121, 175, 115)";
+  } else {
+    return "opacity: 0.5; text-decoration: line-through";
+  }
 };
 
 export const getPercentTotal = (player, teams) => {

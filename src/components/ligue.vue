@@ -43,7 +43,7 @@
                                 </tr>
                             </template>
                             <template v-slot:item="{item}">
-                                <tr :style=" getColor(item.division)">
+                                <tr :style="getColor(item)">
                                     <td :class="getClassForCol('name')">
                                         <router-link class="player__link" :to="translit(item.name)">{{item.name}}
                                         </router-link>

@@ -65,7 +65,7 @@
 </template>
 
 <script>
-  import authorization from "./components/authorization";
+  import authorization from "./components/authorization/authorization";
   import addMatch from "./components/addMatch";
   import preloader from "./components/preloader.vue";
 
