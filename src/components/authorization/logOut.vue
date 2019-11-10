@@ -30,7 +30,7 @@ export default {
     getLogOut() {
       this.controlsDialog();
       sessionStorage.removeItem("isAuth");
-      this.$emit("logOut");
+      this.$store.commit("setAdmin", false);
     }
   }
 };

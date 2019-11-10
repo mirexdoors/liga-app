@@ -1,20 +1,18 @@
 <template>
     <v-dialog v-model="isAuthDialog" width="500">
         <template v-slot:activator="{ on }">
-            <v-icon v-on="on" v-if="!isLoggedIn">person</v-icon>
-            <v-icon v-on="on" v-else-if="isLoggedIn">person_outline</v-icon>
+            <v-icon v-on="on" v-if="!getAdmin">person</v-icon>
+            <v-icon v-on="on" v-else-if="getAdmin">person_outline</v-icon>
         </template>
 
         <logIn
-                v-if="!isLoggedIn"
+                v-if="!getAdmin"
                 v-on:controlsDialog="hidesDialog"
-                v-on:signIn="signIn"
                 v-on:errorAuth="displaysError"
         />
         <logOut
                 v-else
                 v-on:controlsDialog="hidesDialog"
-                v-on:logOut="logOut"
         />
     </v-dialog>
 </template>
@@ -25,7 +23,6 @@
   import logOut from "./logOut";
 
   export default {
-    props: ["isLoggedIn"],
     data: () => ({
       isAuthDialog: false,
       icon: 'mdi-tennis',
@@ -35,15 +32,13 @@
       hidesDialog() {
         this.isAuthDialog = false;
       },
-
-      signIn() {
-        this.$emit("signIn");
-      },
       displaysError(e) {
         this.$emit("errorAuth", e);
       },
-      logOut() {
-        this.$emit("logOut");
+    },
+    computed: {
+      getAdmin(){
+        return this.$store.getters.getAdmin;
       }
     },
     components: {

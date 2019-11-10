@@ -12,9 +12,6 @@
                         <v-list-item-action>
                             <authorization
                                     v-on:errorAuth="getError"
-                                    v-on:signIn="signIn"
-                                    v-on:logOut="logOut"
-                                    :isLoggedIn="isLoggedIn"
                             />
                         </v-list-item-action>
                     </v-list-item>
@@ -28,7 +25,7 @@
                             <v-icon>insert_chart_outlined</v-icon>
                         </router-link>
                     </v-list-item>
-                    <v-list-item v-if="isLoggedIn">
+                    <v-list-item v-if="getAdmin">
                         <addMatch v-on:errorAuth="getError"/>
                     </v-list-item>
                 </v-list>
@@ -86,7 +83,10 @@
       }
     },
     mounted() {
-      if (sessionStorage.getItem("isAuth")) this.isLoggedIn = true;
+      if (sessionStorage.getItem("isAuth")){
+        this.isLoggedIn = true;
+        this.$store.commit("setAdmin",true);
+      } 
       const apiPlayerUrl = "http://mirexda2.beget.tech/get/players/";
 
       if (this.$store) {
@@ -95,13 +95,15 @@
 
     },
     computed: {
-
       getLoadingState () {
         if (this.$store && this.$store.state.players) {
           return true;
         } else {
           return false;
         }
+      },
+      getAdmin(){
+        return this.$store.getters.getAdmin;
       }
     },
     methods: {
@@ -109,12 +111,6 @@
         this.textError = e;
         this.isError = true;
       },
-      signIn() {
-        this.isLoggedIn = true;
-      },
-      logOut() {
-        this.isLoggedIn = false;
-      }
     },
     components: {
       authorization,
