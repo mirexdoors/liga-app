@@ -8,7 +8,7 @@
                 </v-card-title>
                 <main-stat></main-stat>
             </v-card>
-            <v-card class="pa-2">
+            <v-card class="pa-2" v-if="getAdmin">
                 <v-card-title>
                     <h2 class="subtitle-1">Динамика набранных очков</h2>
                 </v-card-title>
@@ -135,6 +135,11 @@
       this.line.chartData = matchList.games;
       this.bar.chartData = matchList.bar;
       this.loaded = true;
-    }
+    },
+      computed: {
+          getAdmin(){
+              return this.$store.getters.getAdmin;
+          }
+      },
   }
 </script>

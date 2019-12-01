@@ -82,7 +82,7 @@
       if (sessionStorage.getItem("isAuth")){
         this.isLoggedIn = true;
         this.$store.commit("setAdmin",true);
-      } 
+      }
       const apiPlayerUrl = "http://mirexda2.beget.tech/get/players/";
 
       if (this.$store) {
@@ -92,11 +92,7 @@
     },
     computed: {
       getLoadingState () {
-        if (this.$store && this.$store.state.players) {
-          return true;
-        } else {
-          return false;
-        }
+        return !!(this.$store && this.$store.state.players);
       },
       getAdmin(){
         return this.$store.getters.getAdmin;

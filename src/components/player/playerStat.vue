@@ -16,9 +16,11 @@
     props: {
       items: Object
     },
-    data: () => ({})
+    data: () => ({}),
+      computed: {
+          getAdmin() {
+              return this.$store.getters.getAdmin;
+          }
+      }
   }
 </script>
-<style scoped>
-
-</style>
