@@ -24,7 +24,7 @@
     </v-container>
 </template>
 <script>
-  import {getPercentTotal} from '../../mixins/mixins';
+ // import {getPercentTotal} from '../../mixins/mixins';
   import playedGames from './playedGames.vue';
   import playerEnemies from './playerEnemies.vue';
   import playerStat from './playerStat.vue';
