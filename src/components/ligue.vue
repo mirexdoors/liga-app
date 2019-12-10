@@ -113,9 +113,9 @@
                                 <td>Итого с учётом штрафа:</td>
                                 <td></td>
                                 <td></td>
-                                <td class="font-weight-bold deep-orange--text">{{team
+                                <td class="font-weight-bold deep-orange--text">{{(team
                                     .total.toFixed(1) - team
-                                    .total_penalty}}</td>
+                                    .total_penalty).toFixed(1)}}</td>
                             </tr>
                         </template>
                     </v-data-table>
