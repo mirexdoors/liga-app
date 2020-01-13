@@ -91,6 +91,7 @@
       }
       const apiPlayerUrl = API_URL + "/get/players/";
 
+
       if (this.$store) {
         this.$store.dispatch("fetchPlayers", apiPlayerUrl);
       }

@@ -126,6 +126,8 @@
     async mounted() {
       this.loaded = false;
       const matchList = await fetch('http://league.sibsquash.ru/get/stat/matches/')
+
+
       .then(response => {
         return response.json();
       })
