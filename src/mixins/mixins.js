@@ -1,3 +1,4 @@
+export const API_URL = 'http://league.sibsquash.ru';
 export const translit = (name) => {
 
   const ru = {
@@ -71,8 +72,8 @@ export const convertPlayersDataToFlat = (teams) => {
 };
 
 export const getGamesInfo = (data, allGames, uniqGames) => {
-  const ALL_POSSIBLE_MATCHES = 4356;
-  const ALL_POSSIBLE_MATCHES_UNIQ = 1452;
+  const ALL_POSSIBLE_MATCHES = 4092;
+  const ALL_POSSIBLE_MATCHES_UNIQ = 1364;
   let totalMatches = 0;
   let uniqMatches = 0;
   for (let team in data) {

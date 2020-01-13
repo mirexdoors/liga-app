@@ -125,7 +125,9 @@
     }),
     async mounted() {
       this.loaded = false;
-      const matchList = await fetch('http://league.sibsquash.ru//get/stat/matches/')
+      const matchList = await fetch('http://league.sibsquash.ru/get/stat/matches/')
+
+
       .then(response => {
         return response.json();
       })
@@ -135,6 +137,11 @@
       this.line.chartData = matchList.games;
       this.bar.chartData = matchList.bar;
       this.loaded = true;
-    }
+    },
+      computed: {
+          getAdmin(){
+              return this.$store.getters.getAdmin;
+          }
+      },
   }
 </script>

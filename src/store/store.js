@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import {API_URL} from "../mixins/mixins";
 
 Vue.use(Vuex);
 
@@ -47,7 +48,7 @@ export const store = new Vuex.Store({
     },
     actions: {
         fetchDetailGames({commit}, playerId) {
-            const apiMatchesUrl = "http://league.sibsquash.ru//get/games/?id=" + playerId;
+            const apiMatchesUrl = API_URL + "/get/games/?id=" + playerId;
             fetch(apiMatchesUrl)
                 .then(response => {
                     return response.json();
@@ -88,7 +89,7 @@ export const store = new Vuex.Store({
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.status) {
-                            const apiPlayerUrl = "http://league.sibsquash.ru//get/players/";
+                            const apiPlayerUrl = API_URL + "/get/players/";
                             dispatch("fetchPlayers", apiPlayerUrl);
                             resolve();
                         } else {
@@ -99,7 +100,8 @@ export const store = new Vuex.Store({
             });
         },
         fetchGames({commit}) {
-            const apiMatchesUrl = "http://league.sibsquash.ru//get/games/all/";
+            const apiMatchesUrl = API_URL + "/get/games/all/";
+
             fetch(apiMatchesUrl)
                 .then(response => {
                     return response.json();
@@ -110,7 +112,7 @@ export const store = new Vuex.Store({
         },
         deleteGame(context, payload) {
             return new Promise((resolve, reject) => {
-                const apiDeleteMatchesUrl = "http://league.sibsquash.ru/post/delete/";
+                const apiDeleteMatchesUrl = API_URL + "/post/delete/";
                 const formData = new FormData();
                 formData.append('action', 'delete')
                 formData.append('id', payload.id);

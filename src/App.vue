@@ -25,6 +25,10 @@
                             <v-icon>insert_chart_outlined</v-icon>
                         </router-link>
                     </v-list-item>
+                    <v-list-item>
+                        <archive />
+                            <!--<v-icon>archive</v-icon>-->
+                    </v-list-item>
                     <v-list-item v-if="getAdmin">
                         <addMatch v-on:errorAuth="getError"/>
                     </v-list-item>
@@ -61,6 +65,8 @@
   import authorization from "./components/authorization/authorization";
   import addMatch from "./components/addMatch";
   import preloader from "./components/preloader.vue";
+  import {API_URL} from "./mixins/mixins";
+  import archive from "./components/archive.vue";
 
   export default {
     props: {
@@ -79,11 +85,12 @@
       }
     },
     mounted() {
-      if (sessionStorage.getItem("isAuth")){
+      if (sessionStorage.getItem("isAuth")) {
         this.isLoggedIn = true;
-        this.$store.commit("setAdmin",true);
-      } 
-      const apiPlayerUrl = "http://league.sibsquash.ru/get/players/";
+        this.$store.commit("setAdmin", true);
+      }
+      const apiPlayerUrl = API_URL + "/get/players/";
+
 
       if (this.$store) {
         this.$store.dispatch("fetchPlayers", apiPlayerUrl);
@@ -91,14 +98,10 @@
 
     },
     computed: {
-      getLoadingState () {
-        if (this.$store && this.$store.state.players) {
-          return true;
-        } else {
-          return false;
-        }
+      getLoadingState() {
+        return !!(this.$store && this.$store.state.players);
       },
-      getAdmin(){
+      getAdmin() {
         return this.$store.getters.getAdmin;
       }
     },
@@ -109,6 +112,7 @@
       },
     },
     components: {
+      archive,
       authorization,
       addMatch,
       preloader,
