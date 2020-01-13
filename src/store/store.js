@@ -47,7 +47,7 @@ export const store = new Vuex.Store({
     },
     actions: {
         fetchDetailGames({commit}, playerId) {
-            const apiMatchesUrl = "http://mirexda2.beget.tech/get/games/?id=" + playerId;
+            const apiMatchesUrl = "http://league.sibsquash.ru//get/games/?id=" + playerId;
             fetch(apiMatchesUrl)
                 .then(response => {
                     return response.json();
@@ -88,7 +88,7 @@ export const store = new Vuex.Store({
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.status) {
-                            const apiPlayerUrl = "http://mirexda2.beget.tech/get/players/";
+                            const apiPlayerUrl = "http://league.sibsquash.ru//get/players/";
                             dispatch("fetchPlayers", apiPlayerUrl);
                             resolve();
                         } else {
@@ -99,7 +99,7 @@ export const store = new Vuex.Store({
             });
         },
         fetchGames({commit}) {
-            const apiMatchesUrl = "http://mirexda2.beget.tech/get/games/all/";
+            const apiMatchesUrl = "http://league.sibsquash.ru//get/games/all/";
             fetch(apiMatchesUrl)
                 .then(response => {
                     return response.json();

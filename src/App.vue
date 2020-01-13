@@ -83,7 +83,7 @@
         this.isLoggedIn = true;
         this.$store.commit("setAdmin",true);
       } 
-      const apiPlayerUrl = "http://mirexda2.beget.tech/get/players/";
+      const apiPlayerUrl = "http://league.sibsquash.ru/get/players/";
 
       if (this.$store) {
         this.$store.dispatch("fetchPlayers", apiPlayerUrl);

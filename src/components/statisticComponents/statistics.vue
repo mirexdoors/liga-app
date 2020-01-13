@@ -125,7 +125,7 @@
     }),
     async mounted() {
       this.loaded = false;
-      const matchList = await fetch('http://mirexda2.beget.tech/get/stat/matches/')
+      const matchList = await fetch('http://league.sibsquash.ru//get/stat/matches/')
       .then(response => {
         return response.json();
       })
