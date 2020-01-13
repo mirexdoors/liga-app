@@ -8,7 +8,7 @@
                 </v-card-title>
                 <main-stat></main-stat>
             </v-card>
-            <v-card class="pa-2" v-if="getAdmin">
+            <v-card class="pa-2">
                 <v-card-title>
                     <h2 class="subtitle-1">Динамика набранных очков</h2>
                 </v-card-title>
@@ -125,7 +125,7 @@
     }),
     async mounted() {
       this.loaded = false;
-      const matchList = await fetch('http://mirexda2.beget.tech/get/stat/matches/')
+      const matchList = await fetch('http://league.sibsquash.ru/get/stat/matches/')
       .then(response => {
         return response.json();
       })

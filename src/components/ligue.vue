@@ -27,7 +27,7 @@
                                         {{team.title}}
                                     </v-chip>
                                 </th>
-                                <th colspan="2" v-if="getAdmin">
+                                <th colspan="2">
                                     <v-chip color="orange" label outlined>
                                         {{team.total.toFixed(1)}}
                                         <v-icon right>star</v-icon>
@@ -71,19 +71,16 @@
                                 <td :class="getClassForCol('points')">
                                     <router-link class="player__link"
                                                  :to="translit(item.name)">
-                                            <span
-                                                    v-if="getAdmin">{{item.points ?
+                                            <span>{{item.points ?
                                                 item.points : 0}}</span>
-                                        <span v-else>&#10067;</span>
+
                                     </router-link>
                                 </td>
                                 <td :class="getClassForCol('penalty')">
                                     <router-link class="player__link"
                                                  :to="translit(item.name)">
-                                            <span
-                                                    v-if="getAdmin">{{item.penalty && item.points>0 ?
+                                            <span>{{item.penalty && item.points>0 ?
                                                 item.penalty : 0}}</span>
-                                        <span v-else>&#10067;</span>
                                     </router-link>
                                 </td>
                             </tr>
@@ -99,17 +96,16 @@
                                 <td :class="getClassForCol('games')">
                                     {{team.total_unique_games}}
                                 </td>
-                                <td :class="getClassForCol('points')"><span v-if="getAdmin"
+                                <td :class="getClassForCol('points')"><span
                                                                             class="orange--text font-weight-bold">{{team.total.toFixed(1)}}</span>
-                                    <span v-else>&#10067;</span>
                                 </td>
-                                <td :class="getClassForCol('penalty')"><span v-if="getAdmin"
+                                <td :class="getClassForCol('penalty')"><span
                                                                              class="red--text font-weight-bold">{{team
                                     .total_penalty}}</span>
-                                    <span v-else>&#10067;</span>
+
                                 </td>
                             </tr>
-                            <tr v-if="getAdmin">
+                            <tr>
                                 <td>Итого с учётом штрафа:</td>
                                 <td></td>
                                 <td></td>
