@@ -135,7 +135,7 @@ export default {
         return;
       }
       const request = {
-        url: "http://league.sibsquash.ru//post/match/",
+        url: "http://league.sibsquash.ru/autumn-2019/post/match/",
         data: {
           action: "add",
           player_1: this.player1,

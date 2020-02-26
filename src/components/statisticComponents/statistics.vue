@@ -125,7 +125,7 @@
     }),
     async mounted() {
       this.loaded = false;
-      const matchList = await fetch('http://league.sibsquash.ru/get/stat/matches/')
+      const matchList = await fetch('http://league.sibsquash.ru/autumn-2019/get/stat/matches/')
 
 
       .then(response => {

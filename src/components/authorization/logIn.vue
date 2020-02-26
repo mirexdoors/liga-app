@@ -39,7 +39,7 @@ export default {
   }),
   methods: {
     getLogin() {
-      const STAGE_API = "http://mirexda2.beget.tech";
+      const STAGE_API = "http://league.sibsquash.ru";
       const data = {
         login: encodeURIComponent(this.login),
         password: encodeURIComponent(this.password)

@@ -10,19 +10,19 @@ export default new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/autumn-2019/',
       component: ligue,
     },
     {
-      path: '/stat',
+      path: '/autumn-2019/stat',
       component: statistics,
     },
     {
-      path: '/all',
+      path: '/autumn-2019/all',
       component: allGames,
     },
     {
-      path: '/:playername',
+      path: '/autumn-2019/:playername',
       component: player
     },
   ]
