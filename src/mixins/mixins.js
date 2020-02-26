@@ -24,6 +24,30 @@ export const translit = (name) => {
   }
   return  n_name.join('');
 };
+export const getHeaderColor = value => {
+  switch (value) {
+    case "Вода":
+      return "backgroundColor: rgb(11, 92, 115)";
+    case "Воздух":
+      return "backgroundColor: rgb(158, 224, 243, .6)";
+    case "Земля":
+      return "backgroundColor: rgb(115, 118, 83)";
+    case "Огонь":
+      return "backgroundColor: rgb(255, 61, 16)";
+  }
+};
+export const getIconForTeam = value => {
+  switch (value) {
+    case "Вода":
+      return "💧";
+    case "Воздух":
+      return "🌪️";
+    case "Земля":
+      return "🗻";
+    case "Огонь":
+      return "🔥";
+  }
+};
 
 export const getColor = (player) => {
   if (player.status !== 'false') {
@@ -38,7 +62,10 @@ export const getColor = (player) => {
 export const getPercentTotal = (player, teams) => {
   const points = player.points;
   const totalTeamPoints = teams[player.team].total;
+  if (totalTeamPoints === 0)
+    return '-';
   return ((points / totalTeamPoints) * 100).toFixed(2) + "%";
+
 };
 
 export const getTopData = (items, sortParam) => {

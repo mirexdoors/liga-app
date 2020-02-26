@@ -24,7 +24,7 @@
     </v-container>
 </template>
 <script>
- // import {getPercentTotal} from '../../mixins/mixins';
+  import {getPercentTotal} from '../../mixins/mixins';
   import playedGames from './playedGames.vue';
   import playerEnemies from './playerEnemies.vue';
   import playerStat from './playerStat.vue';
@@ -94,13 +94,12 @@
           return [
             {text: "Дивизион", value: player.division},
             {text: "Игры", value: player.games},
-            {text: "Уникальные игры", value: player.unique_games},
-            // {text: "Очки", value: player.points},
-            //  {
-            //   text: "Очков за игру ср.",
-            //   value: !isNaN((player.points / player.games).toFixed(2)) ? (player.points / player.games).toFixed(2) : "0"
-            // },
-            // {text: "% от очков команды", value: getPercentTotal(player, this.teams), align: "left"}
+            {text: "Очки", value: player.points},
+            {
+              text: "Очков за игру ср.",
+              value: !isNaN((player.points / player.games).toFixed(2)) ? (player.points / player.games).toFixed(2) : "0"
+            },
+             {text: "% от очков команды", value: getPercentTotal(player, this.teams), align: "left"}
           ];
         } else {
           return false;

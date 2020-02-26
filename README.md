@@ -1,5 +1,7 @@
 # liga-app
-
+##TODO
+6) Значки капитанов
+7) Страница с призами
 ## Authorization
 ```
 http://mirexda2.beget.tech/get/login/

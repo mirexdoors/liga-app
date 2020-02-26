@@ -14,10 +14,9 @@
     components: {topTable},
     data: () => ({
       topTables: {
-        // utility: {title: 'Топ по полезности', data: {}, param: ''},
+        utility: {title: 'Топ по полезности', data: {}, param: ''},
         games: {title: 'Топ по матчам', data: {}, param: ''},
-        repeating: {title: 'Топ по повторным', data: {}, param: ''},
-        // efficiency: {title: 'Топ по эффективности (*больше 10 матчей)', data: {}, param: ''},
+        efficiency: {title: 'Топ по эффективности (*больше 10 матчей)', data: {}, param: ''},
       }
     }),
     mounted() {

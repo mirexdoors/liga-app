@@ -32,19 +32,20 @@
 
 
 <script>
-export default {
+  import {API_URL} from "../../mixins/mixins";
+
+  export default {
   data: () => ({
     login: "",
     password: ""
   }),
   methods: {
     getLogin() {
-      const STAGE_API = "http://mirexda2.beget.tech";
       const data = {
         login: encodeURIComponent(this.login),
         password: encodeURIComponent(this.password)
       };
-      const loginUrl = `${STAGE_API}/get/login/?login=${data.login}&password=${data.password}`;
+      const loginUrl = `${API_URL}/get/login/?login=${data.login}&password=${data.password}`;
       fetch(loginUrl, {
         method: "GET"
       })

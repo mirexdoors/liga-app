@@ -6,7 +6,7 @@
                 <v-card-title>
                     <h2 class="subtitle-1">Статистика лиги</h2>
                 </v-card-title>
-                <main-stat></main-stat>
+<!--                <main-stat></main-stat>-->
             </v-card>
             <v-card class="pa-2">
                 <v-card-title>

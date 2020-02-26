@@ -9,8 +9,8 @@
 
         <v-row no-gutters>
             <v-col v-for="team in teams" v-bind:key="team.title" cols="12"
-                   sm="4">
-                <v-card class="ma-1" outlined tile>
+                    sm="6">
+                <v-card class="ma-2" outlined tile>
                     <v-data-table
                             :headers="headers"
                             :items="team.players"
@@ -21,16 +21,16 @@
                     >
                         <template v-slot:header="{ props: { headers }  }">
                             <thead>
-                            <tr>
+                            <tr :style="getHeaderColor(team.title)">
                                 <th :colspan="headers.length-2">
-                                    <v-chip color="orange" label outlined>
+                                    <v-chip class="primary-background" color="orange" label>
                                         {{team.title}}
+                                        {{getIconForTeam(team.title)}}
                                     </v-chip>
                                 </th>
                                 <th colspan="2">
-                                    <v-chip color="orange" label outlined>
+                                    <v-chip class="primary-background" color="orange" label>
                                         {{team.total.toFixed(1)}}
-                                        <v-icon right>star</v-icon>
                                     </v-chip>
                                 </th>
                             </tr>
@@ -61,26 +61,12 @@
                                         ? item.games : 0 }}
                                     </router-link>
                                 </td>
-                                <td :class="getClassForCol('games')">
-                                    <router-link class="player__link"
-                                                 :to="translit(item.name)">
-                                        {{item.unique_games ?
-                                        item.unique_games : 0}}
-                                    </router-link>
-                                </td>
                                 <td :class="getClassForCol('points')">
                                     <router-link class="player__link"
                                                  :to="translit(item.name)">
                                             <span>{{item.points ?
                                                 item.points : 0}}</span>
 
-                                    </router-link>
-                                </td>
-                                <td :class="getClassForCol('penalty')">
-                                    <router-link class="player__link"
-                                                 :to="translit(item.name)">
-                                            <span>{{item.penalty && item.points>0 ?
-                                                item.penalty : 0}}</span>
                                     </router-link>
                                 </td>
                             </tr>
@@ -93,25 +79,9 @@
                                 <td :class="getClassForCol('games')">
                                     {{team.total_games}}
                                 </td>
-                                <td :class="getClassForCol('games')">
-                                    {{team.total_unique_games}}
-                                </td>
                                 <td :class="getClassForCol('points')"><span
                                                                             class="orange--text font-weight-bold">{{team.total.toFixed(1)}}</span>
                                 </td>
-                                <td :class="getClassForCol('penalty')"><span
-                                                                             class="red--text font-weight-bold">{{team
-                                    .total_penalty}}</span>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Итого с учётом штрафа:</td>
-                                <td></td>
-                                <td></td>
-                                <td class="font-weight-bold deep-orange--text">{{(team
-                                    .total.toFixed(1) - team
-                                    .total_penalty).toFixed(1)}}</td>
                             </tr>
                         </template>
                     </v-data-table>
@@ -143,9 +113,7 @@
                         value: "name",
                     },
                     {text: "Матчи", value: "games", class: "pa-1"},
-                    {text: "Уник.", value: "unique_games"},
                     {text: "Очки", value: "points"},
-                    {text: "Штраф", value: "penalty"}
                 ]
             };
         },
@@ -156,14 +124,11 @@
                         return "player__name";
                     case "games":
                         return "player__games pa-1";
-                    case "unique_games":
-                        return "player__games pa-1";
                     case "points":
-                        return "player__points pa-1";
-                    case "penalty":
-                        return "player__points pa-1";
+                        return "player__points";
                 }
-            }
+            },
+
         },
         computed: {
             teams() {
@@ -202,6 +167,7 @@
 
 <style scoped>
     .player__name, .player__link {
+        font-size: 1rem;
         text-align: left;
     }
 
@@ -224,10 +190,10 @@
     .player__games .player__link, .player__points .player__link {
         text-align: center;
     }
-
-    @media all and (max-width: 340px) {
-        .player__link {
-            font-size: 11px;
-        }
+    th {
+        background-color: inherit!important;
     }
+.v-chip.primary-background.v-chip.v-chip {
+    background-color: #424242!important;
+}
 </style>
