@@ -2,12 +2,12 @@
     <v-container class="pa-0" fill-height fluid>
         <v-layout column>
             <h1 class="title pa-2">Статистика</h1>
-            <v-card class="pa-2">
-                <v-card-title>
-                    <h2 class="subtitle-1">Статистика лиги</h2>
-                </v-card-title>
-<!--                <main-stat></main-stat>-->
-            </v-card>
+            <!--<v-card class="pa-2">-->
+                <!--<v-card-title>-->
+                    <!--<h2 class="subtitle-1">Статистика лиги</h2>-->
+                <!--</v-card-title>-->
+<!--&lt;!&ndash;                <main-stat></main-stat>&ndash;&gt;-->
+            <!--</v-card>-->
             <v-card class="pa-2">
                 <v-card-title>
                     <h2 class="subtitle-1">Динамика набранных очков</h2>

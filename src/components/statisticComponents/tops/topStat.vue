@@ -1,6 +1,6 @@
 <template>
     <v-row no-gutters class="pa-2">
-        <v-col cols="12" sm="6" v-for="table in topTables" :key="table.title">
+        <v-col cols="12" sm="4" v-for="table in topTables" :key="table.title">
             <top-table :title="table.title" :items="table.data" :param="table.param"></top-table>
         </v-col>
     </v-row>
