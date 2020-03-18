@@ -48,10 +48,11 @@
                         </template>
                         <template v-slot:item="{item}">
                             <tr :style="getColor(item)">
-                                <td :class="getClassForCol('name')">
+                                <td :class="getClassForCol('name', item.status)">
                                     <router-link class="player__link"
                                                  :to="translit(item.name)">
-                                        {{item.name}}
+                                        {{item.name}} <span v-if="item.status === 'C'" class="ml-3">&#129332;
+                                    </span>
                                     </router-link>
                                 </td>
                                 <td :class="getClassForCol('games')">
@@ -118,10 +119,12 @@
             };
         },
         methods: {
-            getClassForCol: value => {
+            getClassForCol: (value, status = false) => {
                 switch (value) {
                     case "name":
+                        if (!status)
                         return "player__name";
+                        else return "player__name font-weight-bold";
                     case "games":
                         return "player__games pa-1";
                     case "points":
