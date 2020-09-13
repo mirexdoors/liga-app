@@ -53,6 +53,8 @@
                                                  :to="translit(item.name)">
                                         {{item.name}} <span v-if="item.status === 'C'" class="ml-3">&#129332;
                                     </span>
+                                        <span v-if="item.status === 'pizza'" class="ml-3">&#127829;
+                                    </span>
                                     </router-link>
                                 </td>
                                 <td :class="getClassForCol('games')">
@@ -122,7 +124,7 @@
             getClassForCol: (value, status = false) => {
                 switch (value) {
                     case "name":
-                        if (!status)
+                        if (status !== 'C')
                         return "player__name";
                         else return "player__name font-weight-bold";
                     case "games":

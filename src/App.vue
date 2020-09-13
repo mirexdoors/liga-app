@@ -37,7 +37,7 @@
             <v-app-bar app clipped-left>
                 <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                 <v-toolbar-title>
-                    <router-link class="header__link" :to="'/'">Сквош Лига Весна-2020
+                    <router-link class="header__link" :to="'/'">Сквош Лига Осень-2020
                     </router-link>
                 </v-toolbar-title>
                 <div class="flex-grow-1"></div>

@@ -1,4 +1,4 @@
-<template>
+бывает<template>
   <div>
     <v-menu v-if="getAdmin" v-model="menu" :close-on-content-click="false" max-width="290">
       <template v-slot:activator="{ on }">
