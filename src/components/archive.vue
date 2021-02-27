@@ -11,6 +11,9 @@
                     <v-list-item>
                         <a target="_blank" href="http://league.sibsquash.ru/autumn-2019/">Осень 2019</a>
                     </v-list-item>
+                    <v-list-item>
+                        <a target="_blank" href="http://league.sibsquash.ru/spring-2020/">Весна 2020</a>
+                    </v-list-item>
                 </v-list>
             </v-card>
         </v-dialog>
