@@ -42,16 +42,15 @@
                 </v-list>
             </v-navigation-drawer>
             <v-app-bar app clipped-left>
-                <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
                 <v-toolbar-title>
                     <router-link class="header__link" :to="'/'">Сквош Лига Весна-2021
                     </router-link>
                 </v-toolbar-title>
-                <div class="flex-grow-1"></div>
+                <div class="flex-grow-1" />
             </v-app-bar>
 
-            <v-content
-                    v-if="getLoadingState">
+            <v-main v-if="getLoadingState">
                 <v-container fluid fill-height>
                     <v-layout align-center justify-center>
                         <keep-alive>
@@ -59,7 +58,7 @@
                         </keep-alive>
                     </v-layout>
                 </v-container>
-            </v-content>
+            </v-main>
         </v-app>
         <v-snackbar v-model="isError">
             <span style="color: red">{{ textError }}</span>

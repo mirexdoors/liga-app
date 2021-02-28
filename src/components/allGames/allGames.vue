@@ -70,16 +70,21 @@ export default {
   created() {
     this.$store.dispatch("fetchGames");
   },
+  watch: {
+    headers() {
+      if (!this.getAdmin) {
+        this.tableHeaders = this.headers.filter(header => {
+          return header.value !== "delete";
+        });
+      } else this.tableHeaders = this.headers;
+    }
+  },
   computed: {
     getAdmin() {
       return this.$store.getters.getAdmin;
     },
     getGames(){
-       if (!this.getAdmin) {
-          this.tableHeaders = this.headers.filter(header => {
-            return header.value !== "delete";
-          });
-        } else this.tableHeaders = this.headers;
+
       return this.$store.getters.getGames;
     }
 

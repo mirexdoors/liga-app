@@ -1,4 +1,4 @@
-export const API_URL = 'http://league.sibsquash.ru/spring-2020';
+export const API_URL = 'http://league.sibsquash.ru';
 export const translit = (name) => {
 
   const ru = {
