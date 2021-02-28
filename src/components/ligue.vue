@@ -66,13 +66,12 @@
 									<router-link
 										class="player__link"
 										:to="translit(item.name)">
-										{{item.name}} <span v-if="item.status === 'C'"
-															class="ml-3">&#129332;
-                                    </span>
+										{{item.name}}
 										<span
-											v-if="item.status === 'pizza'"
-											class="ml-3">&#127829;
-                                    </span>
+											v-if="item.status && statusEmodjies[item.status]"
+											v-html="statusEmodjies[item.status]"
+											class="ml-3 player__emodji"
+										/>
 									</router-link>
 								</td>
 								<td :class="getClassForCol('games')">
@@ -126,6 +125,12 @@
           weekday: "long",
           timezone: "UTC"
         }),
+        statusEmodjies: {
+          pizza: '&#127829;',
+          C: '&#129332;',
+          burger: '&#127828;',
+          kz: `<img crossorigin="anonymous" src="/assets/kz.png" alt="🇰🇿" draggable="false" data-plain-text="🇰🇿" style="max-width: 20px;">`
+        },
         search: "",
         slots: ["header", "body.append", "body.prepend"],
         headers: [
@@ -216,6 +221,11 @@
 		text-align: center;
 	}
 
+	.player__emodji {
+		display: flex;
+		align-items: center;
+	}
+
 	th {
 		background-color: inherit !important;
 	}
@@ -223,4 +233,6 @@
 	.v-chip.primary-background.v-chip.v-chip {
 		background-color: #424242 !important;
 	}
+
+
 </style>

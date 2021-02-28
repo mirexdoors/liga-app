@@ -26,14 +26,12 @@ export const translit = (name) => {
 };
 export const getHeaderColor = value => {
   switch (value) {
-    case "Вода":
+    case "Команда 1":
       return "backgroundColor: rgb(11, 92, 115)";
-    case "Воздух":
+    case "Команда 2":
       return "backgroundColor: rgb(158, 224, 243, .6)";
-    case "Земля":
+    case "Команда 3":
       return "backgroundColor: rgb(115, 118, 83)";
-    case "Огонь":
-      return "backgroundColor: rgb(255, 61, 16)";
   }
 };
 export const getIconForTeam = value => {
@@ -46,6 +44,7 @@ export const getIconForTeam = value => {
       return "🗻";
     case "Огонь":
       return "🔥";
+    default: return "";
   }
 };
 
