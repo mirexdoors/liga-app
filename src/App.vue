@@ -6,7 +6,12 @@
                     v-if="!getLoadingState"
             >
             </preloader>
-            <v-navigation-drawer v-model="drawer" mini-variant app clipped>
+            <v-navigation-drawer
+                v-model="drawer"
+                mini-variant
+                app
+                clipped
+            >
                 <v-list dense>
                     <v-list-item>
                         <v-list-item-action>
@@ -21,7 +26,9 @@
                         </router-link>
                     </v-list-item>
                     <v-list-item>
-                        <router-link class="header__link" :to="'/stat'">
+                        <router-link
+                            :to="'/stat'"
+                            class="header__link">
                             <v-icon>insert_chart_outlined</v-icon>
                         </router-link>
                     </v-list-item>
