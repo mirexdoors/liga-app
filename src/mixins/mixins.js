@@ -1,3 +1,4 @@
+export const API_URL = 'http://league.sibsquash.ru';
 export const translit = (name) => {
 
   const ru = {
@@ -23,17 +24,47 @@ export const translit = (name) => {
   }
   return  n_name.join('');
 };
+export const getHeaderColor = value => {
+  switch (value) {
+    case "Команда 1":
+      return "backgroundColor: rgb(11, 92, 115)";
+    case "Команда 2":
+      return "backgroundColor: rgb(158, 224, 243, .6)";
+    case "Команда 3":
+      return "backgroundColor: rgb(115, 118, 83)";
+  }
+};
+export const getIconForTeam = value => {
+  switch (value) {
+    case "Вода":
+      return "💧";
+    case "Воздух":
+      return "🌪️";
+    case "Земля":
+      return "🗻";
+    case "Огонь":
+      return "🔥";
+    default: return "";
+  }
+};
 
-export const getColor = (division) => {
-  if (division == 1) return "backgroundColor: #883838";
-  else if (division == 2) return "backgroundColor: #b79a2f";
-  else return "backgroundColor: rgb(121, 175, 115)";
+export const getColor = (player) => {
+  if (player.status !== 'false') {
+    if (player.division == 1) return "backgroundColor: #883838";
+    else if (player.division == 2) return "backgroundColor: #b79a2f";
+    else return "backgroundColor: rgb(121, 175, 115)";
+  } else {
+    return "opacity: 0.5; text-decoration: line-through";
+  }
 };
 
 export const getPercentTotal = (player, teams) => {
   const points = player.points;
   const totalTeamPoints = teams[player.team].total;
+  if (totalTeamPoints === 0)
+    return '-';
   return ((points / totalTeamPoints) * 100).toFixed(2) + "%";
+
 };
 
 export const getTopData = (items, sortParam) => {
@@ -67,8 +98,8 @@ export const convertPlayersDataToFlat = (teams) => {
 };
 
 export const getGamesInfo = (data, allGames, uniqGames) => {
-  const ALL_POSSIBLE_MATCHES = 4356;
-  const ALL_POSSIBLE_MATCHES_UNIQ = 1452;
+  const ALL_POSSIBLE_MATCHES = 4092;
+  const ALL_POSSIBLE_MATCHES_UNIQ = 1364;
   let totalMatches = 0;
   let uniqMatches = 0;
   for (let team in data) {

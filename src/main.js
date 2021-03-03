@@ -6,7 +6,7 @@ import {store} from "./store/store";
 import router from './routes/routes';
 import 'vuetify/dist/vuetify.min.css';
 import 'material-design-icons-iconfont';
-import {translit, getColor} from "./mixins/mixins";
+import {translit, getColor, getHeaderColor, getIconForTeam} from "./mixins/mixins";
 
 Vue.config.productionTip = false;
 
@@ -17,6 +17,8 @@ Vue.mixin({
   methods: {
     translit,
     getColor,
+    getHeaderColor,
+    getIconForTeam
   }
 });
 

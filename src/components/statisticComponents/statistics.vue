@@ -1,54 +1,63 @@
 <template>
-    <v-container class="pa-0" fill-height fluid>
-        <v-layout column>
-            <h1 class="title pa-2">Статистика</h1>
-            <v-card class="pa-2">
-                <v-card-title>
-                    <h2 class="subtitle-1">Статистика лиги</h2>
-                </v-card-title>
-                <main-stat></main-stat>
-            </v-card>
-            <v-card class="pa-2">
-                <v-card-title>
-                    <h2 class="subtitle-1">Динамика набранных очков</h2>
-                </v-card-title>
-                <preloader color="accent-4" v-if="!loaded"></preloader>
-                <line-chart
-                        v-if="loaded"
-                        :chartData="line.chartData"
-                        :options="line.options">
-                </line-chart>
-            </v-card>
-            <v-card class="pa-2">
-                <v-card-title>
-                    <h2 class="subtitle-1">Распределение матчей по дням</h2>
-                </v-card-title>
+	<v-container
+		class="pa-0"
+		fill-height
+		fluid>
+		<v-layout column>
+			<h1 class="title pa-2">Статистика</h1>
+			<!--<v-card class="pa-2">-->
+			<!--<v-card-title>-->
+			<!--<h2 class="subtitle-1">Статистика лиги</h2>-->
+			<!--</v-card-title>-->
+			<!--&lt;!&ndash;                <main-stat></main-stat>&ndash;&gt;-->
+			<!--</v-card>-->
+			<v-card class="pa-2">
+				<v-card-title>
+					<h2 class="subtitle-1">Динамика набранных очков</h2>
+				</v-card-title>
+				<preloader
+					v-if="!loaded"
+					color="accent-4"
+				/>
+				<line-chart
+					v-if="loaded"
+					:chartData="line.chartData"
+					:options="line.options">
+				</line-chart>
+			</v-card>
+			<v-card class="pa-2">
+				<v-card-title>
+					<h2 class="subtitle-1">Распределение матчей по дням</h2>
+				</v-card-title>
 
-                <preloader color="accent-4" v-if="!loaded"></preloader>
-                <bar-chart
-                        v-if="loaded"
-                        :chartData="bar.chartData"
-                        :options="bar.options"></bar-chart>
-            </v-card>
-            <v-card>
-                <v-card-title>
-                    <h2 class="subtitle-1">Топ-15</h2>
-                </v-card-title>
-                <top-stat :items="topTables"></top-stat>
-            </v-card>
-        </v-layout>
-    </v-container>
+				<preloader
+					color="accent-4"
+					v-if="!loaded"/>
+				<bar-chart
+					v-if="loaded"
+					:chartData="bar.chartData"
+					:options="bar.options"></bar-chart>
+			</v-card>
+			<v-card>
+				<v-card-title>
+					<h2 class="subtitle-1">Топ-15</h2>
+				</v-card-title>
+				<top-stat/>
+			</v-card>
+		</v-layout>
+	</v-container>
 </template>
 <script>
+  import Chart from 'chart.js'
   import lineChart from './charts/lineChart.vue';
   import barChart from './charts/barChart.vue';
   import preloader from '../preloader';
-  import mainStat from './mainStat/mainStat';
+  // import mainStat from './mainStat/mainStat';
   import topStat from './tops/topStat.vue';
 
   export default {
     name: 'statistics',
-    components: {lineChart, barChart, preloader, mainStat, topStat},
+    components: {lineChart, barChart, preloader, topStat},
     data: () => ({
       loaded: false,
       line: {
@@ -125,16 +134,23 @@
     }),
     async mounted() {
       this.loaded = false;
-      const matchList = await fetch('http://mirexda2.beget.tech/get/stat/matches/')
-      .then(response => {
-        return response.json();
-      })
-      .then(matchesJSON => {
-        return matchesJSON;
-      });
+      const matchList = await fetch('http://league.sibsquash.ru/get/stat/matches/')
+
+
+          .then(response => {
+            return response.json();
+          })
+          .then(matchesJSON => {
+            return matchesJSON;
+          });
       this.line.chartData = matchList.games;
       this.bar.chartData = matchList.bar;
       this.loaded = true;
-    }
+    },
+    computed: {
+      getAdmin() {
+        return this.$store.getters.getAdmin;
+      }
+    },
   }
 </script>

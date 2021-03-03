@@ -70,24 +70,30 @@ export default {
   created() {
     this.$store.dispatch("fetchGames");
   },
+  watch: {
+    headers() {
+      if (!this.getAdmin) {
+        this.tableHeaders = this.headers.filter(header => {
+          return header.value !== "delete";
+        });
+      } else this.tableHeaders = this.headers;
+    }
+  },
   computed: {
     getAdmin() {
       return this.$store.getters.getAdmin;
     },
     getGames(){
-       if (!this.getAdmin) {
-          this.tableHeaders = this.headers.filter(header => {
-            return header.value !== "delete";
-          });
-        } else this.tableHeaders = this.headers;
+
       return this.$store.getters.getGames;
     }
 
   },
   methods: {
     deleteResult(item) {
-      let games = this.getGames.filter(game => !(game.date === item.date && game.player_1 === item.player_1 && game.player_2 === item.player_2))
+      let games = this.getGames.filter(game => !(game.id === item.id));
       this.$store.commit("setGames", games);
+      this.$store.dispatch("deleteGame", item);
     }
   },
   components: {

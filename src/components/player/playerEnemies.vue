@@ -4,7 +4,7 @@
             <h2 class="subtitle-1">Сыгранные матчи</h2>
         </v-card-title>
         <v-row>
-            <v-col v-for="team in items" :key="team.title" md="6">
+            <v-col v-for="team in items" :key="team.title" md="4">
 
                 <v-data-table
                         :headers="headers"
@@ -17,15 +17,17 @@
                 >
                     <template v-slot:header="{ props: { headers }  }">
                         <thead>
-                        <tr>
+                        <tr :style="getHeaderColor(team.title)">
                             <th colspan="2">
-                                <v-chip color="orange" label outlined>{{team.title}}</v-chip>
+                                <v-chip class="primary-background" color="orange" label >{{team.title}}&nbsp;
+                                    {{ getIconForTeam(team.title)}}
+                                </v-chip>
                             </th>
                         </tr>
                         </thead>
                     </template>
                     <template v-slot:item="{item}">
-                        <tr :class="hasPlayAllGames(item.playedGames)" >
+                        <tr v-if="item.status !== 'false'" :class="hasPlayAllGames(item.playedGames)">
                             <td class="enemy__name">
                                 <router-link class="player__link d-inline-flex align-center"
                                              :to="translit(item.name)">{{item.name}}
@@ -73,7 +75,7 @@
         }
       },
       hasPlayAllGames(games) {
-        if (Array.isArray(games) && games.length === 3) {
+        if (Array.isArray(games) && games.length === 1) {
           return 'enemy-lineThroughed grey darken-1 grey--text--darken-2'
         }
       }
@@ -98,5 +100,11 @@
     }
     .enemy__name {
         width: 60%;
+    }
+    th {
+        background: transparent!important;
+    }
+    .v-chip.primary-background.v-chip.v-chip {
+        background-color: #424242!important;
     }
 </style>

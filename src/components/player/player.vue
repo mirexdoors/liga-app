@@ -1,20 +1,29 @@
 <template>
-    <v-container class="pa-0" fill-height fluid>
+    <v-container
+        v-if="player"
+        class="pa-0" fill-height fluid>
         <div class="player__container">
             <div class="player__block player__block-main">
             <v-card>
-                <v-card-text class="d-flex justify-space-between align-center">
+                <v-card-text
+                    class="d-flex justify-space-between align-center">
                     <h1 class="title">{{player.name}}</h1>
-                    <v-chip class="pa-4 white--text" :style="getColor(player.division)">{{ player.team }}
+                    <v-chip class="pa-4 white--text" :style="getColor(player)">{{ player.team }}
                     </v-chip>
                 </v-card-text>
+                <v-card-text
+                    v-if="player.status === 'false'"
+                    class="d-flex display-2 justify-space-between align-center" >
+                    <p class="text-center">Игрок выбыл из лиги 😞</p>
+                </v-card-text >
             </v-card>
-                <player-stat :items="items"></player-stat>
+
+                <player-stat v-if="player.status !== 'false'" :items="items" />
             </div>
-            <div class="player__block player__block-enemies">
+            <div v-if="player.status !== 'false'" class="player__block player__block-enemies">
                 <player-enemies :headers="headersEnemies" :items="filteredItemsData"></player-enemies>
             </div>
-            <div class="player__block player__block-games">
+            <div v-if="player.status !== 'false'" class="player__block player__block-games">
                 <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games></div>
         </div>
     </v-container>
@@ -90,13 +99,12 @@
           return [
             {text: "Дивизион", value: player.division},
             {text: "Игры", value: player.games},
-            {text: "Уникальные игры", value: player.unique_games},
             {text: "Очки", value: player.points},
             {
               text: "Очков за игру ср.",
               value: !isNaN((player.points / player.games).toFixed(2)) ? (player.points / player.games).toFixed(2) : "0"
             },
-            {text: "% от очков команды", value: getPercentTotal(player, this.teams), align: "left"}
+             {text: "% от очков команды", value: getPercentTotal(player, this.teams), align: "left"}
           ];
         } else {
           return false;

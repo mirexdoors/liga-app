@@ -6,7 +6,12 @@
                     v-if="!getLoadingState"
             >
             </preloader>
-            <v-navigation-drawer v-model="drawer" mini-variant app clipped>
+            <v-navigation-drawer
+                v-model="drawer"
+                mini-variant
+                app
+                clipped
+            >
                 <v-list dense>
                     <v-list-item>
                         <v-list-item-action>
@@ -21,9 +26,15 @@
                         </router-link>
                     </v-list-item>
                     <v-list-item>
-                        <router-link class="header__link" :to="'/stat'">
+                        <router-link
+                            :to="'/stat'"
+                            class="header__link">
                             <v-icon>insert_chart_outlined</v-icon>
                         </router-link>
+                    </v-list-item>
+                    <v-list-item>
+                        <archive />
+                            <!--<v-icon>archive</v-icon>-->
                     </v-list-item>
                     <v-list-item v-if="getAdmin">
                         <addMatch v-on:errorAuth="getError"/>
@@ -31,16 +42,15 @@
                 </v-list>
             </v-navigation-drawer>
             <v-app-bar app clipped-left>
-                <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
                 <v-toolbar-title>
-                    <router-link class="header__link" :to="'/'">Сквош Лига 2019
+                    <router-link class="header__link" :to="'/'">Сквош Лига Весна-2021
                     </router-link>
                 </v-toolbar-title>
-                <div class="flex-grow-1"></div>
+                <div class="flex-grow-1" />
             </v-app-bar>
 
-            <v-content
-                    v-if="getLoadingState">
+            <v-main v-if="getLoadingState">
                 <v-container fluid fill-height>
                     <v-layout align-center justify-center>
                         <keep-alive>
@@ -48,11 +58,7 @@
                         </keep-alive>
                     </v-layout>
                 </v-container>
-            </v-content>
-
-            <v-footer app>
-                <span>&copy; 2019 Новосибирская федерация Сквоша</span>
-            </v-footer>
+            </v-main>
         </v-app>
         <v-snackbar v-model="isError">
             <span style="color: red">{{ textError }}</span>
@@ -65,6 +71,8 @@
   import authorization from "./components/authorization/authorization";
   import addMatch from "./components/addMatch";
   import preloader from "./components/preloader.vue";
+  import {API_URL} from "./mixins/mixins";
+  import archive from "./components/archive.vue";
 
   export default {
     props: {
@@ -83,11 +91,12 @@
       }
     },
     mounted() {
-      if (sessionStorage.getItem("isAuth")){
+      if (sessionStorage.getItem("isAuth")) {
         this.isLoggedIn = true;
-        this.$store.commit("setAdmin",true);
-      } 
-      const apiPlayerUrl = "http://mirexda2.beget.tech/get/players/";
+        this.$store.commit("setAdmin", true);
+      }
+      const apiPlayerUrl = API_URL + "/get/players/";
+
 
       if (this.$store) {
         this.$store.dispatch("fetchPlayers", apiPlayerUrl);
@@ -95,14 +104,10 @@
 
     },
     computed: {
-      getLoadingState () {
-        if (this.$store && this.$store.state.players) {
-          return true;
-        } else {
-          return false;
-        }
+      getLoadingState() {
+        return !!(this.$store && this.$store.state.players);
       },
-      getAdmin(){
+      getAdmin() {
         return this.$store.getters.getAdmin;
       }
     },
@@ -113,6 +118,7 @@
       },
     },
     components: {
+      archive,
       authorization,
       addMatch,
       preloader,

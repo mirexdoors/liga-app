@@ -1,5 +1,5 @@
 <template>
-    <v-col cols="12" sm="6">
+    <v-col cols="12">
         <v-row>
             <v-col sm="12" class="caption">
                 <v-card class="orange--text pa-1" outlined tile>
