@@ -15,12 +15,12 @@
                         hide-default-header
                         fixed-header
                 >
-                    <template v-slot:header="{ props: { headers }  }">
+                    <template v-slot:header="{ props: { }  }">
                         <thead>
                         <tr :style="getHeaderColor(team.title)">
                             <th colspan="2">
-                                <v-chip class="primary-background" color="orange" label >{{team.title}}&nbsp;
-                                    {{ getIconForTeam(team.title)}}
+                                <v-chip class="primary-background" color="orange" label >
+                                    {{team.title}}&nbsp;
                                 </v-chip>
                             </th>
                         </tr>

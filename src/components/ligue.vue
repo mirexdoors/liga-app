@@ -37,7 +37,6 @@
 											color="orange"
 											label>
 										{{team.title}}
-										{{getIconForTeam(team.title)}}
 									</v-chip>
 								</th>
 								<th colspan="2">
