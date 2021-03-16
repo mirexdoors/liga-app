@@ -60,8 +60,6 @@ export const getColor = (player) => {
 
 export const getPercentTotal = (player, teams) => {
   const points = player.points;
-  console.log(teams)
-  console.log(player.team.toUpperCase)
   const totalTeamPoints = teams[player.team.toUpperCase()].total;
   if (totalTeamPoints === 0)
     return '-';
