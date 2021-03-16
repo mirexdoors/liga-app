@@ -1,6 +1,6 @@
 export const API_URL = 'http://league.sibsquash.ru';
-export const translit = (name) => {
 
+export const translit = (name) => {
   const ru = {
     'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
     'е': 'e', 'ё': 'e', 'ж': 'j', 'з': 'z', 'и': 'i',
@@ -24,6 +24,7 @@ export const translit = (name) => {
   }
   return  n_name.join('');
 };
+
 export const getHeaderColor = value => {
   switch (value) {
     case "Команда 1":
@@ -34,16 +35,15 @@ export const getHeaderColor = value => {
       return "backgroundColor: rgb(115, 118, 83)";
   }
 };
+
 export const getIconForTeam = value => {
   switch (value) {
-    case "Вода":
+    case "NoLet":
       return "💧";
-    case "Воздух":
+    case "FRIENDS":
       return "🌪️";
-    case "Земля":
+    case "КРАШ":
       return "🗻";
-    case "Огонь":
-      return "🔥";
     default: return "";
   }
 };
@@ -60,7 +60,9 @@ export const getColor = (player) => {
 
 export const getPercentTotal = (player, teams) => {
   const points = player.points;
-  const totalTeamPoints = teams[player.team].total;
+  console.log(teams)
+  console.log(player.team.toUpperCase)
+  const totalTeamPoints = teams[player.team.toUpperCase()].total;
   if (totalTeamPoints === 0)
     return '-';
   return ((points / totalTeamPoints) * 100).toFixed(2) + "%";
