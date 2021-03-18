@@ -97,7 +97,19 @@ export const convertPlayersDataToFlat = (teams) => {
   return resultArray;
 };
 
-export const getGamesInfo = (data, allGames, uniqGames) => {
+export const setGamesInfo = (data, allGames) => {
+  const ALL_POSSIBLE_MATCHES = 432;
+  let totalMatches = 0;
+  for (let team in data) {
+    totalMatches += data[team]['total_games'];
+  }
+
+  allGames.gamesPlayed.value = totalMatches / 2;
+  allGames.gamesLeft.value = ALL_POSSIBLE_MATCHES - totalMatches / 2;
+  allGames.percentOfMax.value = (((totalMatches / 2) / ALL_POSSIBLE_MATCHES) * 100).toFixed(2) + '%';
+};
+
+export const getGamesInfoWithUniqs = (data, allGames, uniqGames) => {
   const ALL_POSSIBLE_MATCHES = 4092;
   const ALL_POSSIBLE_MATCHES_UNIQ = 1364;
   let totalMatches = 0;
@@ -117,12 +129,12 @@ export const getGamesInfo = (data, allGames, uniqGames) => {
   return true;
 };
 export const getDaysPassed = () => {
-  const d0 = new Date('September 01, 2019 00:00:00');
+  const d0 = new Date('March 01, 2021 00:00:00');
   const d1 = new Date();
   return Math.round((d1.getTime() - d0.getTime()) / (1000 * 60 * 60 * 24) + 1);
 };
 export const getDaysLeft = () => {
-  const d0 = new Date('December 13, 2019');
+  const d0 = new Date('June 01, 2021');
   const d1 = new Date();
   return Math.round((d0.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
 };

@@ -5,12 +5,12 @@
 		fluid>
 		<v-layout column>
 			<h1 class="title pa-2">Статистика</h1>
-			<!--<v-card class="pa-2">-->
-			<!--<v-card-title>-->
-			<!--<h2 class="subtitle-1">Статистика лиги</h2>-->
-			<!--</v-card-title>-->
-			<!--&lt;!&ndash;                <main-stat></main-stat>&ndash;&gt;-->
-			<!--</v-card>-->
+			<v-card class="pa-2">
+				<v-card-title>
+					<h2 class="subtitle-1">Статистика лиги</h2>
+				</v-card-title>
+				<main-stat/>
+			</v-card>
 			<v-card class="pa-2">
 				<v-card-title>
 					<h2 class="subtitle-1">Динамика набранных очков</h2>
@@ -52,12 +52,18 @@
   import lineChart from './charts/lineChart.vue';
   import barChart from './charts/barChart.vue';
   import preloader from '../preloader';
-  // import mainStat from './mainStat/mainStat';
+  import mainStat from './mainStat/mainStat';
   import topStat from './tops/topStat.vue';
 
   export default {
     name: 'statistics',
-    components: {lineChart, barChart, preloader, topStat},
+    components: {
+      lineChart,
+      barChart,
+      preloader,
+      topStat,
+      mainStat,
+    },
     data: () => ({
       loaded: false,
       line: {
