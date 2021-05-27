@@ -1,14 +1,21 @@
 <template>
     <v-container
         v-if="player"
-        class="pa-0" fill-height fluid>
+        fill-height
+        fluid
+        class="pa-0"
+    >
         <div class="player__container">
             <div class="player__block player__block-main">
             <v-card>
                 <v-card-text
                     class="d-flex justify-space-between align-center">
                     <h1 class="title">{{player.name}}</h1>
-                    <v-chip class="pa-4 white--text" :style="getColor(player)">{{ player.team }}
+
+                    <v-chip
+                            :style="getColor(player)"
+                            class="pa-4 white--text" >
+                        {{ player.team }}
                     </v-chip>
                 </v-card-text>
                 <v-card-text
@@ -17,14 +24,32 @@
                     <p class="text-center">Игрок выбыл из лиги 😞</p>
                 </v-card-text >
             </v-card>
+                <player-stat
+                    v-if="player.status !== 'false'"
+                    :items="items"
+                />
+            </div>
 
-                <player-stat v-if="player.status !== 'false'" :items="items" />
+            <div
+                v-if="player.status !== 'false'"
+                class="player__block player__block-enemies"
+            >
+                <player-enemies
+                    :headers="headersEnemies"
+                    :items="filteredItemsData"
+                    :current-team="player.team"
+                />
             </div>
-            <div v-if="player.status !== 'false'" class="player__block player__block-enemies">
-                <player-enemies :headers="headersEnemies" :items="filteredItemsData"></player-enemies>
+
+            <div
+                v-if="player.status !== 'false'"
+                class="player__block player__block-games">
+                <played-games
+                    v-if="games"
+                    :headers="headersGames"
+                    :items="games"
+                    :player="player"/>
             </div>
-            <div v-if="player.status !== 'false'" class="player__block player__block-games">
-                <played-games v-if="games" :headers="headersGames" :items="games" :player="player"></played-games></div>
         </div>
     </v-container>
 </template>
@@ -224,7 +249,7 @@
     .player__container {
         display: grid;
         grid-gap: 2em;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         grid-template-rows: repeat(2, minmax(0, min-content));
         width: 100%;
     }
@@ -237,10 +262,14 @@
 
     .player__block-enemies {
         grid-row: 1 / 4;
-        grid-column: 2;
+        grid-column: 2 / 4;
     }
 
     @media screen and (max-width: 600px) {
+        .player__container {
+            grid-template-columns: 1fr;
+        }
+
         .player__block-enemies {
             grid-column: 1;
         }

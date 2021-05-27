@@ -20,7 +20,8 @@
 			>
 				<v-card class="ma-2"
 						outlined
-						tile>
+						tile
+				>
 					<v-data-table
 						:headers="headers"
 						:items="team.players"
@@ -40,9 +41,11 @@
 									</v-chip>
 								</th>
 								<th colspan="2">
-									<v-chip class="primary-background"
+									<v-chip
 											color="orange"
-											label>
+											label
+											class="primary-background"
+									>
 										{{team.total.toFixed(1)}}
 									</v-chip>
 								</th>
@@ -52,10 +55,11 @@
 						<template v-slot:body.prepend="{headers}">
 							<tr class="d-sm-none">
 								<th
-									:class="getClassForCol(header.value)"
 									v-for="header in headers"
-									v-bind:key="header.text"
-								>{{header.text}}
+									:key="header.text"
+									:class="getClassForCol(header.value)"
+								>
+									{{header.text}}
 								</th>
 							</tr>
 						</template>
@@ -73,35 +77,81 @@
 										/>
 									</router-link>
 								</td>
+
 								<td :class="getClassForCol('games')">
 									<router-link
+										:to="translit(item.name)"
 										class="player__link"
-										:to="translit(item.name)">
+									>
 										{{item.games
 										? item.games : 0 }}
 									</router-link>
 								</td>
 								<td :class="getClassForCol('points')">
 									<router-link
+										:to="translit(item.name)"
 										class="player__link"
-										:to="translit(item.name)">
-                                            <span>{{item.points ?
-                                                item.points : 0}}</span>
+										>
+                                            <span>
+												{{item.points ?
+                                                item.points : 0}}
+											</span>
+									</router-link>
+								</td>
 
+								<td :class="getClassForCol('penalty')">
+									<router-link
+										:to="translit(item.name)"
+										class="player__link"
+									>
+                                            <span
+												v-if="getAdmin">
+												{{item.penalty && item.points > 0 ? item.penalty : 0}}
+											</span>
+										<span v-else>&#10067;</span>
 									</router-link>
 								</td>
 							</tr>
 						</template>
+
 						<template v-slot:body.append>
 							<tr class="orange--text table__footer">
-								<td class="font-weight-bold"
-									:class="getClassForCol('name')">Итого
+								<td
+									:class="getClassForCol('name')"
+									class="font-weight-bold"
+									>
+									Итого
 								</td>
-								<td :class="getClassForCol('games')">
+
+								<td
+									:class="getClassForCol('games')">
 									{{team.total_games}}
 								</td>
-								<td :class="getClassForCol('points')"><span
-									class="orange--text font-weight-bold">{{team.total.toFixed(1)}}</span>
+
+								<td :class="getClassForCol('points')">
+									<span
+									class="orange--text font-weight-bold">
+										{{team.total.toFixed(1)}}
+									</span>
+								</td>
+
+								<td
+									:class="getClassForCol('penalty')">
+									<span
+										v-if="getAdmin"
+										class="red--text font-weight-bold">
+										{{team.total_penalty}}
+									</span>
+									<span v-else>&#10067;</span>
+								</td>
+							</tr>
+
+							<tr v-if="getAdmin">
+								<td>Итого с учётом штрафа:</td>
+								<td></td>
+								<td></td>
+								<td class="font-weight-bold deep-orange--text">
+									{{(team.total.toFixed(1) - team.total_penalty).toFixed(1)}}
 								</td>
 							</tr>
 						</template>
@@ -109,7 +159,6 @@
 				</v-card>
 			</v-col>
 		</v-row>
-
 	</v-card>
 </template>
 <script>
@@ -141,9 +190,25 @@
           },
           {text: "Матчи", value: "games", class: "pa-1"},
           {text: "Очки", value: "points"},
+          {text: "Штраф", value: "penalty"}
         ]
       };
     },
+
+    computed: {
+      teams() {
+        if (this.$store) {
+          return this.$store.getters.players;
+        } else {
+          return false;
+        }
+      },
+
+      getAdmin() {
+        return this.$store.getters.getAdmin;
+      }
+    },
+
     methods: {
       getClassForCol: (value, status = false) => {
         switch (value) {
@@ -155,22 +220,12 @@
             return "player__games pa-1";
           case "points":
             return "player__points";
+          case "penalty":
+            return "player__points pa-1";
         }
       },
+    },
 
-    },
-    computed: {
-      teams() {
-        if (this.$store) {
-          return this.$store.getters.players;
-        } else {
-          return false;
-        }
-      },
-      getAdmin() {
-        return this.$store.getters.getAdmin;
-      }
-    },
     beforeRouteLeave(to, from, next) {
       if (to.path !== '/all') {
         const playerName = to.params.playername;
@@ -178,10 +233,10 @@
         let detailPlayer = null;
         this.$store.dispatch("setDetailPlayer", null);
         for (const team in this.teams) {
-
           detailPlayer = this.teams[team].players.filter(item => {
             if (this.translit(item.name) === playerName) return item;
           })[0];
+
           if (detailPlayer) {
             this.$store.dispatch("fetchDetailGames", detailPlayer.id);
             this.$store.dispatch("setDetailPlayer", detailPlayer);
@@ -232,6 +287,4 @@
 	.v-chip.primary-background.v-chip.v-chip {
 		background-color: #424242 !important;
 	}
-
-
 </style>
