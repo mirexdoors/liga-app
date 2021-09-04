@@ -99,7 +99,9 @@
 									</router-link>
 								</td>
 
-								<td :class="getClassForCol('penalty')">
+								<td
+									v-if="false"
+									:class="getClassForCol('penalty')">
 									<router-link
 										:to="translit(item.name)"
 										class="player__link"
@@ -136,6 +138,7 @@
 								</td>
 
 								<td
+									v-if="false"
 									:class="getClassForCol('penalty')">
 									<span
 										v-if="getAdmin"
@@ -146,7 +149,7 @@
 								</td>
 							</tr>
 
-							<tr v-if="getAdmin">
+							<tr v-if="false && getAdmin">
 								<td>Итого с учётом штрафа:</td>
 								<td></td>
 								<td></td>
@@ -190,7 +193,7 @@
           },
           {text: "Матчи", value: "games", class: "pa-1"},
           {text: "Очки", value: "points"},
-          {text: "Штраф", value: "penalty"}
+          // {text: "Штраф", value: "penalty"}
         ]
       };
     },
@@ -213,7 +216,7 @@
       getClassForCol: (value, status = false) => {
         switch (value) {
           case "name":
-            if (status !== 'C')
+            if (status !== 'c' && status !== 'kz')
               return "player__name";
             else return "player__name font-weight-bold";
           case "games":
