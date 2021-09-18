@@ -16,9 +16,9 @@
     mounted() {
       const wW = window.outerWidth;
       const canvasWidth = wW - 25;
-      let canvasHeight = window.outerHeight - 250;
+      let canvasHeight = window.outerHeight - 600;
       if (wW > 374 && wW < 800) {
-        canvasHeight = window.outerHeight - 300;
+        canvasHeight = window.outerHeight - 500;
       }
       const canvasContainer = document.getElementById('line-chart');
       if (canvasContainer) {

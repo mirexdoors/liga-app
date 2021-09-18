@@ -5,39 +5,52 @@
 		fluid>
 		<v-layout column>
 			<h1 class="title pa-2">Статистика</h1>
-			<v-card class="pa-2">
-				<v-card-title>
-					<h2 class="subtitle-1">Статистика лиги</h2>
-				</v-card-title>
-				<main-stat/>
-			</v-card>
-			<v-card class="pa-2">
-				<v-card-title>
-					<h2 class="subtitle-1">Динамика набранных очков</h2>
-				</v-card-title>
-				<preloader
-					v-if="!loaded"
-					color="accent-4"
-				/>
-				<line-chart
-					v-if="loaded"
-					:chartData="line.chartData"
-					:options="line.options">
-				</line-chart>
-			</v-card>
-			<v-card class="pa-2">
-				<v-card-title>
-					<h2 class="subtitle-1">Распределение матчей по дням</h2>
-				</v-card-title>
+			<v-row>
+				<v-col cols="12" sm="4">
+					<v-card class="pa-2 pb-8">
+						<v-card-title>
+							<h2 class="subtitle-1">Статистика лиги</h2>
+						</v-card-title>
+						<main-stat/>
+					</v-card>
+				</v-col>
+				<v-col
+					cols="12"
+					sm="8"
+					class="mb-4"
+				>
+					<v-card class="pa-2 mb-2">
+						<v-card-title>
+							<h2 class="subtitle-1">Динамика набранных очков</h2>
+						</v-card-title>
+						<preloader
+							v-if="!loaded"
+							color="accent-4"
+						/>
 
-				<preloader
-					color="accent-4"
-					v-if="!loaded"/>
-				<bar-chart
-					v-if="loaded"
-					:chartData="bar.chartData"
-					:options="bar.options"></bar-chart>
-			</v-card>
+						<line-chart
+							v-if="loaded"
+							:chartData="line.chartData"
+							:options="line.options"
+						/>
+					</v-card>
+
+					<v-card class="pa-2">
+						<v-card-title>
+							<h2 class="subtitle-1">Распределение матчей по дням</h2>
+						</v-card-title>
+
+						<preloader
+							color="accent-4"
+							v-if="!loaded"/>
+						<bar-chart
+							v-if="loaded"
+							:chartData="bar.chartData"
+							:options="bar.options"></bar-chart>
+					</v-card>
+				</v-col>
+			</v-row>
+
 			<v-card>
 				<v-card-title>
 					<h2 class="subtitle-1">Топ-10</h2>

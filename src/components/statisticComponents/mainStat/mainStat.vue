@@ -1,21 +1,17 @@
 <template>
-	<v-row
-        no-gutters
-		class="pa-2"
-    >
-		<v-col
-			v-for="table in dataTables"
-			:key="table.title"
-			cols="12"
-			sm="4"
+		<div
             class="my-4 my-lg-0"
 		>
-			<main-stat-table
-                :title="table.title"
-				:items="table.values"
-            />
-		</v-col>
-	</v-row>
+			<div
+				v-for="table in dataTables"
+				:key="table.title"
+			>
+				<main-stat-table
+					:title="table.title"
+					:items="table.values"
+				/>
+			</div>
+		</div>
 </template>
 
 <script>
