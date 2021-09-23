@@ -92,6 +92,7 @@ export const convertPlayersDataToFlat = (teams) => {
   for (let team in teams) {
     teams[team].players.forEach((player) => {
       player.repeatGames = player.games - player.unique_games;
+      player.color = teams[team].color;
       player.efficiency = (player.games > 9 && !isNaN((player.points / player.games).toFixed(2))) ? (player.points / player.games).toFixed(2) : "0";
       resultArray.push(player);
     });

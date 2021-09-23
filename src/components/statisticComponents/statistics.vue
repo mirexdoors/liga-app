@@ -55,6 +55,7 @@
 				<v-card-title>
 					<h2 class="subtitle-1">Топ-10</h2>
 				</v-card-title>
+
 				<top-stat/>
 			</v-card>
 		</v-layout>
