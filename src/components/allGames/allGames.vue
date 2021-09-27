@@ -24,28 +24,42 @@
             <tr>
               <td>
                 <router-link
-                  class="player__link d-inline-flex align-center"
                   :to="translit(item.player_1)"
+                  class="player__link d-inline-flex align-center"
+                  :style="`color: ${item.player_1_color}`"
                 >
-                  {{item.player_1}}
+                  {{ item.player_1 }}&nbsp;
+                 ({{ item.player_1_team }})
                 </router-link>
               </td>
+
               <td>
                 <router-link
-                  class="player__link d-inline-flex align-center"
                   :to="translit(item.player_2)"
+                  class="player__link d-inline-flex align-center"
+                  :style="`color: ${item.player_2_color}`"
                 >
-                  {{item.player_2}}
+                  {{ item.player_2 }}&nbsp;
+                 ({{ item.player_2_team }})
                 </router-link>
               </td>
+
               <td class="result">
                 <result :item="item"/>
               </td>
 
-              <td>{{item.date}}</td>
+              <td class="col-2">{{ item.date }}</td>
 
-              <td v-if="getAdmin">
-                <v-btn color="error" text small @click="deleteResult(item)">
+              <td
+                  v-if="getAdmin"
+                  class="col-1"
+              >
+                <v-btn
+                    color="error"
+                    text
+                    small
+                    @click="deleteResult(item)"
+                >
                   X
                 </v-btn>
               </td>
@@ -69,7 +83,7 @@ export default {
     return {
       search: "",
       headers: [
-        { text: "", align: "left", sortable: false, value: "player_1" },
+        { text: "", value: "player_1", align: "left", sortable: false, },
         { text: "", value: "player_2", align: "left", sortable: false },
         { text: "Счёт", value: "score", align: "left" },
         { text: "Дата", value: "date", align: "left" },
@@ -98,6 +112,7 @@ export default {
     },
     filteredGames(){
       if (!this.search) {
+        console.log(this.$store.getters.getGames)
         return this.$store.getters.getGames;
       }
 
