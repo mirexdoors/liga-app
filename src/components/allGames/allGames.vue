@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import result from "./result";
 
 export default {
@@ -91,7 +92,6 @@ export default {
       ],
       isAdmin: false,
       tableHeaders: [],
-      games: []
     };
   },
   created() {
@@ -106,26 +106,27 @@ export default {
       } else this.tableHeaders = this.headers;
     }
   },
+
   computed: {
-    getAdmin() {
-      return this.$store.getters.getAdmin;
-    },
+    ...mapGetters({
+      games: "getGames",
+      getAdmin: "getAdmin"
+    }),
     filteredGames(){
       if (!this.search) {
-        console.log(this.$store.getters.getGames)
-        return this.$store.getters.getGames;
+        return this.games;
       }
 
       const search = this.search.toLowerCase();
 
-      return this.$store.getters.getGames.filter(game =>
+      return this.games.filter(game =>
           game.player_1.toLowerCase().indexOf(search) > -1 || game.player_2.toLowerCase().indexOf(search) > -1);
     }
-
   },
+
   methods: {
     deleteResult(item) {
-      let games = this.getGames.filter(game => !(game.id === item.id));
+      const games = this.games.filter(game => !(game.id === item.id));
       this.$store.commit("setGames", games);
       this.$store.dispatch("deleteGame", item);
     }

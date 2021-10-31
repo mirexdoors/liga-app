@@ -29,7 +29,6 @@ export default {
         return formatDate ? moment(formatDate).format("DD-MM-YYYY") : "";
       },
       set(value) {
-        console.log(value);
         this.menu = false;
         const date = value.split("-");
         const formatDateForDatePicker = new Date(
