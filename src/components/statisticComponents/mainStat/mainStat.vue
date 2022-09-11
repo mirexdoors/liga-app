@@ -16,7 +16,7 @@
 
 <script>
   import mainStatTable from './mainStatTable.vue';
-  import {setGamesInfo, getDaysLeft, getDaysPassed} from '../../../mixins/mixins';
+  import {setGamesInfo, getDaysLeft, getDaysPassed} from '@/mixins/mixins';
 
   export default {
     name: "mainStat",

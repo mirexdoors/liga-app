@@ -101,7 +101,7 @@ export const convertPlayersDataToFlat = (teams) => {
 };
 
 export const setGamesInfo = (data, allGames) => {
-  const ALL_POSSIBLE_MATCHES = 432;
+  const ALL_POSSIBLE_MATCHES = 675;
   let totalMatches = 0;
   for (let team in data) {
     totalMatches += data[team]['total_games'];
@@ -132,12 +132,12 @@ export const getGamesInfoWithUniqs = (data, allGames, uniqGames) => {
   return true;
 };
 export const getDaysPassed = () => {
-  const d0 = new Date(' Sep 01, 2021 00:00:00');
+  const d0 = new Date(' Sep 08, 2022 00:00:00');
   const d1 = new Date();
-  return Math.round((d1.getTime() - d0.getTime()) / (1000 * 60 * 60 * 24) + 1);
+  return Math.round((d1.getTime() - d0.getTime()) / (1000 * 60 * 60 * 24));
 };
 export const getDaysLeft = () => {
-  const d0 = new Date('Dec 10, 2021');
+  const d0 = new Date('Dec 09, 2022');
   const d1 = new Date();
   return Math.round((d0.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
 };
