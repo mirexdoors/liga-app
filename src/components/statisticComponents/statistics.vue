@@ -80,50 +80,6 @@
     },
     data: () => ({
       loaded: false,
-      line: {
-        chartData: null,
-        options: {
-          spanGaps: true,
-          responsive: true,
-          maintainAspectRatio: false,
-          legend: {
-            display: true,
-            position: 'bottom',
-            labels: {
-              generateLabels: function (chart) {
-                const data = chart.data;
-                return data.datasets.map(function (dataset, i) {
-                  let text = dataset.label + " (" + Chart.helpers.max(dataset.data).toLocaleString() + ")";
-                  return {
-                    text,
-                    fillStyle: dataset.backgroundColor,
-                    hidden: !chart.isDatasetVisible(i),
-                    lineCap: dataset.borderCapStyle,
-                    lineDash: dataset.borderDash,
-                    lineDashOffset: dataset.borderDashOffset,
-                    lineJoin: dataset.borderJoinStyle,
-                    lineWidth: 2,
-                    strokeStyle: dataset.borderColor,
-                    pointStyle: dataset.pointStyle,
-                    datasetIndex: i
-                  };
-                }, this);
-
-              }
-            }
-          },
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }],
-            xAxes: [{
-              display: true
-            }]
-          },
-        }
-      },
       bar: {
         chartData: null,
         options: {
@@ -155,8 +111,6 @@
     async mounted() {
       this.loaded = false;
       const matchList = await fetch('http://league.sibsquash.ru/get/stat/matches/')
-
-
           .then(response => {
             return response.json();
           })
@@ -168,6 +122,53 @@
       this.loaded = true;
     },
     computed: {
+      line()  {
+        return {
+          chartData: null,
+          options: {
+            spanGaps: true,
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                generateLabels: (chart) => {
+                  const data = chart.data;
+                  return data.datasets.map((dataset, i) => {
+                    const totalPoints = this.$store.getters.players
+                    let text = dataset.label + " (" + totalPoints[dataset.label].total + ")";
+                    return {
+                      text,
+                      fillStyle: dataset.backgroundColor,
+                      hidden: !chart.isDatasetVisible(i),
+                      lineCap: dataset.borderCapStyle,
+                      lineDash: dataset.borderDash,
+                      lineDashOffset: dataset.borderDashOffset,
+                      lineJoin: dataset.borderJoinStyle,
+                      lineWidth: 2,
+                      strokeStyle: dataset.borderColor,
+                      pointStyle: dataset.pointStyle,
+                      datasetIndex: i
+                    };
+                  }, this);
+
+                }
+              }
+            },
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }],
+              xAxes: [{
+                display: true
+              }]
+            },
+          }
+        }
+      },
       getAdmin() {
         return this.$store.getters.getAdmin;
       }
