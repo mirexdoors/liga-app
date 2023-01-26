@@ -46,8 +46,7 @@ export default {
           .then(response => {
             return response.json();
           })
-          .then(response => {
-            console.log(response);
+          .then(_ => {
             return date
               ? (this.item.date = moment(formatDateForDatePicker).format(
                   "DD-MM-YYYY"

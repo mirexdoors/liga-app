@@ -23,13 +23,14 @@
 						<v-card-title>
 							<h2 class="subtitle-1">Динамика набранных очков</h2>
 						</v-card-title>
+<!--            //TODO add v-if=!loaded-->
 						<preloader
-							v-if="!loaded"
+              v-if="!getAdmin"
 							color="accent-4"
 						/>
 
 						<line-chart
-							v-if="loaded"
+							v-if="getAdmin && loaded"
 							:chartData="line.chartData"
 							:options="line.options"
 						/>
@@ -110,7 +111,11 @@
     }),
     async mounted() {
       this.loaded = false;
-      const matchList = await fetch('http://league.sibsquash.ru/get/stat/matches/')
+      let apiUrl = 'http://league.sibsquash.ru/get/stat/matches/'
+      if (this.$route.query['test'] === '1') {
+        apiUrl += '?test=1'
+      }
+      const matchList = await fetch(apiUrl)
           .then(response => {
             return response.json();
           })

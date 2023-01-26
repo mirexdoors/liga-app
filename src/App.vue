@@ -95,8 +95,11 @@
         this.isLoggedIn = true;
         this.$store.commit("setAdmin", true);
       }
-      const apiPlayerUrl = API_URL + "/get/players/";
 
+      let apiPlayerUrl = API_URL + "/get/players/";
+      if (this.$route.query['test'] === '1') {
+         apiPlayerUrl += "?test=1";
+      }
 
       if (this.$store) {
         this.$store.dispatch("fetchPlayers", apiPlayerUrl);

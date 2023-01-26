@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {API_URL} from "../mixins/mixins";
-
+import routes from '../routes/routes'
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -89,7 +89,10 @@ export const store = new Vuex.Store({
                     .then((response) => response.json())
                     .then((data) => {
                         if (data.status) {
-                            const apiPlayerUrl = API_URL + "/get/players/";
+                            let apiPlayerUrl = API_URL + "/get/players/";
+                            if (routes.currentRoute.params.test === '1') {
+                                apiPlayerUrl += '?test=1'
+                            }
                             dispatch("fetchPlayers", apiPlayerUrl);
                             resolve();
                         } else {
@@ -100,8 +103,10 @@ export const store = new Vuex.Store({
             });
         },
         fetchGames({commit}) {
-            const apiMatchesUrl = API_URL + "/get/games/all/";
-
+            let apiMatchesUrl = API_URL + "/get/games/all/";
+            if (routes.currentRoute.params.test === '1') {
+                apiMatchesUrl+= '?test=1'
+            }
             fetch(apiMatchesUrl)
                 .then(response => {
                     return response.json();
