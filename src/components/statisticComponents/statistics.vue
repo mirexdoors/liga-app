@@ -23,14 +23,13 @@
 						<v-card-title>
 							<h2 class="subtitle-1">Динамика набранных очков</h2>
 						</v-card-title>
-<!--            //TODO add v-if=!loaded-->
 						<preloader
-              v-if="!getAdmin"
+              v-if="!loaded"
 							color="accent-4"
 						/>
 
 						<line-chart
-							v-if="getAdmin && loaded"
+							v-if="loaded"
 							:chartData="line.chartData"
 							:options="line.options"
 						/>

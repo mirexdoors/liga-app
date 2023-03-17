@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="mb-8">
     <v-card-title>
       {{ currentDate }}
       <div class="flex-grow-1"></div>
@@ -46,12 +46,7 @@
                       label
                       class="primary-background"
                   >
-                    <template v-if="getAdmin">
                       {{ team.total.toFixed(1) }}
-                    </template>
-                    <template v-else>
-                      &#10067;
-                    </template>
                   </v-chip>
                 </th>
               </tr>
@@ -73,7 +68,7 @@
                 <td :class="getClassForCol('name', item.status)">
                   <router-link
                       class="player__link"
-                      :to="translit(item.name)">
+                      :to="`${translit(item.name)}${$route.query.test === '1' ? '?test=1' : ''}`">
                     {{ item.name }}
                     <span
                         v-if="item.status && statusEmodjies[item.status]"
@@ -85,7 +80,7 @@
 
                 <td :class="getClassForCol('games')">
                   <router-link
-                      :to="translit(item.name)"
+                      :to="`${translit(item.name)}${$route.query.test === '1' ? '?test=1' : ''}`"
                       class="player__link"
                   >
                     {{
@@ -96,26 +91,29 @@
                 </td>
                 <td :class="getClassForCol('points')">
                   <router-link
-                      :to="translit(item.name)"
+                      :to="`${translit(item.name)}${$route.query.test === '1' ? '?test=1' : ''}`"
                       class="player__link"
                   >
-                                            <span v-if="getAdmin">
+
 												{{ item.points ? item.points : 0 }}
-											</span>
-                    <template v-else>
+
+<!--                    <template v-else>
                       &#10067;
-                    </template>
+                    </template>-->
                   </router-link>
                 </td>
 
-                <td :class="getClassForCol('penalty')">
+                <td
+                    v-if="getAdmin"
+                    :class="getClassForCol('penalty')"
+                >
                   <router-link
-                      :to="translit(item.name)"
+                      :to="`${translit(item.name)}${$route.query.test === '1' ? '?test=1' : ''}`"
                       class="player__link"
                   >
-                      <span v-if="getAdmin">
+                    <span  v-if="getAdmin">
 												{{ item.penalty && item.points > 0 ? item.penalty : 0 }}
-											</span>
+                    </span>
                     <span v-else>&#10067;</span>
                   </router-link>
                 </td>
@@ -137,15 +135,15 @@
                 </td>
 
                 <td :class="getClassForCol('points')">
-									<span
-                      v-if="getAdmin"
-                      class="orange--text font-weight-bold">
+									<span class="orange--text font-weight-bold">
 										{{ team.total.toFixed(1) }}
 									</span>
-                  <span v-else>&#10067;</span>
+<!--                  <span v-else>&#10067;</span>-->
                 </td>
 
-                <td :class="getClassForCol('penalty')">
+                <td
+                    v-if="getAdmin"
+                    :class="getClassForCol('penalty')">
 									<span
                       v-if="getAdmin"
                       class="red--text font-weight-bold">
@@ -159,9 +157,12 @@
                 <td>Итого с учётом штрафа:</td>
                 <td></td>
                 <td></td>
-                <td class="font-weight-bold deep-orange--text">
+                <td
+                    v-if="false"
+                    class="font-weight-bold deep-orange--text">
                   {{ (team.total.toFixed(1) - team.total_penalty).toFixed(1) }}
                 </td>
+                <td v-else>&#10067;</td>
               </tr>
             </template>
           </v-data-table>
@@ -199,7 +200,7 @@ export default {
         },
         {text: "Матчи", value: "games", class: "pa-1"},
         {text: "Очки", value: "points"},
-        {text: "Штраф", value: "penalty"}
+        /*{text: "Штраф", value: "penalty"}*/
       ]
     };
   },

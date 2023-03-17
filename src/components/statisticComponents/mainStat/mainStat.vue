@@ -1,7 +1,5 @@
 <template>
-		<div
-            class="my-4 my-lg-0"
-		>
+		<div class="my-4 my-lg-0">
 			<div
 				v-for="table in dataTables"
 				:key="table.title"

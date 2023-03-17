@@ -48,7 +48,11 @@ export const store = new Vuex.Store({
     },
     actions: {
         fetchDetailGames({commit}, playerId) {
-            const apiMatchesUrl = API_URL + "/get/games/?id=" + playerId;
+            let apiMatchesUrl = API_URL + "/get/games/?id=" + playerId;
+
+            if (routes.currentRoute.query.test === '1') {
+                apiMatchesUrl += '&test=1'
+            }
             fetch(apiMatchesUrl)
                 .then(response => {
                     return response.json();
