@@ -99,7 +99,7 @@ export const convertPlayersDataToFlat = (teams) => {
 };
 
 export const setGamesInfo = (data, allGames) => {
-  const ALL_POSSIBLE_MATCHES = 1166;
+  const ALL_POSSIBLE_MATCHES = 1632;
   let totalMatches = 0;
   for (let team in data) {
     totalMatches += data[team]['total_games'];
